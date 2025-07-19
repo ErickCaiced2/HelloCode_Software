@@ -24,7 +24,7 @@ public class Main {
         disponibles.add(crearEjercicio(8, "Arreglos", "¿Qué símbolo se usa para declarar un arreglo?", "[]"));
 
         List<FiltroEjercicio> filtros = Arrays.asList(
-                new FiltroPorLenguaje(LenguajeProgramacion.JAVA)
+            new FiltroPorLenguaje(LenguajeProgramacion.JAVA)
         );
 
         GestorLecciones gestorLecciones = new GestorLecciones();
@@ -51,9 +51,6 @@ public class Main {
             experiencia += 50;
             System.out.println("\n¡Lección completada con éxito! Experiencia ganada: 50 XP");
         } else {
-            experiencia -= 20;
-            if (experiencia < 0) experiencia = 0; // Asegurarse de que la experiencia no sea negativa
-            leccionAprobada = false;
             vidas -= 1;
             System.out.println("\nNo superaste la lección. Pierdes una vida.");
         }
