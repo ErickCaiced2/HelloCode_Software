@@ -1,0 +1,15 @@
+Declara una variable de tipo entera llamada edad:|int ____ = 20;|edad|edad|BASICO|JAVA
+Completa el método para sumar dos números:|public int sumar(int a, int b) {\n    return ____;\n}|a + b|a + b|BASICO|JAVA
+Completa la declaración de una constante:|public static final int MAX_VALUE = ____;|100|100|INTERMEDIO|JAVA
+Completa el bucle for para iterar de 0 a 9:|for(int i = 0; i < ____; i++) {\n    System.out.println(i);\n}|10|10|BASICO|JAVA
+Completa la condición del if para verificar si un número es positivo:|if(numero ____ 0) {\n    System.out.println(\"Positivo\");\n}|>|>|BASICO|JAVA
+Declara una variable de tipo double llamada precio:|double ____ = 19.99;|precio|precio|BASICO|JAVA
+Completa la instrucción para imprimir “Hola Mundo”:|System.out.____("Hola Mundo");|println|println|BASICO|JAVA
+Completa la declaración de un array de enteros con 5 elementos:|int[] numeros = new int[____];|5|5|INTERMEDIO|JAVA
+Asigna el valor true a una variable booleana:|boolean activo = ____;|true|true|BASICO|JAVA
+Completa el operador lógico para negar una condición:|if(____activo) {\n    System.out.println("Inactivo");\n}|!|!|BASICO|JAVA
+Completa la estructura del método main en Java:|public static void main(String[] ____ args) {\n    \n}|String[]|String[]|INTERMEDIO|JAVA
+Completa el cast (conversión) de double a int:|int x = (____) 9.5;|(int)|(int)|INTERMEDIO|JAVA
+Completa la inicialización de un objeto Scanner para leer desde consola:|Scanner sc = new Scanner(____);|System.in|System.in|INTERMEDIO|JAVA
+Completa la llamada al método length para obtener la longitud de una cadena:|int len = texto.____();|length|length|BASICO|JAVA
+Completa el uso de break para salir de un bucle:|if(i == 5) {\n    ____;\n}|break|break|BASICO|JAVA

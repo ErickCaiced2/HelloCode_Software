@@ -1,0 +1,14 @@
+¿Cuál de estos es un tipo de dato entero en Java?|String,boolean,double,int,Integer|int,Integer|BASICO|JAVA
+¿Qué tipo se usa para verdadero o falso?|String,boolean,double,int|boolean|BASICO|JAVA
+¿Cuáles de estos son tipos de datos primitivos en Java?|int,String,double,boolean,Integer,char|int,double,boolean,char|BASICO|JAVA
+¿Cuál es la palabra clave para declarar una constante en Java?|var,const,final,static|final|INTERMEDIO|JAVA
+¿Qué método se usa para imprimir en consola sin salto de línea?|println,print,printf,out|print|BASICO|JAVA
+¿Qué tipo de dato se usa para números decimales en Java?|int,float,double,boolean|float,double|BASICO|JAVA
+¿Cuál es el valor por defecto de un boolean en Java?|true,false,null,0|false|INTERMEDIO|JAVA
+¿Qué operador se utiliza para comparar igualdad en Java?|==,=,equals,!=|==|BASICO|JAVA
+¿Qué palabra clave se usa para crear una clase en Java?|class,Class,new,object|class|BASICO|JAVA
+¿Cuál de estos no es un modificador de acceso en Java?|public,private,protected,internal|internal|INTERMEDIO|JAVA
+¿Qué estructura de control se usa para decisiones múltiples?|if,switch,for,while|switch|INTERMEDIO|JAVA
+¿Cuál es la clase principal para manejar cadenas de texto en Java?|String,StringBuilder,StringBuffer,CharSequence|String|BASICO|JAVA
+¿Con qué palabra se hereda una clase en Java?|extends,implements,inherits,super|extends|INTERMEDIO|JAVA
+¿Qué estructura se utiliza para repetir mientras una condición sea verdadera?|for,if,while,switch|while|BASICO|JAVA

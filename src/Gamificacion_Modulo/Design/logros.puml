@@ -1,0 +1,155 @@
+@startuml
+package "Submodulo Desafios y Logros" {
+' Interfaces para estrategias de cálculo y visualización
+
+' Entidades
+
+class ProgresoEstudiante {
+    -estudiante: Estudiante
+    -logrosDesbloqueados: List<Logro>
+    -puntosTotal: Integer
+    -ranking: Integer
+    -listaDesafios: Hash<id, pors>
+    
+
+    +ProgresoEstudiante(estudiante: Estudiante)
+    +actualizarProgreso(desafio:Desafio): void
+    +getLogros(): List<Logro>
+}
+
+class Estadistica {
+    -id: Long
+    -tipo: String
+    -valor: Double
+    -fechaGeneracion: LocalDateTime
+    -estudiante: Estudiante
+
+    +Estadistica(tipo: String, valor: Double, estudiante: Estudiante)
+    +generarEstadistica(tipo: TipoEstadistica, valor: Double, estudiante: Estudiante): Estadistica
+    +actualizarValor(nuevoValor: Double): void
+    +getDatos(): Map<String, Object>
+}
+
+class Logro {
+    -id: Long
+    -nombre: String
+    -descripcion: String
+    -criteriosDesbloqueo: String
+    -puntos: Integer
+    -fecha: Date
+
+    +Logro(nombre: String, descripcion: String, criterios: String, puntos: Integer)
+    +cumpleCriterios(progreso: ProgresoEstudiante): Boolean
+}
+
+' Clase abstracta Desafio (antes CalculadorProgreso)
+abstract class Desafio {
+    -id: Long
+    -nombre: String
+    -descripcion: String
+    -puntosRecompensa: Integer
+    -fechaInicio: LocalDateTime
+    -fechaFin: LocalDateTime
+    -estaActivo: Boolean
+    -logrosDisponibles: List<Logro>
+    
+    +Desafio(nombre: String, descripcion: String, logros: List<Logro>)
+    +activar(): void
+    +desactivar(): void
+    +verificarComplecion(estudiante: ProgresoEstudiante): Boolean
+    +desbloquearLogro(logro: Logro, estudiante: ProgresoEstudiante): Boolean
+    +completarDesafio(estudiante: ProgresoEstudiante): void
+    +getLogrosDisponibles(): List<Logro>
+    {abstract} +definirCriterios(): String
+    {abstract} +estaCompletado(): Boolean
+}
+
+class DesafioSemanal {
+    -metaSemanal: Integer
+    -actividadesCompletadas: Integer
+    -leccionesCompletadas: Integer
+  
+    
+    +DesafioSemanal(metaSemanal: Integer, logros: List<Logro>)
+    +definirCriterios(): String
+    +estaCompletado(): Boolean
+    +actualizarActividades(cantidad: Integer): void
+    +registrarLeccion(): void
+    +getProgreso(): Double
+}
+
+class DesafioMensual {
+    -objetivoMensual: Integer
+    -actividadesCompletadas: Integer
+    -leccionesCompletadas: Integer
+    
+    +DesafioMensual(objetivoMensual: Integer, logros: List<Logro>)
+    +definirCriterios(): String
+    +estaCompletado(): Boolean
+    +actualizarActividades(cantidad: Integer): void
+    +registrarLeccion(): void
+    +getProgreso(): Double
+}
+
+' Ranking
+class Ranking {
+    -rankingGeneral: List<ProgresoEstudiante>
+    -rankingsSemanal: Map<String, List<ProgresoEstudiante>>
+    -rankingsMensual: Map<String, List<ProgresoEstudiante>>
+    
+    +Ranking()
+    +actualizarRanking(estudiante: ProgresoEstudiante): void
+    +obtenerRankingGeneral(): List<ProgresoEstudiante>
+    +obtenerRankingSemanal(): List<ProgresoEstudiante>
+    +obtenerRankingMensual(): List<ProgresoEstudiante>
+    +calcularPosicion(estudiante: ProgresoEstudiante): Integer
+    +generarEstadisticasRanking(): Map<String, Object>
+}
+
+' Strategy Pattern - Interface para visualización
+interface EstrategiaVisualizacion {
+    +visualizar(estadistica: Estadistica): void
+}
+
+class VisualizacionLogros {
+    -logrosDisponibles: List<Logro>
+    
+    +VisualizacionLogros()
+    +visualizar(estadistica: Estadistica): void
+    +mostrarLogrosDesbloqueados(): void
+}
+
+class VisualizacionProgreso {
+    -datosProgreso: Map<String, Double>
+    
+    +VisualizacionProgreso()
+    +visualizar(estadistica: Estadistica): void
+    +mostrarBarrasProgreso(): void
+}
+
+
+
+class VisualizadorEstadistico {
+    -estrategia: EstrategiaVisualizacion
+
+    +VisualizadorEstadistico(estrategia: EstrategiaVisualizacion)
+    +setEstrategia(estrategia: EstrategiaVisualizacion): void
+    +visualizar(estadistica: Estadistica): void
+}
+
+' Relaciones
+Desafio <|-- DesafioSemanal : "hereda"
+Desafio <|-- DesafioMensual : "hereda"
+EstrategiaVisualizacion <|.. VisualizacionLogros : "implementa"
+EstrategiaVisualizacion <|.. VisualizacionProgreso : "implementa"
+VisualizadorEstadistico o--> EstrategiaVisualizacion : "usa"
+VisualizadorEstadistico --> Estadistica : "visualiza"
+ProgresoEstudiante --> Logro : "tiene"
+ProgresoEstudiante --> Estadistica : "genera"
+ProgresoEstudiante --> VisualizadorEstadistico : "usa"
+ProgresoEstudiante <--> Desafio : "evalúa"
+Desafio --> Logro : "otorga"
+Ranking --> ProgresoEstudiante : "clasifica"
+
+}
+@enduml

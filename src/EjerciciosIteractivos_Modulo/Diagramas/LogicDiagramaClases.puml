@@ -1,0 +1,162 @@
+@startuml LogicDiagramaClases
+
+package "EjerciciosIteractivos_Modulo.Logic" {
+    ' Interfaces
+    interface EvaluadorRespuestas {
+        + evaluarRespuestas(ArrayList<Respuesta>): ResultadoDeEvaluacion
+    }
+
+    interface Respuesta {
+        + getRespuesta(): Object
+    }
+
+    ' Enums
+    enum NivelDificultad {
+        PRINCIPIANTE
+        BASICO
+        INTERMEDIO
+        AVANZADO
+        EXPERTO
+        --
+        + getDescripcion(): String
+    }
+
+    enum Lenguaje {
+        JAVA
+        PYTHON
+        C
+        PHP
+    }
+
+    ' Clases de Evaluación
+    class ResultadoDeEvaluacion {
+        - porcentajeDeAcerto: double
+        --
+        + ResultadoDeEvaluacion(porcentajeDeAcerto: double)
+        + getPorcentajeDeAcerto(): double
+    }
+
+    class RespuestaString {
+        - respuesta: String
+        --
+        + RespuestaString(respuesta: String)
+        + getRespuesta(): Object
+    }
+
+    ' Clases de Ejercicios
+    abstract class EjercicioBase {
+        # instruccion: String
+        # respuestasCorrectas: ArrayList<String>
+        # nivelDificultad: NivelDificultad
+        # lenguaje: Lenguaje
+        --
+        + EjercicioBase(instruccion, respuestasCorrectas, nivelDificultad, lenguaje)
+        + getInstruccion(): String
+        + getNivel(): NivelDificultad
+        + getLenguaje(): Lenguaje
+        + {abstract} evaluarRespuestas(ArrayList<Respuesta>): ResultadoDeEvaluacion
+    }
+
+    class EjercicioSeleccion {
+        - opcionesDeSeleccion: ArrayList<String>
+        --
+        - EjercicioSeleccion(instruccion, opcionesDeSeleccion, respuestasCorrectas, nivelDeDificultad, lenguaje)
+        + getListOpciones(): ArrayList<String>
+        + getOpcion(numOpcion: int): String
+        + obtenerRespuestasCorrectas(): ArrayList<String>
+        + evaluarRespuestas(ArrayList<Respuesta>): ResultadoDeEvaluacion
+    }
+
+    class EjercicioSeleccionBuilder {
+        - instruccion: String
+        - opcionesDeSeleccion: ArrayList<String>
+        - respuestasCorrectas: ArrayList<String>
+        - nivelDificultad: NivelDificultad
+        - lenguaje: Lenguaje
+        --
+        + conInstruccion(instruccion: String): Builder
+        + conOpcion(opcion: String): Builder
+        + conOpciones(opciones: ArrayList<String>): Builder
+        + conRespuestaCorrecta(respuestaCorrecta: String): Builder
+        + conRespuestasCorrectas(respuestasCorrectas: ArrayList<String>): Builder
+        + conNivel(nivelDificultad: NivelDificultad): Builder
+        + conLenguaje(lenguaje: Lenguaje): Builder
+        + construir(): EjercicioSeleccion
+    }
+
+    class EjercicioCompletarCodigo {
+        - codigoIncompleto: String
+        - partesFaltantes: ArrayList<String>
+        - respuestasEsperadas: ArrayList<String>
+        --
+        - EjercicioCompletarCodigo(instruccion, codigoIncompleto, partesFaltantes, respuestasEsperadas, nivelDificultad, lenguaje)
+        + obtenerCodigoIncompleto(): String
+        + obtenerPartesFaltantes(): ArrayList<String>
+        + obtenerRespuestasEsperadas(): ArrayList<String>
+        + obtenerNumeroPartesFaltantes(): int
+        + evaluarRespuestas(ArrayList<Respuesta>): ResultadoDeEvaluacion
+    }
+
+    class EjercicioCompletarCodigoBuilder {
+        - instruccion: String
+        - codigoIncompleto: String
+        - partesFaltantes: ArrayList<String>
+        - respuestasEsperadas: ArrayList<String>
+        - nivelDificultad: NivelDificultad
+        - lenguaje: Lenguaje
+        --
+        + conInstruccion(instruccion: String): Builder
+        + conCodigoIncompleto(codigoIncompleto: String): Builder
+        + conParteFaltante(parteFaltante: String): Builder
+        + conPartesFaltantes(partesFaltantes: ArrayList<String>): Builder
+        + conRespuestaEsperada(respuestaEsperada: String): Builder
+        + conRespuestasEsperadas(respuestasEsperadas: ArrayList<String>): Builder
+        + conNivel(nivelDificultad: NivelDificultad): Builder
+        + conLenguaje(lenguaje: Lenguaje): Builder
+        + construir(): EjercicioCompletarCodigo
+    }
+
+    ' Clases de Persistencia
+    class EjercicioRepository {
+        - RUTA_BASE: String
+        - ARCHIVO_SELECCION: String
+        - ARCHIVO_COMPLETAR: String
+        --
+        + cargarEjerciciosSeleccion(): List<EjercicioSeleccion>
+        + cargarEjerciciosCompletarCodigo(): List<EjercicioCompletarCodigo>
+        + guardarEjercicioSeleccion(ejercicio: EjercicioSeleccion): void
+        + guardarEjercicioCompletarCodigo(ejercicio: EjercicioCompletarCodigo): void
+        - parsearEjercicioSeleccion(linea: String): EjercicioSeleccion
+        - parsearEjercicioCompletarCodigo(linea: String): EjercicioCompletarCodigo
+        - serializarEjercicioSeleccion(ejercicio: EjercicioSeleccion): String
+        - serializarEjercicioCompletarCodigo(ejercicio: EjercicioCompletarCodigo): String
+    }
+
+}
+
+' Relaciones de Implementación (Dependencia)
+EjercicioBase ..|> EvaluadorRespuestas
+RespuestaString ..|> Respuesta
+
+' Relaciones de Herencia (Dependencia)
+EjercicioSeleccion --|> EjercicioBase
+EjercicioCompletarCodigo --|> EjercicioBase
+
+' Relaciones de Composición (Composición fuerte - ciclo de vida compartido)
+EjercicioBase *-- NivelDificultad : "tiene"
+EjercicioBase *-- Lenguaje : "tiene"
+
+
+' Relaciones de Asociación (Uso temporal)
+EvaluadorRespuestas ..> Respuesta : "evalúa"
+EvaluadorRespuestas ..> ResultadoDeEvaluacion : "retorna"
+
+' Relaciones de Dependencia (Uso de servicios)
+EjercicioRepository ..> EjercicioSeleccionBuilder : "usa"
+EjercicioRepository ..> EjercicioCompletarCodigoBuilder : "usa"
+
+' Relaciones de Builder (Asociación de creación)
+EjercicioSeleccionBuilder ..> EjercicioSeleccion : "construye"
+EjercicioCompletarCodigoBuilder ..> EjercicioCompletarCodigo : "construye"
+
+@enduml 
