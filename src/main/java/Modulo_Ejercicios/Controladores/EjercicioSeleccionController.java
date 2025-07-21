@@ -3,6 +3,7 @@ package Modulo_Ejercicios.Controladores;
 import Modulo_Ejercicios.DataBase.EjercicioRepository;
 import Modulo_Ejercicios.exercises.EjercicioSeleccion;
 import Modulo_Ejercicios.otrosModulos.Leccion;
+import javafx.scene.Scene;
 import javafx.stage.StageStyle;
 
 import javafx.fxml.FXML;
@@ -60,6 +61,9 @@ public class EjercicioSeleccionController implements Initializable {
     // Lista para almacenar las opciones seleccionadas
     private List<String> opcionesSeleccionadas = new ArrayList<>();
 
+    // Lista para almacenar si cada respuesta fue correcta
+    private List<Boolean> respuestasCorrectasUsuario = new ArrayList<>();
+
     // Variables para manejar la lección y ejercicios
     private Leccion leccionTiposDatos;
     private List<EjercicioSeleccion> ejerciciosSeleccion;
@@ -70,7 +74,7 @@ public class EjercicioSeleccionController implements Initializable {
     List<EjercicioSeleccion> ejerciciosSeleccionRepository = EjercicioRepository.cargarEjerciciosSeleccion();
 
     public EjercicioSeleccionController(String instruccion, ArrayList<String> listOpciones,
-                                         ArrayList<String> obtenerRespuestasCorrectas) {
+                                        ArrayList<String> obtenerRespuestasCorrectas) {
         // Constructor logic aquí
     }
 
@@ -192,6 +196,14 @@ public class EjercicioSeleccionController implements Initializable {
         }
     }
 
+    public void setEjercicios(List<EjercicioSeleccion> ejercicios) {
+        this.ejerciciosSeleccion = ejercicios;
+        this.totalEjercicios = ejercicios != null ? ejercicios.size() : 0;
+        this.ejercicioActual = 0;
+        if (totalEjercicios > 0) {
+            cargarEjercicio(0);
+        }
+    }
 
     // Método para inicializar la lección y ejercicios
     private void inicializarLeccion() {
@@ -295,6 +307,13 @@ public class EjercicioSeleccionController implements Initializable {
             // Verificar si las opciones seleccionadas coinciden con las correctas
             boolean esCorrecta = validarSeleccion(opcionesSeleccionadas, respuestasCorrectas);
 
+            // Guardar el resultado real
+            if (respuestasCorrectasUsuario.size() <= ejercicioActual) {
+                respuestasCorrectasUsuario.add(esCorrecta);
+            } else {
+                respuestasCorrectasUsuario.set(ejercicioActual, esCorrecta);
+            }
+
             // Actualizar colores de todos los botones según el resultado
             actualizarColoresBotones(respuestasCorrectas);
 
@@ -339,7 +358,39 @@ public class EjercicioSeleccionController implements Initializable {
             btnComprobar.setText("Finalizado");
             btnComprobar.setDisable(true);
             progressBar.setProgress(1.0);
+            mostrarLeccionCompletada();
         }
+    }
+
+    private void mostrarLeccionCompletada() {
+        try {
+            int aciertos = contarAciertos();
+            int xp = aciertos * 10;
+            int total = totalEjercicios;
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/Modulo_GestorEjercicios/Views/LeccionCompletada.fxml"));
+            javafx.scene.Parent root = loader.load();
+            // Pasar los datos al controller de la pantalla completada
+            GestorEjercicios.Controllers.LeccionCompletadaController controller = loader.getController();
+            controller.configurarResultados(xp, aciertos, total);
+            javafx.stage.Stage stage = new javafx.stage.Stage();
+            stage.setTitle("Lección Completada");
+            stage.setScene(new javafx.scene.Scene(root));
+            stage.setResizable(false);
+            stage.show();
+            // Cerrar la ventana actual
+            btnComprobar.getScene().getWindow().hide();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Cuenta la cantidad de respuestas correctas
+    private int contarAciertos() {
+        int aciertos = 0;
+        for (boolean correcto : respuestasCorrectasUsuario) {
+            if (correcto) aciertos++;
+        }
+        return aciertos;
     }
 
     // Método para actualizar el progress bar

@@ -12,7 +12,8 @@
             style="-fx-background-color: #424874;">
     
     <!-- Navbar superior -->
-    <HBox style="-fx-background-color: #A6B1E1; -fx-effect: dropshadow(gaussian, #424874, 4, 0.2, 0, 2);" 
+    <HBox style="-fx-background-color: #A6B1E1; -fx-effect: dropshadow(gaussian, #23243a, 4, 0.2, 0, 2);" 
+
           AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" prefHeight="60">
         <padding>
             <Insets top="12" right="20" bottom="12" left="20"/>
@@ -21,7 +22,8 @@
             <Label text="🏠" style="-fx-font-size: 24px;"/>
             <VBox spacing="2">
                 <Label text="Hello Code Software" style="-fx-text-fill: #424874; -fx-font-size: 16px; -fx-font-weight: bold;"/>
-                <Label text="Panel Principal" style="-fx-text-fill: #424874; -fx-font-size: 11px;"/>
+                <Label text="Panel Principal" style="-fx-text-fill: #A6B1E1; -fx-font-size: 11px;"/>
+
             </VBox>
         </HBox>
         <Button text="👤" onAction="#mostrarPerfil" 
@@ -30,10 +32,11 @@
     </HBox>
 
     <!-- Contenido principal -->
-    <VBox alignment="CENTER" spacing="32" 
+    <VBox alignment="CENTER" spacing="24" 
           AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="60" AnchorPane.bottomAnchor="0">
         <padding>
-            <Insets top="40" right="24" bottom="24" left="24"/>
+            <Insets top="32" right="16" bottom="16" left="16"/>
+
         </padding>
 
         <!-- Mensaje de bienvenida -->
@@ -44,73 +47,90 @@
                    style="-fx-text-fill: #A6B1E1; -fx-font-size: 14px;"/>
         </VBox>
 
-        <!-- Grid de módulos -->
-        <VBox spacing="20" alignment="CENTER" maxWidth="300">
-            
-            <!-- Módulo Lecciones -->
-            <HBox style="-fx-background-color: #DCD6F7; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, #424874, 6, 0.2, 0, 2);" 
-                  alignment="CENTER_LEFT" spacing="16" prefHeight="80" maxWidth="Infinity"
-                  onMouseClicked="#abrirLeccion">
-                <padding>
-                    <Insets top="16" right="20" bottom="16" left="20"/>
-                </padding>
-                <Label text="📚" style="-fx-font-size: 32px;"/>
-                <VBox spacing="4" HBox.hgrow="ALWAYS">
-                    <Label text="Módulo Lecciones" style="-fx-text-fill: #424874; -fx-font-size: 16px; -fx-font-weight: bold;"/>
-                    <Label text="Gestionar contenido educativo" style="-fx-text-fill: #424874; -fx-font-size: 12px;"/>
-                </VBox>
-                <Label text="→" style="-fx-text-fill: #424874; -fx-font-size: 20px; -fx-font-weight: bold;"/>
-            </HBox>
+        <!-- Scroll de módulos -->
+        <ScrollPane fitToWidth="true" fitToHeight="false" maxHeight="420" style="-fx-background: transparent; -fx-background-color: transparent;">
+            <VBox spacing="18" alignment="CENTER" maxWidth="300" style="-fx-padding: 10 0 10 0;">
+                <!-- Módulo Lecciones -->
+                <HBox style="-fx-background-color: #DCD6F7; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, #424874, 6, 0.2, 0, 2);" 
+                      alignment="CENTER_LEFT" spacing="16" prefHeight="80" maxWidth="Infinity"
+                      onMouseClicked="#abrirLeccion">
+                    <padding>
+                        <Insets top="16" right="20" bottom="16" left="20"/>
+                    </padding>
+                    <Label text="📚" style="-fx-font-size: 32px; -fx-text-fill: #424874;"/>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Módulo Lecciones" style="-fx-text-fill: #424874; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+                        <Label text="Gestionar contenido educativo" style="-fx-text-fill: #6B7A99; -fx-font-size: 12px;"/>
+                    </VBox>
+                    <Label text="→" style="-fx-text-fill: #424874; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+                </HBox>
 
-            <!-- Módulo Usuarios -->
-            <HBox style="-fx-background-color: #DCD6F7; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, #424874, 6, 0.2, 0, 2);" 
-                  alignment="CENTER_LEFT" spacing="16" prefHeight="80" maxWidth="Infinity"
-                  onMouseClicked="#abrirUsuarios">
-                <padding>
-                    <Insets top="16" right="20" bottom="16" left="20"/>
-                </padding>
-                <Label text="👥" style="-fx-font-size: 32px;"/>
-                <VBox spacing="4" HBox.hgrow="ALWAYS">
-                    <Label text="Módulo Usuarios" style="-fx-text-fill: #424874; -fx-font-size: 16px; -fx-font-weight: bold;"/>
-                    <Label text="Administrar usuarios del sistema" style="-fx-text-fill: #424874; -fx-font-size: 12px;"/>
-                </VBox>
-                <Label text="→" style="-fx-text-fill: #424874; -fx-font-size: 20px; -fx-font-weight: bold;"/>
-            </HBox>
+                <!-- Módulo Usuarios -->
+                <HBox style="-fx-background-color: #DCD6F7; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, #424874, 6, 0.2, 0, 2);" 
+                      alignment="CENTER_LEFT" spacing="16" prefHeight="80" maxWidth="Infinity"
+                      onMouseClicked="#abrirUsuarios">
+                    <padding>
+                        <Insets top="16" right="20" bottom="16" left="20"/>
+                    </padding>
+                    <Label text="👥" style="-fx-font-size: 32px; -fx-text-fill: #424874;"/>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Módulo Usuarios" style="-fx-text-fill: #424874; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+                        <Label text="Administrar usuarios del sistema" style="-fx-text-fill: #6B7A99; -fx-font-size: 12px;"/>
+                    </VBox>
+                    <Label text="→" style="-fx-text-fill: #424874; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+                </HBox>
 
-            <!-- Módulo Ejercicios -->
-            <HBox style="-fx-background-color: #DCD6F7; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, #424874, 6, 0.2, 0, 2);" 
-                  alignment="CENTER_LEFT" spacing="16" prefHeight="80" maxWidth="Infinity"
-                  onMouseClicked="#abrirEjercicios">
-                <padding>
-                    <Insets top="16" right="20" bottom="16" left="20"/>
-                </padding>
-                <Label text="💻" style="-fx-font-size: 32px;"/>
-                <VBox spacing="4" HBox.hgrow="ALWAYS">
-                    <Label text="Módulo Ejercicios" style="-fx-text-fill: #424874; -fx-font-size: 16px; -fx-font-weight: bold;"/>
-                    <Label text="Crear y gestionar ejercicios" style="-fx-text-fill: #424874; -fx-font-size: 12px;"/>
-                </VBox>
-                <Label text="→" style="-fx-text-fill: #424874; -fx-font-size: 20px; -fx-font-weight: bold;"/>
-            </HBox>
+                <!-- Módulo Ejercicios -->
+                <HBox style="-fx-background-color: #DCD6F7; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, #424874, 6, 0.2, 0, 2);" 
+                      alignment="CENTER_LEFT" spacing="16" prefHeight="80" maxWidth="Infinity"
+                      onMouseClicked="#abrirEjercicios">
+                    <padding>
+                        <Insets top="16" right="20" bottom="16" left="20"/>
+                    </padding>
+                    <Label text="💻" style="-fx-font-size: 32px; -fx-text-fill: #424874;"/>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Módulo Ejercicios" style="-fx-text-fill: #424874; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+                        <Label text="Crear y gestionar ejercicios" style="-fx-text-fill: #6B7A99; -fx-font-size: 12px;"/>
+                    </VBox>
+                    <Label text="→" style="-fx-text-fill: #424874; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+                </HBox>
 
-            <!-- Módulo Gamificación -->
-            <HBox style="-fx-background-color: #DCD6F7; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, #424874, 6, 0.2, 0, 2);" 
-                  alignment="CENTER_LEFT" spacing="16" prefHeight="80" maxWidth="Infinity"
-                  onMouseClicked="#abrirReportes">
-                <padding>
-                    <Insets top="16" right="20" bottom="16" left="20"/>
-                </padding>
-                <Label text="🏆" style="-fx-font-size: 32px;"/>
-                <VBox spacing="4" HBox.hgrow="ALWAYS">
-                    <Label text="Módulo Gamificación" style="-fx-text-fill: #424874; -fx-font-size: 16px; -fx-font-weight: bold;"/>
-                    <Label text="Ranking, logros y desafíos" style="-fx-text-fill: #424874; -fx-font-size: 12px;"/>
-                </VBox>
-                <Label text="→" style="-fx-text-fill: #424874; -fx-font-size: 20px; -fx-font-weight: bold;"/>
-            </HBox>
-        </VBox>
+                <!-- Módulo Reportes -->
+                <HBox style="-fx-background-color: #DCD6F7; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, #424874, 6, 0.2, 0, 2);" 
+                      alignment="CENTER_LEFT" spacing="16" prefHeight="80" maxWidth="Infinity"
+                      onMouseClicked="#abrirReportes">
+                    <padding>
+                        <Insets top="16" right="20" bottom="16" left="20"/>
+                    </padding>
+                    <Label text="📊" style="-fx-font-size: 32px; -fx-text-fill: #424874;"/>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Módulo Reportes" style="-fx-text-fill: #424874; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+                        <Label text="Ver estadísticas y reportes" style="-fx-text-fill: #6B7A99; -fx-font-size: 12px;"/>
+                    </VBox>
+                    <Label text="→" style="-fx-text-fill: #424874; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+                </HBox>
+
+                <!-- Módulo Gamificación -->
+                <HBox style="-fx-background-color: #DCD6F7; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, #424874, 6, 0.2, 0, 2);" 
+                      alignment="CENTER_LEFT" spacing="16" prefHeight="80" maxWidth="Infinity"
+                      onMouseClicked="#abrirComunidad">
+                    <padding>
+                        <Insets top="16" right="20" bottom="16" left="20"/>
+                    </padding>
+                    <Label text="🏆" style="-fx-font-size: 32px; -fx-text-fill: #424874;"/>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Módulo Comunidad" style="-fx-text-fill: #424874; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+                        <Label text="Participa y colabora con otros usuarios" style="-fx-text-fill: #6B7A99; -fx-font-size: 12px;"/>
+                    </VBox>
+                    <Label text="→" style="-fx-text-fill: #424874; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+                </HBox>
+            </VBox>
+        </ScrollPane>
 
         <!-- Botón de cerrar sesión -->
         <Button text="Cerrar Sesión" onAction="#cerrarSesion"
-                style="-fx-background-color: transparent; -fx-text-fill: #A6B1E1; -fx-font-weight: bold; -fx-border-color: #A6B1E1; -fx-border-radius: 8; -fx-border-width: 1;"
+                style="-fx-background-color: transparent; -fx-text-fill: #D6E5E3; -fx-font-weight: bold; -fx-border-color: #D6E5E3; -fx-border-radius: 8; -fx-border-width: 1;"
                 prefWidth="150" prefHeight="36"/>
     </VBox>
-</AnchorPane> 
+</AnchorPane>
+

@@ -1,2 +1,4 @@
-admin;1234;
-usuario1;abc;
+admin;1234;null;null
+usuario1;abc;null;null
+erick;123456;erick;erick@gmail.com
+

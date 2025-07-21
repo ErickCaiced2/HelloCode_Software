@@ -1,0 +1,226 @@
+@startuml ModuloComunidadPulido
+package Comunidad {
+' === Enumerados ===
+enum NivelJava {
+  PRINCIPIANTE
+  INTERMEDIO
+  AVANZADO
+}
+
+enum TipoTema {
+  SINTAXIS
+  ESTRUCTURAS_DATOS
+  ALGORITMOS
+  POO
+  EXCEPCIONES
+  FRAMEWORKS
+}
+
+enum TipoSolucion {
+  TEXTO
+  IMAGEN
+  CODIGO
+}
+
+enum EstadoHilo {
+  ABIERTO
+  RESUELTO
+  CERRADO
+}
+
+' === Clase Principal ===
+class Comunidad {
+  + idComunidad: String
+  + nombre: String
+  + descripcion: String
+  + foroGeneral: ForoGeneral
+  + chatsPrivados: List<ChatPrivado>
+  + usuariosConectados: List<UsuarioTemp>
+  + fechaCreacion: DateTime
+  --
+  + accederForo()
+  + iniciarChatPrivado()
+  + buscarUsuarios()
+  + obtenerEstadisticas()
+}
+
+' === Usuario Temporal ===
+class UsuarioTemp {
+  + idUsuario: String
+  + nombre: String
+  + nivelJava: NivelJava
+  + reputacion: Integer
+  + amigos: List<UsuarioTemp>
+  --
+  + unirseGrupo()
+  + enviarMensaje()
+  + compartirSolucion()
+  + crearDiscusion()
+}
+
+' === Foro General ===
+class ForoGeneral {
+  + idForo: String
+  + gruposDiscusion: List<GrupoDiscusion>
+  + gruposCompartir: List<GrupoCompartir>
+  --
+  + crearGrupoDiscusion()
+  + crearGrupoCompartir()
+  + buscarPorNivel(NivelJava)
+  + buscarPorTema(TipoTema)
+}
+
+' === Chat Privado ===
+class ChatPrivado {
+  + idChat: String
+  + participantes: List<UsuarioTemp>
+  + mensajes: List<Mensaje>
+  + fechaCreacion: DateTime
+  --
+  + enviarMensaje()
+  + obtenerHistorial()
+}
+
+class Mensaje {
+  + idMensaje: String
+  + contenido: String
+  + emisor: UsuarioTemp
+  + fechaEnvio: DateTime
+  --
+  + marcarComoLeido()
+}
+
+' === Grupos de Discusión ===
+class GrupoDiscusion {
+  + idGrupo: String
+  + titulo: String
+  + nivelJava: NivelJava
+  + tipoTema: TipoTema
+  + miembros: List<UsuarioTemp>
+  + hilos: List<HiloDiscusion>
+  --
+  + crearHilo()
+  + unirseGrupo()
+}
+
+class HiloDiscusion {
+  + idHilo: String
+  + titulo: String
+  + problema: String
+  + autor: UsuarioTemp
+  + estado: EstadoHilo
+  + respuestas: List<Respuesta>
+  + votos: Integer
+  --
+  + responder()
+  + votar()
+  + marcarResuelto()
+}
+
+class Respuesta {
+  + idRespuesta: String
+  + contenido: String
+  + autor: UsuarioTemp
+  + fechaPublicacion: DateTime
+  + votos: Integer
+  + esSolucion: Boolean
+  --
+  + votar()
+  + marcarComoSolucion()
+}
+
+' === Grupos de Compartir ===
+class GrupoCompartir {
+  + idGrupo: String
+  + titulo: String
+  + nivelJava: NivelJava
+  + tipoTema: TipoTema
+  + miembros: List<UsuarioTemp>
+  + soluciones: List<Solucion>
+  --
+  + compartirSolucion()
+  + unirseGrupo()
+}
+
+class Solucion {
+  + idSolucion: String
+  + titulo: String
+  + contenido: String
+  + autor: UsuarioTemp
+  + tipoSolucion: TipoSolucion
+  + archivo: String
+  + fechaPublicacion: DateTime
+  + likes: Integer
+  + comentarios: List<Comentario>
+  --
+  + darLike()
+  + comentar()
+}
+
+class Comentario {
+  + idComentario: String
+  + contenido: String
+  + autor: UsuarioTemp
+  + fechaPublicacion: DateTime
+  --
+  + editar()
+}
+
+' === Moderador ===
+class Moderador {
+    + idModerador: String
+    + nombre: String
+    + comunidadesGestionadas: List<Comunidad>
+    --
+    + moderarForo()
+    + supervisarChats()
+    }
+
+' === Relaciones ===
+Comunidad *-- ForoGeneral : contiene
+Comunidad *-- ChatPrivado : gestiona
+Comunidad *-- UsuarioTemp : tiene
+Comunidad --> Moderador : tiene
+
+ForoGeneral *-- GrupoDiscusion : contiene
+ForoGeneral *-- GrupoCompartir : contiene
+
+ChatPrivado *-- Mensaje : contiene
+ChatPrivado -- UsuarioTemp : participan
+
+GrupoDiscusion *-- HiloDiscusion : contiene
+GrupoDiscusion -- UsuarioTemp : miembros
+
+HiloDiscusion *-- Respuesta : tiene
+HiloDiscusion -- UsuarioTemp : autor
+
+GrupoCompartir *-- Solucion : contiene
+GrupoCompartir -- UsuarioTemp : miembros
+
+Solucion *-- Comentario : tiene
+Solucion -- UsuarioTemp : autor
+
+Moderador ..> ForoGeneral : modera
+Moderador ..> ChatPrivado : supervisa
+
+' === Notas ===
+note top of Comunidad
+  Clase principal del módulo.
+  Punto de entrada y coordinación
+  de todas las funcionalidades
+end note
+
+note right of UsuarioTemp
+  Usuario temporal para este módulo.
+  Se integrará con el módulo
+  de usuarios principal
+end note
+
+note bottom of ForoGeneral
+  Contiene ambos tipos de grupos:
+  - Discusión de problemas
+  - Compartir soluciones
+end note
+}
+
+@enduml

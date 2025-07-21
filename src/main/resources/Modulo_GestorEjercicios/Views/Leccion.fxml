@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefHeight="640" prefWidth="360" style="-fx-background-color: linear-gradient(to bottom, #0b0c3c, #16a1d6);" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestorEjercicios.Controllers.LeccionViewController">
+
+    <!-- Header con información de la lección -->
+    <VBox layoutX="0" layoutY="0" prefWidth="360" prefHeight="80" style="-fx-background-color: rgba(0,0,0,0.3); -fx-padding: 10;">
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label fx:id="lblLenguaje" text="JAVA" style="-fx-text-fill: white; -fx-font-weight: bold;">
+                <font>
+                    <Font name="Inter Bold" size="16" />
+                </font>
+            </Label>
+            <Label fx:id="lblDificultad" text="BÁSICO" style="-fx-text-fill: white; -fx-font-weight: bold;">
+                <font>
+                    <Font name="Inter Bold" size="14" />
+                </font>
+            </Label>
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="lblProgreso" text="1/5" style="-fx-text-fill: white; -fx-font-weight: bold;">
+                <font>
+                    <Font name="Inter Bold" size="14" />
+                </font>
+            </Label>
+        </HBox>
+        
+        <!-- Barra de progreso -->
+        <ProgressBar fx:id="progressBar" prefWidth="340" prefHeight="8" style="-fx-accent: #4CAF50;" />
+    </VBox>
+
+    <!-- Contenido principal -->
+    <ScrollPane layoutX="10" layoutY="90" prefWidth="340" prefHeight="450" style="-fx-background: transparent; -fx-background-color: transparent;" fitToWidth="true">
+        <VBox spacing="15" style="-fx-padding: 10;">
+            
+            <!-- Título del ejercicio -->
+            <Label fx:id="lblTituloEjercicio" text="Ejercicio 1" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 18px;" wrapText="true">
+                <font>
+                    <Font name="Inter Bold" size="18" />
+                </font>
+            </Label>
+            
+            <!-- Enunciado del ejercicio -->
+            <VBox style="-fx-background-color: rgba(255,255,255,0.1); -fx-padding: 15; -fx-background-radius: 10;" spacing="10">
+                <Label text="ENUNCIADO:" style="-fx-text-fill: white; -fx-font-weight: bold;">
+                    <font>
+                        <Font name="Inter Bold" size="14" />
+                    </font>
+                </Label>
+                <Label fx:id="lblEnunciado" text="Completa el código para imprimir 'Hello World' en Java." style="-fx-text-fill: white; -fx-font-size: 14px;" wrapText="true">
+                    <font>
+                        <Font name="Inter Regular" size="14" />
+                    </font>
+                </Label>
+            </VBox>
+            
+            <!-- Área de respuesta -->
+            <VBox style="-fx-background-color: rgba(255,255,255,0.1); -fx-padding: 15; -fx-background-radius: 10;" spacing="10">
+                <Label text="TU RESPUESTA:" style="-fx-text-fill: white; -fx-font-weight: bold;">
+                    <font>
+                        <Font name="Inter Bold" size="14" />
+                    </font>
+                </Label>
+                
+                <!-- Para ejercicios de completar código -->
+                <VBox fx:id="vboxCompletarCodigo" spacing="10" visible="false">
+                    <TextArea fx:id="txtRespuesta" prefHeight="100" style="-fx-background-color: white; -fx-text-fill: #333; -fx-font-family: 'Consolas'; -fx-font-size: 12;" promptText="Escribe tu respuesta aquí..." />
+                </VBox>
+                
+                <!-- Para ejercicios de selección múltiple -->
+                <VBox fx:id="vboxSeleccionMultiple" spacing="10" visible="false">
+                    <RadioButton fx:id="rbOpcion1" text="Opción 1" style="-fx-text-fill: white; -fx-font-size: 14px;" toggleGroup="$toggleGroup" />
+                    <RadioButton fx:id="rbOpcion2" text="Opción 2" style="-fx-text-fill: white; -fx-font-size: 14px;" toggleGroup="$toggleGroup" />
+                    <RadioButton fx:id="rbOpcion3" text="Opción 3" style="-fx-text-fill: white; -fx-font-size: 14px;" toggleGroup="$toggleGroup" />
+                    <RadioButton fx:id="rbOpcion4" text="Opción 4" style="-fx-text-fill: white; -fx-font-size: 14px;" toggleGroup="$toggleGroup" />
+                </VBox>
+            </VBox>
+            
+            <!-- Mensaje de resultado -->
+            <VBox fx:id="vboxResultado" spacing="10" visible="false">
+                <Label fx:id="lblResultado" text="" style="-fx-font-weight: bold; -fx-font-size: 16px;" alignment="CENTER" />
+                <Label fx:id="lblMensaje" text="" style="-fx-font-size: 14px;" alignment="CENTER" wrapText="true" />
+            </VBox>
+            
+        </VBox>
+    </ScrollPane>
+
+    <!-- Botones de acción -->
+    <HBox layoutX="10" layoutY="550" prefWidth="340" spacing="10">
+        <Button fx:id="btnAnterior" text="← Anterior" prefWidth="100" prefHeight="40" style="-fx-background-color: #666; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Button fx:id="btnSiguiente" text="Siguiente →" prefWidth="100" prefHeight="40" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" />
+    </HBox>
+    
+    <!-- Botón de enviar respuesta -->
+    <Button fx:id="btnEnviar" text="ENVIAR RESPUESTA" layoutX="10" layoutY="600" prefWidth="340" prefHeight="40" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;">
+        <font>
+            <Font name="Inter Bold" size="16" />
+        </font>
+    </Button>
+
+</AnchorPane>
