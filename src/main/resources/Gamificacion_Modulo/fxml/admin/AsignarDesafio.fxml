@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" 
+            prefHeight="720.0" prefWidth="360.0" stylesheets="@../../styles/styles.css"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Gamificacion_Modulo.GUI.admin.AsignarDesafioController">
+   <VBox fx:id="mainVBox" spacing="12">
+      <padding>
+         <Insets top="15" left="15" right="15" bottom="15"/>
+      </padding>
+   
+   <!-- Header -->
+   <VBox spacing="5" styleClass="header">
+      <Label text="📋 Asignar Desafío a Usuario" styleClass="title"/>
+      <Label text="Selecciona un usuario y un desafío para asignar" styleClass="subtitle"/>
+   </VBox>
+   
+      <!-- Selección de Usuario -->
+      <VBox spacing="6" styleClass="card">
+         <padding>
+            <Insets top="12" left="12" right="12" bottom="12"/>
+         </padding>
+         <Label text="👤 Seleccionar Usuario" styleClass="section-title"/>
+         
+         <VBox spacing="4">
+            <Label text="Usuario:" styleClass="field-label"/>
+            <ComboBox fx:id="cbUsuarios" promptText="Selecciona un usuario..." prefWidth="350"/>
+         </VBox>
+         
+         <Label fx:id="lblInfoUsuario" text="Selecciona un usuario para ver información" 
+                styleClass="info-text" wrapText="true"/>
+      </VBox>
+   
+      <!-- Desafíos Disponibles -->
+      <VBox spacing="6" styleClass="card">
+         <padding>
+            <Insets top="12" left="12" right="12" bottom="12"/>
+         </padding>
+         <Label text="🎯 Desafíos Disponibles" styleClass="section-title"/>
+         <Label text="Selecciona un desafío para asignar" styleClass="field-label"/>
+         
+         <ScrollPane prefHeight="200" fitToWidth="true" hbarPolicy="NEVER">
+            <VBox fx:id="vboxDesafiosDisponibles" spacing="4">
+               <!-- Contenido generado dinámicamente -->
+            </VBox>
+         </ScrollPane>
+         
+         <Label fx:id="lblDesafioSeleccionado" text="Selecciona un desafío de la lista" 
+                styleClass="info-text"/>
+      </VBox>
+   
+      <!-- Desafíos Activos del Usuario -->
+      <VBox spacing="6" styleClass="card">
+         <padding>
+            <Insets top="12" left="12" right="12" bottom="12"/>
+         </padding>
+         <Label text="📊 Desafíos Activos del Usuario" styleClass="section-title"/>
+         
+         <ScrollPane prefHeight="120" fitToWidth="true" hbarPolicy="NEVER">
+            <VBox fx:id="vboxDesafiosActivos" spacing="4">
+               <!-- Contenido generado dinámicamente -->
+            </VBox>
+         </ScrollPane>
+      </VBox>
+   
+      <!-- Botones de Acción -->
+      <HBox spacing="10" alignment="CENTER">
+         <Button fx:id="btnCancelar" text="Cancelar" onAction="#onCancelarClicked" 
+                 styleClass="secondary-button" prefWidth="120"/>
+         <Button fx:id="btnAsignar" text="Asignar Desafío" onAction="#onAsignarClicked" 
+                 styleClass="primary-button" prefWidth="120" disable="true"/>
+      </HBox>
+   </VBox>
+</ScrollPane> 

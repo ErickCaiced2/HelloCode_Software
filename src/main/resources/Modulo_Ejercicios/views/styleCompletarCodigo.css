@@ -1,0 +1,57 @@
+/* Estilo base para botones de opciones */
+.boton-opcion {
+    -fx-background-color: #000000;
+    -fx-background-radius: 15;
+    -fx-text-fill: white;
+    -fx-font-size: 10px;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER;
+}
+
+.boton-opcion:hover {
+    -fx-background-color: #444444;
+}
+
+/* Estilo para botón seleccionado */
+.boton-seleccionado {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-text-fill: black;
+    -fx-font-size: 10px;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER;
+}
+
+.boton-seleccionado:hover {
+    -fx-background-color: #f0f0f0;
+}
+
+/* Estilo para botón correcto (verde) */
+.boton-correcto {
+    -fx-background-color: #00CC00;
+    -fx-background-radius: 15;
+    -fx-text-fill: white;
+    -fx-font-size: 10px;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER;
+}
+
+/* Estilo para botón incorrecto (rojo) */
+.boton-incorrecto {
+    -fx-background-color: #CC0000;
+    -fx-background-radius: 15;
+    -fx-text-fill: white;
+    -fx-font-size: 10px;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER;
+}
+
+/* Estilo para botón no seleccionado pero correcto (naranja) */
+.boton-no-seleccionado-correcto {
+    -fx-background-color: #FF8C00;
+    -fx-background-radius: 15;
+    -fx-text-fill: white;
+    -fx-font-size: 10px;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER;
+}

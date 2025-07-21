@@ -1,0 +1,23 @@
+Declara una variable de tipo entera llamada edad:|int ____ = 20;|edad|edad|BASICO|JAVA
+Completa el método para sumar dos números:|public int sumar(int a, int b) {\n    return ____;\n}|a+b|a+b|BASICO|JAVA
+Completa la declaración de una constante:|public static final int MAX_VALUE = ____;|100|100|INTERMEDIO|JAVA
+Completa el bucle for para iterar de 0 a 9:|for(int i = 0; i < ____; i++) {\n    System.out.println(i);\n}|10|10|BASICO|JAVA
+Completa la condición del if para verificar si un número es positivo:|if(numero ____ 0) {\n    System.out.println("Positivo");\n}|>|>|BASICO|JAVA
+Declara una variable booleana en Python llamada activo y asígnale True:|____ = True|activo|activo|PRINCIPIANTE|PYTHON
+Completa el ciclo for que imprime los números del 1 al 5 en Python:|for i in range(1, ____):\n    print(i)|6|6|BASICO|PYTHON
+Completa la definición de una función que retorna el cuadrado de un número:|def cuadrado(x):\n    return ____|x**2|x**2|BASICO|PYTHON
+Completa la instrucción para abrir un archivo llamado 'datos.txt' en modo lectura:|f = open("datos.txt", ____)|"r"|"r"|INTERMEDIO|PYTHON
+Completa el bloque try-except para manejar errores:|try:\n    x = 1/0\nexcept ____:\n    print("Error")|ZeroDivisionError|ZeroDivisionError|INTERMEDIO|PYTHON
+Declara una variable entera en C llamada edad con valor 30:|int ____ = 30;|edad|edad|BASICO|C
+Completa la instrucción printf para mostrar “Hola mundo”:|printf("____\\n");|Hola mundo|Hola mundo|BASICO|C
+Completa la declaración de un puntero a entero:|int *____;|ptr|ptr|INTERMEDIO|C
+Completa la llamada a malloc para un array de 5 enteros:|int *arr = (int *)malloc(____ * sizeof(int));|5|5|AVANZADO|C
+Completa la condición de un if que verifica si x es mayor o igual que y:|if(x ____ y) {\n    // código\n}|>=|>=|BASICO|C
+Declara una variable string en PHP con valor "Hola":|$mensaje = ____;|"Hola"|"Hola"|BASICO|PHP
+Completa la instrucción echo para mostrar el contenido de la variable $nombre:|echo "Hola, ____!";|$nombre|$nombre|BASICO|PHP
+Completa la definición de una función en PHP:|function saludar($nombre) {\n    return "Hola " . ____;\n}|$nombre|$nombre|BASICO|PHP
+Completa la sentencia if que evalúa si una variable $edad es mayor que 18:|if($edad ____ 18) {\n    echo "Adulto";\n}|>|>|BASICO|PHP
+Completa el foreach para iterar sobre un array $nombres:|foreach(____ as $nombre) {\n    echo $nombre;\n}|$nombres|$nombres|INTERMEDIO|PHP
+Completa la declaración de una clase en Java:|public class ____ {\n}|Persona|Persona|BASICO|JAVA
+Completa la definición de un constructor en Java:|public Persona(String nombre) {\n    this.nombre = ____;\n}|nombre|nombre|INTERMEDIO|JAVA
+Completa la instrucción para importar Scanner en Java:|import java.util.____;|Scanner|Scanner|BASICO|JAVA

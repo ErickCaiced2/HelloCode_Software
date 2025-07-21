@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" 
+            prefHeight="720.0" prefWidth="360.0" stylesheets="@../../styles/styles.css"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Gamificacion_Modulo.GUI.admin.CrearLogroController">
+   <VBox fx:id="mainVBox" spacing="12">
+      <padding>
+         <Insets top="15" left="15" right="15" bottom="15"/>
+      </padding>
+   
+   <!-- Header -->
+   <VBox spacing="5" styleClass="header">
+      <Label text="🏆 Crear Logro Personalizado" styleClass="title"/>
+      <Label text="Define un nuevo logro para el sistema de gamificación" styleClass="subtitle"/>
+   </VBox>
+   
+      <!-- Información Básica -->
+      <VBox spacing="6" styleClass="card">
+         <padding>
+            <Insets top="12" left="12" right="12" bottom="12"/>
+         </padding>
+         <Label text="📝 Información Básica" styleClass="section-title"/>
+         
+         <VBox spacing="4">
+            <Label text="Nombre del logro:" styleClass="field-label"/>
+            <TextField fx:id="txtNombre" promptText="Ej: Programador Experto" prefWidth="350"/>
+         </VBox>
+         
+         <VBox spacing="4">
+            <Label text="Descripción:" styleClass="field-label"/>
+            <TextArea fx:id="txtDescripcion" promptText="Describe qué debe hacer el usuario para obtener este logro..." 
+                      prefRowCount="2" prefWidth="350" wrapText="true"/>
+         </VBox>
+      </VBox>
+   
+      <!-- Criterios de Desbloqueo -->
+      <VBox spacing="6" styleClass="card">
+         <padding>
+            <Insets top="12" left="12" right="12" bottom="12"/>
+         </padding>
+         <Label text="🎯 Criterios de Desbloqueo" styleClass="section-title"/>
+         <Label text="Define cuándo se desbloquea este logro" styleClass="field-label"/>
+         
+         <VBox spacing="6">
+            <RadioButton fx:id="rbDesafios" text="Por completar desafíos"/>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+               <Label text="   Cantidad de desafíos:" styleClass="field-label"/>
+               <Spinner fx:id="spinnerDesafios" prefWidth="70"/>
+            </HBox>
+            
+            <RadioButton fx:id="rbPuntos" text="Por obtener puntos"/>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+               <Label text="   Puntos requeridos:" styleClass="field-label"/>
+               <Spinner fx:id="spinnerPuntos" prefWidth="70"/>
+            </HBox>
+            
+            <RadioButton fx:id="rbLogros" text="Por obtener otros logros"/>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+               <Label text="   Cantidad de logros:" styleClass="field-label"/>
+               <Spinner fx:id="spinnerLogros" prefWidth="70"/>
+            </HBox>
+         </VBox>
+      </VBox>
+   
+      <!-- Recompensa -->
+      <VBox spacing="6" styleClass="card">
+         <padding>
+            <Insets top="12" left="12" right="12" bottom="12"/>
+         </padding>
+         <Label text="💎 Recompensa" styleClass="section-title"/>
+         
+         <VBox spacing="4">
+            <Label text="Puntos de recompensa:" styleClass="field-label"/>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+               <Slider fx:id="sliderPuntos" min="50" max="500" value="150" prefWidth="250"/>
+               <Label fx:id="lblPuntos" text="150" styleClass="points-label"/>
+            </HBox>
+         </VBox>
+      </VBox>
+   
+      <!-- Vista Previa -->
+      <VBox spacing="6" styleClass="card preview-card">
+         <padding>
+            <Insets top="12" left="12" right="12" bottom="12"/>
+         </padding>
+         <Label text="👀 Vista Previa" styleClass="section-title"/>
+         <VBox fx:id="vboxVistaPrevia" spacing="4" styleClass="preview-content">
+            <!-- Contenido generado dinámicamente -->
+         </VBox>
+      </VBox>
+   
+      <!-- Botones de Acción -->
+      <HBox spacing="10" alignment="CENTER">
+         <Button fx:id="btnCancelar" text="Cancelar" onAction="#onCancelarClicked" 
+                 styleClass="secondary-button" prefWidth="120"/>
+         <Button fx:id="btnCrear" text="Crear Logro" onAction="#onCrearClicked" 
+                 styleClass="primary-button" prefWidth="120"/>
+      </HBox>
+   </VBox>
+</ScrollPane> 
