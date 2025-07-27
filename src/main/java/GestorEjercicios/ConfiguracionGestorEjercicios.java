@@ -1,5 +1,7 @@
 package GestorEjercicios;
 
+import GestorEjercicios.enums.TipoLeccion;
+
 /**
  * Configuración del módulo GestorEjercicios
  * Contiene constantes y configuraciones del sistema
