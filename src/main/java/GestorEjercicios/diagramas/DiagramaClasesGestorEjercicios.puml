@@ -1,0 +1,383 @@
+@startuml DiagramaClasesGestorEjercicios
+
+!define RECTANGLE class
+
+' Estilos
+skinparam class {
+    BackgroundColor LightBlue
+    BorderColor DarkBlue
+    FontColor Black
+}
+
+skinparam interface {
+    BackgroundColor LightGreen
+    BorderColor DarkGreen
+    FontColor Black
+}
+
+skinparam enum {
+    BackgroundColor LightYellow
+    BorderColor DarkYellow
+    FontColor Black
+}
+
+' ===== INTERFACES =====
+interface IGestorEjercicios {
+    + crearLeccion(nombre: String, ejercicios: List<?>, tipo: TipoLeccion, experiencia: int, conocimiento: int): Leccion
+    + obtenerLeccion(id: int): Leccion
+    + obtenerTodasLasLecciones(): List<Leccion>
+    + ejecutarLeccion(leccion: Leccion, usuario: Usuario): ResultadoEvaluacion
+    + marcarLeccionCompletada(leccion: Leccion, usuario: Usuario, aciertos: int): void
+    + obtenerProgresoUsuario(leccion: Leccion, usuario: Usuario): double
+    + obtenerEstadisticasUsuario(usuario: Usuario): EstadisticasUsuario
+}
+
+interface AdaptadorEjercicios {
+    + obtenerId(): String
+    + obtenerInstruccion(): String
+    + obtenerNivelDificultad(): String
+    + obtenerLenguaje(): String
+    + evaluarRespuestas(respuestasUsuario: List<String>): ResultadoEvaluacion
+    + obtenerRespuestasCorrectas(): List<String>
+    + obtenerTipoEjercicio(): String
+}
+
+interface EstrategiaLeccion {
+    + crearLeccion(nombre: String, ejercicios: List<AdaptadorEjercicios>): Leccion
+    + obtenerEjerciciosPendientes(): List<AdaptadorEjercicios>
+    + tieneEjerciciosPendientes(): boolean
+}
+
+' ===== ENUMS =====
+enum TipoLeccion {
+    NORMAL
+    PRUEBA
+    DIAGNOSTICO
+}
+
+enum TipoEjercicio {
+    SELECCION_MULTIPLE
+    COMPLETAR_CODIGO
+}
+
+enum NivelDificultad {
+    BASICO
+    INTERMEDIO
+    AVANZADO
+}
+
+enum LenguajeProgramacion {
+    JAVA
+    PYTHON
+    JAVASCRIPT
+}
+
+' ===== CLASES PRINCIPALES =====
+class GestorEjerciciosEntry {
+    - gestor: IGestorEjercicios
+    + {static} obtenerGestor(): IGestorEjercicios
+    + {static} crearLeccionNormal(nombre: String, ejercicios: List<?>): Leccion
+    + {static} crearLeccionPrueba(nombre: String, ejercicios: List<?>): Leccion
+    + {static} crearLeccion(nombre: String, ejercicios: List<?>, tipo: TipoLeccion, experiencia: int, conocimiento: int): Leccion
+    + {static} obtenerLeccion(id: int): Leccion
+    + {static} obtenerTodasLasLecciones(): List<Leccion>
+    + {static} marcarLeccionCompletada(leccion: Leccion, usuario: Usuario, aciertos: int): void
+    + {static} obtenerProgresoUsuario(leccion: Leccion, usuario: Usuario): double
+    + {static} obtenerEstadisticasUsuario(usuario: Usuario): EstadisticasUsuario
+    + {static} ejecutarLeccion(leccion: Leccion, usuario: Usuario): ResultadoEvaluacion
+    + {static} inicializar(): void
+    + {static} obtenerEstadoModulo(): String
+}
+
+class GestorEjerciciosPrincipal {
+    - instancia: GestorEjerciciosPrincipal
+    - gestorLecciones: GestorLecciones
+    + {static} obtenerInstancia(): GestorEjerciciosPrincipal
+    + crearLeccion(nombre: String, ejercicios: List<?>, tipo: TipoLeccion, experiencia: int, conocimiento: int): Leccion
+    + obtenerLeccion(id: int): Leccion
+    + obtenerTodasLasLecciones(): List<Leccion>
+    + ejecutarLeccion(leccion: Leccion, usuario: Usuario): ResultadoEvaluacion
+    + marcarLeccionCompletada(leccion: Leccion, usuario: Usuario, aciertos: int): void
+    + obtenerProgresoUsuario(leccion: Leccion, usuario: Usuario): double
+    + obtenerEstadisticasUsuario(usuario: Usuario): EstadisticasUsuario
+    - generarIdUnico(): int
+    + getGestorLecciones(): GestorLecciones
+    + crearLeccionPrueba(nombre: String, ejercicios: List<?>): Leccion
+    + crearLeccionNormal(nombre: String, ejercicios: List<?>): Leccion
+    + obtenerLeccionesPorTipo(tipo: TipoLeccion): List<Leccion>
+    + obtenerLeccionesDisponibles(usuario: Usuario): List<Leccion>
+    + obtenerLeccionesCompletadas(usuario: Usuario): List<Leccion>
+}
+
+' ===== MODELOS =====
+class Leccion {
+    - id: int
+    - nombre: String
+    - ejercicios: List<AdaptadorEjercicios>
+    - tipo: TipoLeccion
+    - estrategia: EstrategiaLeccion
+    - experiencia: int
+    - conocimiento: int
+    - completada: boolean
+    + Leccion(id: int, nombre: String, ejercicios: List<?>, tipo: TipoLeccion, experiencia: int, conocimiento: int)
+    + Leccion(id: int, nombre: String, ejercicios: List<?>)
+    + getId(): int
+    + getNombre(): String
+    + getEjercicios(): List<AdaptadorEjercicios>
+    + getTipo(): TipoLeccion
+    + getEstrategia(): EstrategiaLeccion
+    + getExperiencia(): int
+    + getConocimiento(): int
+    + isCompletada(): boolean
+    + setCompletada(completada: boolean): void
+    + obtenerResumen(): String
+    + tieneEjerciciosPendientes(): boolean
+    + marcarCompletada(): void
+    + calcularConocimientoDiagnostico(aciertos: int, maxConocimiento: int): void
+    + getNumeroEjercicios(): int
+    + getEjercicio(indice: int): AdaptadorEjercicios
+    - convertirEjercicios(ejercicios: List<?>): List<AdaptadorEjercicios>
+    - calcularExperienciaPorDefecto(): int
+    - calcularConocimientoPorDefecto(): int
+}
+
+class GestorLecciones {
+    - lecciones: List<Leccion>
+    + GestorLecciones()
+    + agregarLeccion(leccion: Leccion): void
+    + obtenerLecciones(): List<Leccion>
+    + obtenerLeccionPorId(id: int): Optional<Leccion>
+    + eliminarLeccionPorId(id: int): boolean
+    + obtenerTotalLecciones(): int
+    + imprimirLecciones(): void
+}
+
+class GestorProgresoUsuario {
+    - progresoUsuarios: Map<String, ProgresoUsuario>
+    + {static} obtenerProgresoUsuario(usuario: Usuario): ProgresoUsuario
+    + {static} marcarLeccionCompletada(usuario: Usuario, leccion: Leccion, aciertos: int): void
+    + {static} actualizarProgresoLeccion(usuario: Usuario, leccion: Leccion, progreso: double): void
+    + {static} obtenerProgresoLeccion(usuario: Usuario, leccion: Leccion): double
+    + {static} obtenerEstadisticasUsuario(usuario: Usuario): EstadisticasUsuario
+    - {static} calcularExperienciaGanada(leccion: Leccion, aciertos: int): int
+    - {static} calcularConocimientoGanado(leccion: Leccion, aciertos: int): int
+}
+
+class ResultadoEvaluacion {
+    - porcentajeAcierto: double
+    - esCorrecto: boolean
+    - mensaje: String
+    - respuestasCorrectas: List<String>
+    + ResultadoEvaluacion(porcentajeAcierto: double, esCorrecto: boolean, mensaje: String, respuestasCorrectas: List<String>)
+    + getPorcentajeAcierto(): double
+    + isCorrecto(): boolean
+    + getMensaje(): String
+    + getRespuestasCorrectas(): List<String>
+}
+
+' ===== ADAPTADORES =====
+class AdaptadorEjercicioSeleccion {
+    - ejercicio: EjercicioSeleccion
+    - id: String
+    + AdaptadorEjercicioSeleccion(ejercicio: EjercicioSeleccion)
+    + obtenerId(): String
+    + obtenerInstruccion(): String
+    + obtenerNivelDificultad(): String
+    + obtenerLenguaje(): String
+    + evaluarRespuestas(respuestasUsuario: List<String>): ResultadoEvaluacion
+    + obtenerRespuestasCorrectas(): List<String>
+    + obtenerTipoEjercicio(): String
+    + obtenerOpciones(): List<String>
+    + obtenerEjercicioOriginal(): EjercicioSeleccion
+}
+
+class AdaptadorEjercicioCompletarCodigo {
+    - ejercicio: EjercicioCompletarCodigo
+    - id: String
+    + AdaptadorEjercicioCompletarCodigo(ejercicio: EjercicioCompletarCodigo)
+    + obtenerId(): String
+    + obtenerInstruccion(): String
+    + obtenerNivelDificultad(): String
+    + obtenerLenguaje(): String
+    + evaluarRespuestas(respuestasUsuario: List<String>): ResultadoEvaluacion
+    + obtenerRespuestasCorrectas(): List<String>
+    + obtenerTipoEjercicio(): String
+    + obtenerCodigoIncompleto(): String
+    + obtenerPartesFaltantes(): List<String>
+    + obtenerNumeroPartesFaltantes(): int
+    + obtenerEjercicioOriginal(): EjercicioCompletarCodigo
+}
+
+class FabricaAdaptadores {
+    + {static} crearAdaptador(ejercicio: EjercicioSeleccion): AdaptadorEjercicios
+    + {static} crearAdaptador(ejercicio: EjercicioCompletarCodigo): AdaptadorEjercicios
+    + {static} crearAdaptador(ejercicio: Object): AdaptadorEjercicios
+}
+
+' ===== ESTRATEGIAS =====
+class EstrategiaLeccionNormal {
+    - MAX_EJERCICIOS_POR_LECCION: int
+    - ejerciciosPendientes: List<AdaptadorEjercicios>
+    + crearLeccion(nombre: String, ejercicios: List<AdaptadorEjercicios>): Leccion
+    + obtenerEjerciciosPendientes(): List<AdaptadorEjercicios>
+    + tieneEjerciciosPendientes(): boolean
+}
+
+class EstrategiaLeccionPrueba {
+    - ejerciciosPendientes: List<AdaptadorEjercicios>
+    - ejerciciosFallidos: List<AdaptadorEjercicios>
+    - leccionCompletada: boolean
+    - MAX_EJERCICIOS_POR_PRUEBA: int
+    + crearLeccion(nombre: String, ejercicios: List<AdaptadorEjercicios>): Leccion
+    + obtenerEjerciciosPendientes(): List<AdaptadorEjercicios>
+    + tieneEjerciciosPendientes(): boolean
+    + marcarLeccionCompletada(): void
+    + obtenerCantidadEjerciciosFallidos(): int
+    + limpiarEjerciciosFallidos(): void
+}
+
+class FabricaEstrategiasLeccion {
+    + {static} crearEstrategia(tipo: TipoLeccion): EstrategiaLeccion
+}
+
+' ===== CLASES INTERNAS =====
+class GestorProgresoUsuario.ProgresoUsuario {
+    - username: String
+    - experienciaTotal: int
+    - conocimientoTotal: int
+    - leccionesCompletadas: Map<Integer, LeccionCompletada>
+    - progresoLecciones: Map<Integer, Double>
+    + ProgresoUsuario(username: String)
+    + getUsername(): String
+    + getExperienciaTotal(): int
+    + getConocimientoTotal(): int
+    + getLeccionesCompletadas(): Map<Integer, LeccionCompletada>
+    + getProgresoLecciones(): Map<Integer, Double>
+    + agregarExperiencia(experiencia: int): void
+    + agregarConocimiento(conocimiento: int): void
+    + marcarLeccionCompletada(leccionId: int, leccionCompletada: LeccionCompletada): void
+    + actualizarProgresoLeccion(leccionId: int, progreso: double): void
+    + getNumeroLeccionesCompletadas(): int
+    + getProgresoPromedio(): double
+}
+
+class GestorProgresoUsuario.LeccionCompletada {
+    - leccionId: int
+    - nombreLeccion: String
+    - aciertos: int
+    - totalEjercicios: int
+    - experienciaGanada: int
+    - conocimientoGanado: int
+    - fechaCompletada: long
+    + LeccionCompletada(leccionId: int, nombreLeccion: String, aciertos: int, totalEjercicios: int, experienciaGanada: int, conocimientoGanado: int)
+    + getLeccionId(): int
+    + getNombreLeccion(): String
+    + getAciertos(): int
+    + getTotalEjercicios(): int
+    + getExperienciaGanada(): int
+    + getConocimientoGanado(): int
+    + getFechaCompletada(): long
+    + getPorcentajeAcierto(): double
+}
+
+class IGestorEjercicios.EstadisticasUsuario {
+    - experienciaTotal: int
+    - conocimientoTotal: int
+    - leccionesCompletadas: int
+    - ejerciciosCorrectos: int
+    - ejerciciosTotales: int
+    + EstadisticasUsuario(experienciaTotal: int, conocimientoTotal: int, leccionesCompletadas: int, ejerciciosCorrectos: int, ejerciciosTotales: int)
+    + getExperienciaTotal(): int
+    + getConocimientoTotal(): int
+    + getLeccionesCompletadas(): int
+    + getEjerciciosCorrectos(): int
+    + getEjerciciosTotales(): int
+    + getPorcentajeAcierto(): double
+}
+
+class ConfiguracionGestorEjercicios {
+    + {static} EXPERIENCIA_LECCION_NORMAL: int
+    + {static} EXPERIENCIA_LECCION_PRUEBA: int
+    + {static} CONOCIMIENTO_LECCION_NORMAL: int
+    + {static} CONOCIMIENTO_LECCION_PRUEBA: int
+    + {static} UMBRAL_BONUS_EXPERIENCIA: double
+    + {static} UMBRAL_PENALIZACION_EXPERIENCIA: double
+    + {static} MULTIPLICADOR_BONUS: double
+    + {static} MULTIPLICADOR_PENALIZACION: double
+    + {static} DIVISOR_REPUTACION: int
+    + {static} MAX_EJERCICIOS_POR_LECCION_NORMAL: int
+    + {static} MAX_EJERCICIOS_POR_LECCION_PRUEBA: int
+    + {static} MIN_EJERCICIOS_POR_LECCION: int
+    + {static} calcularExperienciaGanada(experienciaBase: int, porcentajeAcierto: double): int
+    + {static} calcularConocimientoGanado(conocimientoBase: int, porcentajeAcierto: double): int
+    + {static} calcularReputacionGanada(experienciaGanada: int): int
+    + {static} validarNumeroEjercicios(numeroEjercicios: int, tipo: TipoLeccion): boolean
+    + {static} obtenerMaximoEjercicios(tipo: TipoLeccion): int
+    + {static} obtenerExperienciaPorDefecto(tipo: TipoLeccion): int
+    + {static} obtenerConocimientoPorDefecto(tipo: TipoLeccion): int
+}
+
+' ===== RELACIONES =====
+
+' GestorEjerciciosEntry usa GestorEjerciciosPrincipal
+GestorEjerciciosEntry --> GestorEjerciciosPrincipal : usa
+
+' GestorEjerciciosPrincipal implementa IGestorEjercicios
+GestorEjerciciosPrincipal ..|> IGestorEjercicios : implementa
+
+' GestorEjerciciosPrincipal usa GestorLecciones
+GestorEjerciciosPrincipal --> GestorLecciones : usa
+
+' GestorLecciones contiene Leccion
+GestorLecciones --> Leccion : contiene
+
+' Leccion usa AdaptadorEjercicios
+Leccion --> AdaptadorEjercicios : usa
+
+' Leccion usa EstrategiaLeccion
+Leccion --> EstrategiaLeccion : usa
+
+' Leccion usa TipoLeccion
+Leccion --> TipoLeccion : usa
+
+' Adaptadores implementan AdaptadorEjercicios
+AdaptadorEjercicioSeleccion ..|> AdaptadorEjercicios : implementa
+AdaptadorEjercicioCompletarCodigo ..|> AdaptadorEjercicios : implementa
+
+' FabricaAdaptadores crea Adaptadores
+FabricaAdaptadores --> AdaptadorEjercicioSeleccion : crea
+FabricaAdaptadores --> AdaptadorEjercicioCompletarCodigo : crea
+
+' Estrategias implementan EstrategiaLeccion
+EstrategiaLeccionNormal ..|> EstrategiaLeccion : implementa
+EstrategiaLeccionPrueba ..|> EstrategiaLeccion : implementa
+
+' FabricaEstrategiasLeccion crea Estrategias
+FabricaEstrategiasLeccion --> EstrategiaLeccionNormal : crea
+FabricaEstrategiasLeccion --> EstrategiaLeccionPrueba : crea
+
+' GestorProgresoUsuario usa ProgresoUsuario
+GestorProgresoUsuario --> GestorProgresoUsuario.ProgresoUsuario : usa
+
+' ProgresoUsuario contiene LeccionCompletada
+GestorProgresoUsuario.ProgresoUsuario --> GestorProgresoUsuario.LeccionCompletada : contiene
+
+' IGestorEjercicios contiene EstadisticasUsuario
+IGestorEjercicios --> IGestorEjercicios.EstadisticasUsuario : contiene
+
+' AdaptadorEjercicios usa ResultadoEvaluacion
+AdaptadorEjercicios --> ResultadoEvaluacion : usa
+
+' ConfiguracionGestorEjercicios es usado por varios componentes
+GestorEjerciciosPrincipal --> ConfiguracionGestorEjercicios : usa
+GestorProgresoUsuario --> ConfiguracionGestorEjercicios : usa
+
+' Relaciones con módulos externos
+note right of GestorEjerciciosEntry
+  Integración con módulos externos:
+  - Modulo_Usuario.Clases.Usuario
+  - Modulo_Ejercicios.exercises.EjercicioSeleccion
+  - Modulo_Ejercicios.exercises.EjercicioCompletarCodigo
+end note
+
+@enduml 

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Modulo_Usuario.Controladores.LoginController"
+            prefWidth="360.0" prefHeight="720.0"
+            style="-fx-background-color: #424874;">
+    <VBox alignment="CENTER" spacing="32" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
+        <padding>
+            <Insets top="36" right="18" bottom="18" left="18"/>
+        </padding>
+
+        <!-- Logo y título -->
+        <VBox alignment="CENTER" spacing="12">
+            <StackPane style="-fx-background-color: #A6B1E1; -fx-background-radius: 40; -fx-effect: dropshadow(gaussian, #424874, 8, 0.3, 0, 0);" prefWidth="80" prefHeight="80">
+                <Label text="👤" style="-fx-font-size: 44px;"/>
+            </StackPane>
+            <Label text="Hello Code Software" style="-fx-text-fill: #DCD6F7; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+            <Label text="Iniciar Sesión" style="-fx-text-fill: #A6B1E1; -fx-font-size: 15px;"/>
+        </VBox>
+
+        <!-- Panel de login -->
+        <VBox alignment="CENTER" spacing="18"
+              style="-fx-background-color: #DCD6F7; -fx-background-radius: 18; -fx-effect: dropshadow(gaussian, #424874, 8, 0.2, 0, 0);"
+              maxWidth="320">
+            <padding>
+                <Insets top="28" right="20" bottom="28" left="20"/>
+            </padding>
+
+            <!-- Campo Usuario -->
+            <VBox spacing="6">
+                <Label text="Usuario" style="-fx-text-fill: #424874; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+                <TextField fx:id="usuarioField" promptText="Ingrese su usuario"
+                           style="-fx-background-color: #CACFD6; -fx-background-radius: 8; -fx-border-radius: 8;"
+                           prefHeight="38" maxWidth="Infinity"/>
+            </VBox>
+
+            <!-- Campo Contraseña -->
+            <VBox spacing="6">
+                <Label text="Contraseña" style="-fx-text-fill: #424874; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+                <PasswordField fx:id="contrasenaField" promptText="Ingrese su contraseña"
+                               style="-fx-background-color: #CACFD6; -fx-background-radius: 8; -fx-border-radius: 8;"
+                               prefHeight="38" maxWidth="Infinity"/>
+            </VBox>
+
+            <!-- Botón de login -->
+            <Button text="Iniciar Sesión"
+                    onAction="#handleLogin"
+                    style="-fx-background-color: #A6B1E1; -fx-text-fill: #424874; -fx-font-weight: bold; -fx-background-radius: 8;"
+                    prefWidth="220" prefHeight="40"/>
+
+            <!-- Botón de registro -->
+            <Button text="¿No tienes cuenta? Registrarse"
+                    onAction="#irARegistro"
+                    style="-fx-background-color: transparent; -fx-text-fill: #424874; -fx-font-weight: bold; -fx-border-color: #424874; -fx-border-radius: 8; -fx-border-width: 1;"
+                    prefWidth="220" prefHeight="36"/>
+
+            <!-- Mensaje de error -->
+            <Label fx:id="mensajeLabel" textFill="red" style="-fx-font-size: 12px;" alignment="CENTER"/>
+        </VBox>
+
+        <!-- Footer -->
+        <Label text="© 2024 Hello Code Software - Todos los derechos reservados"
+               style="-fx-text-fill: #D6E5E3; -fx-font-size: 10px;"/>
+    </VBox>
+</AnchorPane>

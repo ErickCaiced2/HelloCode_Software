@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Modulo_Usuario.Controladores.RegisterController"
+            prefWidth="360.0" prefHeight="720.0"
+            style="-fx-background-color: #424874;">
+    <VBox alignment="CENTER" spacing="24" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
+        <padding>
+            <Insets top="24" right="18" bottom="18" left="18"/>
+        </padding>
+
+        <!-- Logo y título -->
+        <VBox alignment="CENTER" spacing="12">
+            <StackPane style="-fx-background-color: #A6B1E1; -fx-background-radius: 40; -fx-effect: dropshadow(gaussian, #424874, 8, 0.3, 0, 0);" prefWidth="80" prefHeight="80">
+                <Label text="👤" style="-fx-font-size: 44px;"/>
+            </StackPane>
+            <Label text="Hello Code Software" style="-fx-text-fill: #DCD6F7; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+            <Label text="Registro de Usuario" style="-fx-text-fill: #A6B1E1; -fx-font-size: 15px;"/>
+        </VBox>
+
+        <!-- Panel de registro -->
+        <ScrollPane fitToWidth="true" fitToHeight="true" style="-fx-background: transparent; -fx-background-color: transparent;">
+            <VBox alignment="CENTER" spacing="16"
+                  style="-fx-background-color: #DCD6F7; -fx-background-radius: 18; -fx-effect: dropshadow(gaussian, #424874, 8, 0.2, 0, 0);"
+                  maxWidth="320">
+                <padding>
+                    <Insets top="24" right="20" bottom="24" left="20"/>
+                </padding>
+
+                <!-- Campo Nombre -->
+                <VBox spacing="6">
+                    <Label text="Nombre Completo" style="-fx-text-fill: #424874; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+                    <TextField fx:id="nombreField" promptText="Ingrese su nombre completo"
+                               style="-fx-background-color: #CACFD6; -fx-background-radius: 8; -fx-border-radius: 8;"
+                               prefHeight="38" maxWidth="Infinity"/>
+                </VBox>
+
+                <!-- Campo Email -->
+                <VBox spacing="6">
+                    <Label text="Email" style="-fx-text-fill: #424874; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+                    <TextField fx:id="emailField" promptText="Ingrese su email"
+                               style="-fx-background-color: #CACFD6; -fx-background-radius: 8; -fx-border-radius: 8;"
+                               prefHeight="38" maxWidth="Infinity"/>
+                </VBox>
+
+                <!-- Campo Usuario -->
+                <VBox spacing="6">
+                    <Label text="Usuario" style="-fx-text-fill: #424874; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+                    <TextField fx:id="usuarioField" promptText="Ingrese su usuario"
+                               style="-fx-background-color: #CACFD6; -fx-background-radius: 8; -fx-border-radius: 8;"
+                               prefHeight="38" maxWidth="Infinity"/>
+                </VBox>
+
+                <!-- Campo Contraseña -->
+                <VBox spacing="6">
+                    <Label text="Contraseña" style="-fx-text-fill: #424874; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+                    <PasswordField fx:id="contrasenaField" promptText="Ingrese su contraseña"
+                                   style="-fx-background-color: #CACFD6; -fx-background-radius: 8; -fx-border-radius: 8;"
+                                   prefHeight="38" maxWidth="Infinity"/>
+                </VBox>
+
+                <!-- Campo Confirmar Contraseña -->
+                <VBox spacing="6">
+                    <Label text="Confirmar Contraseña" style="-fx-text-fill: #424874; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+                    <PasswordField fx:id="confirmarContrasenaField" promptText="Confirme su contraseña"
+                                   style="-fx-background-color: #CACFD6; -fx-background-radius: 8; -fx-border-radius: 8;"
+                                   prefHeight="38" maxWidth="Infinity"/>
+                </VBox>
+
+                <!-- Botón de registro -->
+                <Button text="Registrarse"
+                        onAction="#handleRegister"
+                        style="-fx-background-color: #A6B1E1; -fx-text-fill: #424874; -fx-font-weight: bold; -fx-background-radius: 8;"
+                        prefWidth="220" prefHeight="40"/>
+
+                <!-- Botón para volver al login -->
+                <Button text="¿Ya tienes cuenta? Iniciar Sesión"
+                        onAction="#volverAlLogin"
+                        style="-fx-background-color: transparent; -fx-text-fill: #424874; -fx-font-weight: bold; -fx-border-color: #424874; -fx-border-radius: 8; -fx-border-width: 1;"
+                        prefWidth="220" prefHeight="36"/>
+
+                <!-- Mensaje de error/éxito -->
+                <Label fx:id="mensajeLabel" textFill="red" style="-fx-font-size: 12px;" alignment="CENTER"/>
+            </VBox>
+        </ScrollPane>
+
+        <!-- Footer -->
+        <Label text="© 2024 Hello Code Software - Todos los derechos reservados"
+               style="-fx-text-fill: #D6E5E3; -fx-font-size: 10px;"/>
+    </VBox>
+</AnchorPane> 

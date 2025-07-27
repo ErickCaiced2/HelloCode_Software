@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+
+<VBox fx:id="mainContainer" prefHeight="720" prefWidth="360" 
+      style="-fx-background-color: white; -fx-border-color: #cccccc; -fx-border-width: 1;"
+      xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="Gamificacion_Modulo.GUI.controllers.RankingController">
+      
+   <stylesheets>
+      <URL value="@../styles/styles.css"/>
+   </stylesheets>
+      
+   <!-- Header Section with Profile Picture -->
+   <StackPane fx:id="headerSection" prefHeight="272.0">
+      <!-- Purple Background -->
+      <Region prefHeight="195.0" style="-fx-background-color: #424874;" />
+      
+      <!-- Profile Picture -->
+      <ImageView fx:id="profilePicture" fitHeight="174.0" fitWidth="180.0" preserveRatio="true">
+         <image>
+            <Image url="@../images/Ellipse 4.png" />
+         </image>
+         <StackPane.margin>
+            <Insets top="50.0" />
+         </StackPane.margin>
+      </ImageView>
+   </StackPane>
+   
+   <!-- Title Label -->
+   <Label fx:id="titleLabel" text="Cargando posición..." 
+          style="-fx-font-family: 'Inter Bold'; -fx-font-size: 25px; -fx-font-weight: bold; -fx-text-fill: black;" 
+          alignment="CENTER" wrapText="true">
+      <padding>
+         <Insets top="20.0" bottom="10.0" left="20.0" right="20.0" />
+      </padding>
+   </Label>
+   
+   <!-- User Selector -->
+   <VBox alignment="CENTER">
+      <padding>
+         <Insets bottom="15.0" left="20.0" right="20.0" />
+      </padding>
+      <Label text="Ver posición de:" style="-fx-font-size: 12px; -fx-text-fill: #666666;"/>
+      <ComboBox fx:id="usuarioSelector" onAction="#cambiarUsuario" prefWidth="200" 
+                style="-fx-font-size: 12px;">
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </ComboBox>
+   </VBox>
+   
+   <!-- Ranking Section Container -->
+   <VBox fx:id="rankingSectionContainer" alignment="CENTER" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+      <padding>
+         <Insets top="20.0" bottom="20.0" left="28.0" right="28.0" />
+      </padding>
+      
+      <!-- Ranking List Container -->
+      <VBox fx:id="rankingContainer" maxWidth="337.0" alignment="CENTER"
+            style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1; -fx-background-radius: 10; -fx-border-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);">
+         <padding>
+            <Insets top="20.0" bottom="20.0" left="20.0" right="20.0" />
+         </padding>
+         
+         <!-- Dynamic ranking entries will be added here by controller -->
+         <ScrollPane fx:id="rankingScrollPane" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" maxHeight="300.0">
+            <VBox fx:id="rankingEntriesContainer" spacing="20.0" />
+         </ScrollPane>
+      </VBox>
+   </VBox>
+   
+   <!-- Navigation Bar -->
+   <HBox fx:id="navigationBar" prefHeight="74.0" alignment="CENTER" spacing="30.0"
+         style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 0 0 0;">
+         
+      <!-- Button 1 - Desafios -->
+      <Button fx:id="navButton1" onAction="#navButton1" prefHeight="60.0" prefWidth="65.0"
+              style="-fx-background-color: #a6b1e1; -fx-background-radius: 5; -fx-border-radius: 5;">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="40.0" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Rectangle 44.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      
+      <!-- Button 2 - Perfil -->
+      <Button fx:id="navButton2" onAction="#navButton2" prefHeight="60.0" prefWidth="65.0"
+              style="-fx-background-color: #a6b1e1; -fx-background-radius: 5; -fx-border-radius: 5;">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="40.0" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Rectangle 45.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      
+      <!-- Button 3 - Ranking (Current) -->
+      <Button fx:id="navButton3" onAction="#navButton3" prefHeight="60.0" prefWidth="65.0"
+              style="-fx-background-color: #9fa8da; -fx-background-radius: 5; -fx-border-radius: 5;">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="40.0" preserveRatio="true">
+               <image>
+                  <Image url="@../images/image 13.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </HBox>
+</VBox> 

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="ap1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="360.0" styleClass="bodybg" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Modulo_Ejercicios.Controladores.EjercicioSeleccionController">
+    <children>
+      <ImageView id="imgfondo" fx:id="imgFondo" fitHeight="720.0" fitWidth="360.0" mouseTransparent="true" nodeOrientation="INHERIT" pickOnBounds="true" />
+      <BorderPane prefHeight="91.0" prefWidth="360.0">
+         <top>
+                  <GridPane prefHeight="60.0" prefWidth="360.0" BorderPane.alignment="CENTER">
+                      <columnConstraints>
+                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="60.0" />
+                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="115.20001220703125" minWidth="10.0" prefWidth="56.533360290527355" />
+                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="132.26663970947266" minWidth="10.0" prefWidth="132.26663970947266" />
+                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="62.4000244140625" minWidth="10.0" prefWidth="34.466693115234364" />
+                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="53.333343505859375" minWidth="10.0" prefWidth="38.66667480468749" />
+                          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="56.79998779296875" minWidth="10.0" prefWidth="39.73332519531249" />
+                      </columnConstraints>
+                      <rowConstraints>
+                          <RowConstraints maxHeight="30" minHeight="10.0" prefHeight="30" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                      <children>
+                          <Text id="txtback" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="JAVA" textAlignment="CENTER" GridPane.columnIndex="2">
+                              <font>
+                                  <Font name="Book Antiqua" size="18.0" />
+                              </font>
+                          </Text>
+                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
+                              <image>
+                                  <Image url="@../imagenes/icon_vidas.png" />
+                              </image>
+                          </ImageView>
+                          <Text id="txtLiveCount" fx:id="txtLiveCount" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" GridPane.columnIndex="5">
+                              <font>
+                                  <Font size="16.0" />
+                              </font>
+                          </Text>
+                          <Button id="btnPista" fx:id="btnPista" mnemonicParsing="false" opacity="0.0" prefHeight="30.0" prefWidth="30.0" textAlignment="CENTER" GridPane.columnIndex="3" />
+                          <ImageView id="imgPista" fx:id="imgPista" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+                              <image>
+                                  <Image url="@../imagenes/icon_pistas.png" />
+                              </image>
+                          </ImageView>
+                      </children>
+                  </GridPane>
+         </top>
+         <center>
+                  <ProgressBar id="progressBar" fx:id="progressBar" prefHeight="22.0" prefWidth="300.0" progress="0.39" BorderPane.alignment="CENTER">
+               <effect>
+                  <ColorAdjust contrast="-0.12" hue="0.37" saturation="0.02" />
+               </effect>
+            </ProgressBar>
+         </center>
+      </BorderPane>
+        <BorderPane layoutX="43.2" prefHeight="346.0" prefWidth="360.0" AnchorPane.bottomAnchor="146.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <BorderPane prefHeight="93.0" prefWidth="360.0" BorderPane.alignment="CENTER" />
+            </top>
+            <center>
+                <BorderPane prefHeight="255.0" prefWidth="360.0" BorderPane.alignment="TOP_CENTER">
+                    <top>
+                        <GridPane prefHeight="296.0" prefWidth="360.0" BorderPane.alignment="CENTER">
+                            <columnConstraints>
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="360.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints maxHeight="90.4" minHeight="44.79999389648438" prefHeight="44.79999389648438" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="227.60000000000002" minHeight="76.5333251953125" prefHeight="186.99997558593748" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="233.8666748046875" minHeight="0.0" prefHeight="64.60002441406249" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                        <Label id="lblPregunta" fx:id="lblPregunta" alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="169.0" text="Tipo leccion" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold Italic" size="20.0" />
+                           </font>
+                        </Label>
+                                <Label id="lblInstruccion" fx:id="lblInstruccion" alignment="CENTER" prefHeight="182.0" prefWidth="340.0" text="Aquí irá la pregunta a responder" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1">
+                                    <font>
+                                        <Font size="25.0" />
+                                    </font>
+                                </Label>
+                        <Label id="lblCantidadR" fx:id="lblCantidadR" alignment="CENTER" prefHeight="101.0" prefWidth="292.0" text="Label" textAlignment="CENTER" GridPane.rowIndex="2">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                            </children>
+                        </GridPane>
+                    </top>
+                </BorderPane>
+            </center>
+            <bottom>
+                <!-- Contenedor dinámico para los botones de opciones -->
+                <VBox id="opcionesContainer" fx:id="opcionesContainer" alignment="CENTER" prefHeight="150.0" prefWidth="360.0" spacing="10.0" BorderPane.alignment="CENTER" />
+            </bottom>
+        </BorderPane>
+      <BorderPane layoutY="643.0" prefHeight="77.0" prefWidth="360.0">
+         <bottom>
+                  <GridPane prefHeight="60.0" prefWidth="360.0" BorderPane.alignment="CENTER">
+                      <columnConstraints>
+                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
+                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
+                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                          <RowConstraints minHeight="10.0" prefHeight="60.0" valignment="TOP" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                      <children>
+                          <Button id="btnComprobar" fx:id="btnComprobar" mnemonicParsing="false" prefHeight="40.0" prefWidth="117.0" style="-fx-background-color: #061A3B; -fx-background-radius: 15; -fx-cursor: hand;" text="COMPROBAR" textFill="WHITE" GridPane.columnIndex="1">
+                              <font>
+                                  <Font size="15.0" />
+                              </font>
+                          </Button>
+                      </children>
+                  </GridPane>
+         </bottom>
+      </BorderPane>
+    </children>
+</AnchorPane>

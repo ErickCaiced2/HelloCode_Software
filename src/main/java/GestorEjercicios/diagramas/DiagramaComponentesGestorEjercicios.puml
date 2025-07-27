@@ -1,0 +1,256 @@
+@startuml DiagramaComponentesGestorEjercicios
+
+!define COMPONENT component
+
+' Estilos
+skinparam component {
+    BackgroundColor LightBlue
+    BorderColor DarkBlue
+    FontColor Black
+}
+
+skinparam interface {
+    BackgroundColor LightGreen
+    BorderColor DarkGreen
+    FontColor Black
+}
+
+skinparam package {
+    BackgroundColor LightYellow
+    BorderColor DarkYellow
+    FontColor Black
+}
+
+' ===== COMPONENTES PRINCIPALES =====
+package "GestorEjercicios" {
+    
+    component "GestorEjerciciosEntry" as Entry {
+        [Punto de Entrada]
+        [Inicialización]
+        [Métodos Estáticos]
+    }
+    
+    component "GestorEjerciciosPrincipal" as Principal {
+        [Implementación Principal]
+        [Gestión de Lecciones]
+        [Singleton Pattern]
+    }
+    
+    component "GestorLecciones" as GestorLecciones {
+        [Almacenamiento de Lecciones]
+        [CRUD de Lecciones]
+        [Búsqueda por ID]
+    }
+    
+    component "Leccion" as Leccion {
+        [Modelo de Lección]
+        [Gestión de Ejercicios]
+        [Cálculo de Recompensas]
+    }
+    
+    component "GestorProgresoUsuario" as GestorProgreso {
+        [Seguimiento de Progreso]
+        [Cálculo de Experiencia]
+        [Gestión de Conocimiento]
+        [Estadísticas de Usuario]
+    }
+    
+    component "ConfiguracionGestorEjercicios" as Config {
+        [Constantes del Sistema]
+        [Cálculos de Recompensas]
+        [Validaciones]
+    }
+}
+
+' ===== PAQUETE DE ADAPTADORES =====
+package "Adaptadores" {
+    
+    component "FabricaAdaptadores" as FabricaAdaptadores {
+        [Creación de Adaptadores]
+        [Detección de Tipos]
+    }
+    
+    component "AdaptadorEjercicioSeleccion" as AdaptadorSeleccion {
+        [Adaptación de Selección Múltiple]
+        [Evaluación de Respuestas]
+    }
+    
+    component "AdaptadorEjercicioCompletarCodigo" as AdaptadorCompletar {
+        [Adaptación de Completar Código]
+        [Evaluación de Respuestas]
+    }
+}
+
+' ===== PAQUETE DE ESTRATEGIAS =====
+package "Estrategias" {
+    
+    component "FabricaEstrategiasLeccion" as FabricaEstrategias {
+        [Creación de Estrategias]
+        [Selección por Tipo]
+    }
+    
+    component "EstrategiaLeccionNormal" as EstrategiaNormal {
+        [Comportamiento Normal]
+        [Límite de Ejercicios]
+    }
+    
+    component "EstrategiaLeccionPrueba" as EstrategiaPrueba {
+        [Comportamiento de Prueba]
+        [Gestión de Fallos]
+    }
+}
+
+' ===== PAQUETE DE INTEGRACIÓN =====
+package "Integración" {
+    
+    interface "IGestorEjercicios" as IGestor {
+        [Interfaz de Integración]
+        [Métodos Públicos]
+        [Contrato del Sistema]
+    }
+}
+
+' ===== PAQUETE DE MODELOS =====
+package "Modelos" {
+    
+    component "ResultadoEvaluacion" as ResultadoEvaluacion {
+        [Resultado de Evaluación]
+        [Porcentaje de Acierto]
+        [Mensajes de Feedback]
+    }
+    
+    component "ProgresoUsuario" as ProgresoUsuario {
+        [Datos de Progreso]
+        [Lecciones Completadas]
+        [Estadísticas Acumuladas]
+    }
+    
+    component "LeccionCompletada" as LeccionCompletada {
+        [Información de Completado]
+        [Fecha de Completado]
+        [Recompensas Ganadas]
+    }
+}
+
+' ===== PAQUETE DE ENUMS =====
+package "Enums" {
+    
+    component "TipoLeccion" as TipoLeccion {
+        [NORMAL]
+        [PRUEBA]
+        [DIAGNOSTICO]
+    }
+    
+    component "TipoEjercicio" as TipoEjercicio {
+        [SELECCION_MULTIPLE]
+        [COMPLETAR_CODIGO]
+    }
+    
+    component "NivelDificultad" as NivelDificultad {
+        [BASICO]
+        [INTERMEDIO]
+        [AVANZADO]
+    }
+    
+    component "LenguajeProgramacion" as LenguajeProgramacion {
+        [JAVA]
+        [PYTHON]
+        [JAVASCRIPT]
+    }
+}
+
+' ===== MÓDULOS EXTERNOS =====
+package "Módulos Externos" {
+    
+    component "Modulo_Usuario" as ModuloUsuario {
+        [Usuario]
+        [UsuarioComunidad]
+        [UsuarioAdministrador]
+    }
+    
+    component "Modulo_Ejercicios" as ModuloEjercicios {
+        [EjercicioSeleccion]
+        [EjercicioCompletarCodigo]
+        [EjercicioBase]
+    }
+    
+    component "Modulo_Gamificacion" as ModuloGamificacion {
+        [Sistema de Logros]
+        [Puntos y Niveles]
+        [Rankings]
+    }
+}
+
+' ===== RELACIONES =====
+
+' Relaciones principales
+Entry --> Principal : usa
+Principal ..|> IGestor : implementa
+Principal --> GestorLecciones : usa
+Principal --> GestorProgreso : usa
+Principal --> Config : usa
+
+' Relaciones de adaptadores
+FabricaAdaptadores --> AdaptadorSeleccion : crea
+FabricaAdaptadores --> AdaptadorCompletar : crea
+Leccion --> FabricaAdaptadores : usa
+AdaptadorSeleccion --> ResultadoEvaluacion : usa
+AdaptadorCompletar --> ResultadoEvaluacion : usa
+
+' Relaciones de estrategias
+FabricaEstrategias --> EstrategiaNormal : crea
+FabricaEstrategias --> EstrategiaPrueba : crea
+Leccion --> FabricaEstrategias : usa
+
+' Relaciones de modelos
+GestorProgreso --> ProgresoUsuario : usa
+GestorProgreso --> LeccionCompletada : usa
+IGestor --> ResultadoEvaluacion : usa
+
+' Relaciones con módulos externos
+Entry --> ModuloUsuario : integra
+Entry --> ModuloEjercicios : integra
+GestorProgreso --> ModuloUsuario : actualiza
+Entry --> ModuloGamificacion : proporciona datos
+
+' Relaciones de enums
+Leccion --> TipoLeccion : usa
+AdaptadorSeleccion --> TipoEjercicio : usa
+AdaptadorCompletar --> TipoEjercicio : usa
+AdaptadorSeleccion --> NivelDificultad : usa
+AdaptadorCompletar --> NivelDificultad : usa
+AdaptadorSeleccion --> LenguajeProgramacion : usa
+AdaptadorCompletar --> LenguajeProgramacion : usa
+
+' ===== NOTAS EXPLICATIVAS =====
+note top of Entry
+  Punto de entrada principal
+  para otros módulos
+end note
+
+note top of Principal
+  Implementación Singleton
+  del gestor principal
+end note
+
+note top of GestorProgreso
+  Maneja experiencia y
+  conocimiento de usuarios
+end note
+
+note top of FabricaAdaptadores
+  Patrón Factory para
+  crear adaptadores
+end note
+
+note top of FabricaEstrategias
+  Patrón Factory para
+  crear estrategias
+end note
+
+note top of IGestor
+  Interfaz de integración
+  para otros módulos
+end note
+
+@enduml 

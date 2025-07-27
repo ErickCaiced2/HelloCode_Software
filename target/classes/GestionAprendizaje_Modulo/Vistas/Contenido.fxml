@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="640.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionAprendizaje_Modulo.Controladores.EntradaController">
+   <children>
+      <Button fx:id="buttonModulo" layoutX="149.0" layoutY="415.0" mnemonicParsing="false" onAction="#elegirMosulo" text="modulos" />
+      <Text layoutX="66.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CONTENIDO PRUEBA" textAlignment="CENTER" underline="true">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

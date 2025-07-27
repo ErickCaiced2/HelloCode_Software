@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="640.0" prefWidth="360.0" style="-fx-background-color: linear-gradient(to bottom, #0b0c3c, #16a1d6);" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestorEjercicios.Controllers.PantallaPrincipalController">
+
+    <!-- Encabezado superior -->
+    <HBox alignment="CENTER_LEFT" layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="360.0" spacing="10.0" style="-fx-padding: 0 10 0 10;">
+        <Label text="JAVA" textFill="white">
+            <font>
+                <Font name="Impact" size="20.0" />
+            </font>
+        </Label>
+        <Label text="🔥25" textFill="white">
+            <font>
+                <Font name="Inter Bold" size="12" />
+            </font>
+        </Label>
+        <Label text="⚡1500" textFill="white">
+            <font>
+                <Font name="Inter Bold" size="12" />
+            </font>
+        </Label>
+        <Label text="☀ 4" textFill="white">
+            <font>
+                <Font name="Inter Bold" size="12" />
+            </font>
+        </Label>
+    </HBox>
+
+    <!-- Lección título -->
+    <VBox layoutX="20.0" layoutY="50.0" spacing="10">
+        <Label text="CAPITULO 1" textFill="white">
+            <font>
+                <Font name="Impact" size="20.0" />
+            </font>
+        </Label>
+        <Label alignment="CENTER" prefWidth="320" style="-fx-background-color: #d3dbe3; -fx-padding: 10; -fx-background-radius: 5; -fx-font-weight: bold;" text="Introducción" textAlignment="CENTER">
+            <font>
+                <Font name="Impact" size="18.0" />
+            </font></Label>
+    </VBox>
+
+    <!-- Botón FINAL -->
+    <Button fx:id="btnCrearLeccion" layoutX="48.0" layoutY="162.0" prefHeight="42.0" prefWidth="119.0" style="-fx-background-color: #0a1a3a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" text="FINAL">
+        <font>
+            <Font name="Impact" size="20.0" />
+        </font>
+    </Button>
+
+    <!-- Números en zig-zag -->
+    <Button fx:id="btnEstadisticas" layoutX="195.0" layoutY="194.0" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #0a1a3a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 50;" text="5">
+        <font>
+            <Font name="Impact" size="22.0" />
+        </font></Button>
+
+    <Button fx:id="btnConfiguracion" layoutX="233.0" layoutY="350.0" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #0a1a3a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 50;" text="4">
+        <font>
+            <Font name="Impact" size="22.0" />
+        </font></Button>
+
+    <Button fx:id="btnLeccion3" layoutX="70.0" layoutY="285.0" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #0a1a3a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 50;" text="3">
+        <font>
+            <Font name="Impact" size="22.0" />
+        </font></Button>
+
+    <Button fx:id="btnLeccion2" layoutX="60.0" layoutY="425.0" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #0a1a3a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 50;" text="2">
+        <font>
+            <Font name="Impact" size="22.0" />
+        </font></Button>
+
+    <Button fx:id="btnSalir" layoutX="173.0" layoutY="513.0" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #0a1a3a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 50;" text="1">
+        <font>
+            <Font name="Impact" size="22.0" />
+        </font></Button>
+
+
+    <!-- Barra inferior con íconos -->
+    <HBox alignment="CENTER" layoutY="580.0" prefWidth="360.0" spacing="20" style="-fx-padding: 10;">
+        <Button style="-fx-background-color: transparent; -fx-text-fill: white;" text="✏️">
+            <font>
+                <Font size="27.0" />
+            </font></Button>
+        <Button style="-fx-background-color: transparent; -fx-text-fill: white;" text="🏆">
+            <font>
+                <Font size="27.0" />
+            </font></Button>
+        <Button style="-fx-background-color: transparent; -fx-text-fill: white;" text="👥">
+            <font>
+                <Font size="30.0" />
+            </font></Button>
+        <Button fx:id="btnSalirReal" style="-fx-background-color: transparent; -fx-text-fill: white;" text="🚪">
+            <font>
+                <Font size="27.0" />
+            </font></Button>
+    </HBox>
+
+</AnchorPane>

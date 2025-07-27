@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" 
+            prefHeight="720.0" prefWidth="360.0" stylesheets="@../../styles/styles.css"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Gamificacion_Modulo.GUI.admin.CrearDesafioMensualController">
+   <VBox spacing="12">
+      <padding>
+         <Insets top="15" left="15" right="15" bottom="15"/>
+      </padding>
+   
+   <!-- Header -->
+   <VBox spacing="5" styleClass="header">
+      <Label text="📋 Crear Desafío Mensual" styleClass="title"/>
+      <Label text="Define un nuevo desafío mensual para los usuarios" styleClass="subtitle"/>
+   </VBox>
+   
+      <!-- Objetivo Mensual -->
+      <VBox spacing="6" styleClass="card">
+         <padding>
+            <Insets top="12" left="12" right="12" bottom="12"/>
+         </padding>
+         <Label text="🎯 Objetivo Mensual" styleClass="section-title"/>
+         
+         <VBox spacing="4">
+            <Label text="Número de actividades por mes:" styleClass="field-label"/>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+               <Slider fx:id="sliderObjetivo" min="10" max="100" value="20" prefWidth="250" showTickLabels="true" showTickMarks="true"/>
+               <Label fx:id="lblObjetivo" text="20" styleClass="points-label"/>
+            </HBox>
+            <Label text="Los usuarios deberán completar esta cantidad de actividades cada mes" 
+                   styleClass="help-text" wrapText="true"/>
+         </VBox>
+      </VBox>
+   
+      <!-- Logros Asociados -->
+      <VBox spacing="6" styleClass="card">
+         <padding>
+            <Insets top="12" left="12" right="12" bottom="12"/>
+         </padding>
+         <Label text="🏆 Logros Asociados" styleClass="section-title"/>
+         <Label fx:id="lblLogrosSeleccionados" text="0 logros seleccionados" styleClass="field-label"/>
+         
+         <ScrollPane prefHeight="200" fitToWidth="true" hbarPolicy="NEVER">
+            <VBox fx:id="vboxLogros" spacing="4">
+               <!-- Contenido generado dinámicamente -->
+            </VBox>
+         </ScrollPane>
+         
+         <Label text="Selecciona los logros que los usuarios pueden obtener al completar este desafío" 
+                styleClass="help-text" wrapText="true"/>
+      </VBox>
+   
+      <!-- Vista Previa -->
+      <VBox spacing="6" styleClass="card preview-card">
+         <padding>
+            <Insets top="12" left="12" right="12" bottom="12"/>
+         </padding>
+         <Label text="👀 Vista Previa" styleClass="section-title"/>
+         <VBox fx:id="vboxVistaPrevia" spacing="4" styleClass="preview-content">
+            <!-- Contenido generado dinámicamente -->
+         </VBox>
+      </VBox>
+   
+      <!-- Botones de Acción -->
+      <HBox spacing="10" alignment="CENTER">
+         <Button fx:id="btnCancelar" text="Cancelar" onAction="#onCancelarClicked" 
+                 styleClass="secondary-button" prefWidth="120"/>
+         <Button fx:id="btnCrear" text="Crear Desafío" onAction="#onCrearClicked" 
+                 styleClass="primary-button" prefWidth="120"/>
+      </HBox>
+   </VBox>
+</ScrollPane> 

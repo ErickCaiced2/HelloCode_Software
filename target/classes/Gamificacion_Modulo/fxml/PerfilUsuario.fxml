@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+
+
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Gamificacion_Modulo.GUI.controllers.PerfilUsuarioController"
+      styleClass="gamificacion"
+      spacing="20" alignment="TOP_CENTER"
+      prefWidth="360"
+      prefHeight="720">
+
+    <stylesheets>
+        <URL value="@../styles/styles.css"/>
+    </stylesheets>
+
+    <VBox styleClass="profile-container">
+        <!-- Header con foto de perfil -->
+        <StackPane styleClass="profile-header">
+            <ImageView fitWidth="120" fitHeight="120" styleClass="profile-picture">
+                <Image url="@../images/Ellipse 4.png"/>
+            </ImageView>
+        </StackPane>
+
+        <VBox styleClass="profile-content" spacing="15">
+            <!-- Botones de navegación -->
+            <HBox alignment="CENTER" spacing="10">
+                <Button fx:id="volverComunidadBtn" onAction="#volverAComunidad" 
+                        text="← Volver a Comunidad" 
+                        style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8 16; -fx-font-size: 12px;"
+                        prefWidth="180"/>
+                <Button fx:id="adminBtn" onAction="#abrirPanelAdmin" 
+                        text="🛠️ Admin" 
+                        style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8 16; -fx-font-size: 12px;"
+                        prefWidth="100"/>
+            </HBox>
+            
+            <!-- Selector de estudiante -->
+            <VBox alignment="CENTER" spacing="10">
+                <Label text="Seleccionar Estudiante:" styleClass="section-subtitle"/>
+                <ComboBox fx:id="estudianteSelector" prefWidth="200" onAction="#cambiarEstudiante"/>
+            </VBox>
+            
+            <!-- Información del perfil -->
+            <Label fx:id="userName" text="Cargando..." styleClass="profile-name"/>
+            <Label fx:id="userEmail" text="@cargando..." styleClass="profile-username"/>
+
+            <Label text="RESUMEN" styleClass="section-title"/>
+
+            <!-- Resumen de EXP -->
+            <HBox styleClass="exp-summary" alignment="CENTER" spacing="20">
+                <HBox styleClass="exp-total" alignment="CENTER" spacing="10">
+                    <ImageView fitWidth="40" fitHeight="40" styleClass="exp-icon">
+                        <Image url="@../images/icono_experiencia.png"/>
+                    </ImageView>
+                    <Label text="EXP&#10;Totales" textAlignment="CENTER"/>
+                </HBox>
+                <Label fx:id="expPoints" text="0" styleClass="exp-value"/>
+            </HBox>
+
+            <!-- Sección de Desafíos -->
+            <VBox styleClass="challenges" spacing="10">
+                <HBox alignment="CENTER_LEFT" spacing="50">
+                    <Label text="Desafíos" styleClass="section-subtitle"/>
+                    <Hyperlink fx:id="verProgresoDesafios" onAction="#verProgresoDesafios" text="Ver progreso" styleClass="progress-link"/>
+                </HBox>
+
+                <HBox styleClass="challenge-stats" spacing="30">
+                    <VBox styleClass="challenge-item" alignment="CENTER">
+                        <Label fx:id="desafiosSemanales" text="0" styleClass="challenge-value"/>
+                        <Label text="Semanales" styleClass="challenge-label"/>
+                    </VBox>
+                    <VBox styleClass="challenge-item" alignment="CENTER">
+                        <Label fx:id="desafiosMensuales" text="0" styleClass="challenge-value"/>
+                        <Label text="Mensuales" styleClass="challenge-label"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <!-- Sección de Logros -->
+            <VBox styleClass="achievements" spacing="10">
+                <HBox alignment="CENTER_LEFT" spacing="50">
+                    <Label text="Logros" styleClass="section-subtitle"/>
+                    <Hyperlink fx:id="verProgresoLogros" onAction="#verProgresoLogros" text="Ver progreso" styleClass="progress-link"/>
+                </HBox>
+
+                <HBox fx:id="achievementList" styleClass="achievement-list" spacing="20">
+                    <!-- Los logros se cargarán dinámicamente -->
+                </HBox>
+            </VBox>
+        </VBox>
+
+        <!-- Barra de navegación inferior -->
+    </VBox>
+    
+    <!-- Navigation Bar -->
+    <HBox fx:id="navigationBar" prefHeight="74.0" alignment="CENTER" spacing="30.0"
+          style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 0 0 0;">
+          
+       <!-- Button 1 - Desafios -->
+       <Button fx:id="navButton1" onAction="#navButton1" prefHeight="60.0" prefWidth="65.0"
+               style="-fx-background-color: #a6b1e1; -fx-background-radius: 5; -fx-border-radius: 5;">
+          <graphic>
+             <ImageView fitHeight="40.0" fitWidth="40.0" preserveRatio="true">
+                <image>
+                   <Image url="@../images/Rectangle 44.png" />
+                </image>
+             </ImageView>
+          </graphic>
+       </Button>
+       
+       <!-- Button 2 - Perfil (Current) -->
+       <Button fx:id="navButton2" onAction="#navButton2" prefHeight="60.0" prefWidth="65.0"
+               style="-fx-background-color: #9fa8da; -fx-background-radius: 5; -fx-border-radius: 5;">
+          <graphic>
+             <ImageView fitHeight="40.0" fitWidth="40.0" preserveRatio="true">
+                <image>
+                   <Image url="@../images/Rectangle 45.png" />
+                </image>
+             </ImageView>
+          </graphic>
+       </Button>
+       
+       <!-- Button 3 - Ranking -->
+       <Button fx:id="navButton3" onAction="#navButton3" prefHeight="60.0" prefWidth="65.0"
+               style="-fx-background-color: #a6b1e1; -fx-background-radius: 5; -fx-border-radius: 5;">
+          <graphic>
+             <ImageView fitHeight="40.0" fitWidth="40.0" preserveRatio="true">
+                <image>
+                   <Image url="@../images/image 13.png" />
+                </image>
+             </ImageView>
+          </graphic>
+       </Button>
+    </HBox>
+</VBox>

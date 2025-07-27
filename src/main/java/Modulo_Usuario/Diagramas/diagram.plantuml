@@ -1,0 +1,103 @@
+@startuml
+
+class Usuario {
+    - String username
+    - String password
+    - String nombre
+    - String email
+
+    + Usuario()
+    + Usuario(String username, String password)
+    + Usuario(String username, String password, String nombre, String email)
+    + String getUsername()
+    + void setUsername(String username)
+    + String getPassword()
+    + void setPassword(String password)
+    + String getNombre()
+    + void setNombre(String nombre)
+    + String getEmail()
+    + void setEmail(String email)
+    + String toString()
+    + static Usuario fromString(String linea)
+}
+
+class UsuarioComunidad[object Object]- String idUsuario
+    - NivelJava nivelJava
+    - Integer reputacion
+    - List<UsuarioTemp> amigos
+
+    + UsuarioComunidad()
+    + UsuarioComunidad(String username, String password, String nombre, String email)
+    + UsuarioComunidad(String username, String password, String nombre, String email, String idUsuario, NivelJava nivelJava, Integer reputacion)
+    + String getIdUsuario()
+    + void setIdUsuario(String idUsuario)
+    + NivelJava getNivelJava()
+    + void setNivelJava(NivelJava nivelJava)
+    + Integer getReputacion()
+    + void setReputacion(Integer reputacion)
+    + List<UsuarioTemp> getAmigos()
+    + void setAmigos(List<UsuarioTemp> amigos)
+    + void agregarAmigo(UsuarioTemp amigo)
+    + void eliminarAmigo(UsuarioTemp amigo)
+    + void incrementarReputacion(int puntos)
+    + void decrementarReputacion(int puntos)
+    + String toString()
+}
+
+class UsuarioAdministrador[object Object]  - String idAdmin
+    - List<String> permisos
+    - Integer nivelAcceso
+    - Boolean esSuperAdmin
+
+    + UsuarioAdministrador()
+    + UsuarioAdministrador(String username, String password, String nombre, String email)
+    + UsuarioAdministrador(String username, String password, String nombre, String email, String idAdmin, Integer nivelAcceso, Boolean esSuperAdmin)
+    + String getIdAdmin()
+    + void setIdAdmin(String idAdmin)
+    + List<String> getPermisos()
+    + void setPermisos(List<String> permisos)
+    + Integer getNivelAcceso()
+    + void setNivelAcceso(Integer nivelAcceso)
+    + Boolean getEsSuperAdmin()
+    + void setEsSuperAdmin(Boolean esSuperAdmin)
+    + void agregarPermiso(String permiso)
+    + void eliminarPermiso(String permiso)
+    + Boolean tienePermiso(String permiso)
+    + void incrementarNivelAcceso()
+    + void decrementarNivelAcceso()
+    + String toString()
+}
+
+class UsuarioTemp[object Object]- String idUsuario
+    - NivelJava nivelJava
+
+    + UsuarioTemp()
+    + UsuarioTemp(String username, String password, String nombre, String email)
+    + UsuarioTemp(String username, String password, String nombre, String email, String idUsuario, NivelJava nivelJava)
+    + UsuarioTemp(String idUsuario, String nombre, NivelJava nivelJava)
+    + String getIdUsuario()
+    + void setIdUsuario(String idUsuario)
+    + NivelJava getNivelJava()
+    + void setNivelJava(NivelJava nivelJava)
+    + String toString()
+    + static UsuarioTemp fromString(String linea)
+}
+
+enum NivelJava [object Object]
+    PRINCIPIANTE
+    INTERMEDIO
+    AVANZADO
+    EXPERTO
+}
+
+ Relaciones de herencia
+UsuarioComunidad --|> Usuario
+UsuarioAdministrador --|> Usuario
+UsuarioTemp --|> Usuario
+
+' Relaciones de asociación
+UsuarioComunidad "0..*" --1uarioTemp : amigos
+UsuarioComunidad "1-- "1" NivelJava : nivelJava
+UsuarioTemp "1-- "1" NivelJava : nivelJava
+
+@enduml

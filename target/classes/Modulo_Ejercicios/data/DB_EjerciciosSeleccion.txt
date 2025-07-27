@@ -1,0 +1,29 @@
+¿Cuál de estos es un tipo de dato entero en Java?|String,boolean,double,int,Integer|int,Integer|BASICO|JAVA
+¿Qué tipo se usa para verdadero o falso?|String,boolean,double,int|boolean|BASICO|JAVA
+¿Cuáles de estos son tipos de datos primitivos en Java?|int,String,double,boolean,Integer,char|int,double,boolean,char|BASICO|JAVA
+¿Cuál es la palabra clave para declarar una constante en Java?|var,const,final,static|final|INTERMEDIO|JAVA
+¿Qué método se usa para imprimir en consola sin salto de línea?|println,print,printf,out|print|BASICO|JAVA
+¿Cuál de estos es un tipo de dato entero en Python?|int,float,str,bool|int|BASICO|PYTHON
+¿Qué función se usa para mostrar texto en Python?|echo,print,cout,write|print|BASICO|PYTHON
+¿Cómo se declara una función en Python?|function,def,func,declare|def|BASICO|PYTHON
+¿Cuál de estas estructuras permite repetir código mientras una condición sea verdadera?|for,while,repeat,loop|while|INTERMEDIO|PYTHON
+¿Qué módulo se usa para manejar expresiones regulares en Python?|regex,re,rex,expression|re|INTERMEDIO|PYTHON
+¿Cuál de estos es un tipo de dato entero en C?|int,float,double,char|int|BASICO|C
+¿Qué operador se usa para acceder a la dirección de una variable en C?|*,&,%,#|&|INTERMEDIO|C
+¿Cuál es la palabra clave para declarar una función que no retorna valor en C?|void,int,float,none|void|BASICO|C
+¿Cómo se indica un comentario de una sola línea en C?|//,/*,**,##|//|BASICO|C
+¿Qué función se usa para imprimir texto en consola en C?|printf,print,cout,echo|printf|BASICO|C
+¿Cuál es el operador para concatenar cadenas en PHP?|.,+,&,%,#|.|BASICO|PHP
+¿Qué símbolo indica el inicio de una variable en PHP?|$,%,&,#|$|BASICO|PHP
+¿Cómo se declara un array en PHP?|array(),[],{},()|array(),[]|BASICO|PHP
+¿Qué función se usa para imprimir texto en PHP?|echo,print,printf,cout|echo|BASICO|PHP
+¿Cuál de estas es una estructura de control condicional en PHP?|if,when,cond,select|if|BASICO|PHP
+¿Cuál palabra reservada se usa para herencia en Java?|extends,implements,inherit,super|extends|INTERMEDIO|JAVA
+¿Cómo se crea un diccionario en Python?|{},[],(),dict()|{},dict()|INTERMEDIO|PYTHON
+¿Qué palabra clave en C se usa para reservar memoria dinámicamente?|malloc,alloc,new,create|malloc|INTERMEDIO|C
+¿Cuál es la función para iniciar una sesión en PHP?|session_start(),start_session(),init_session(),begin_session()|session_start()|INTERMEDIO|PHP
+¿Cómo se declara una clase en Java?|class,object,struct,define|class|BASICO|JAVA
+¿Qué palabra clave en Java indica que un método puede lanzar excepciones?|throws,throw,exception,error|throws|AVANZADO|JAVA
+¿Cómo se manejan excepciones en Python?|try/catch,try/except,catch/except,handle|try/except|AVANZADO|PYTHON
+¿Cuál es el prototipo de la función principal en C para programas estándar?|int main(),void main(),main(),start()|int main()|BASICO|C
+¿Cómo se hace una conexión a base de datos en PHP?|mysqli_connect(),db_connect(),connect_db(),open_db()|mysqli_connect()|INTERMEDIO|PHP
