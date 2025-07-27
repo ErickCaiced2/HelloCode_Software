@@ -53,7 +53,6 @@ module Modulo_Ejercicio {
     exports Modulo_Usuario.application;
 
     exports GestorEjercicios.Controllers;
-    exports GestorEjercicios.filtros;
     exports GestorEjercicios.model;
     exports GestorEjercicios.main; //Siempre me daba fallo pporque falta este export xd
 

@@ -187,7 +187,12 @@ public class LeccionController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Modulo_Ejercicios/views/SeleccionMultiple-view.fxml"));
             Parent root = loader.load();
             Modulo_Ejercicios.Controladores.EjercicioSeleccionController controller = loader.getController();
-            controller.setEjercicios(leccion.getEjerciciosSeleccion());
+            // Convertir la lista de AdaptadorEjercicios a EjercicioSeleccion
+            List<EjercicioSeleccion> ejerciciosSeleccion = leccion.getEjercicios().stream()
+                    .filter(e -> e instanceof GestorEjercicios.adaptadores.AdaptadorEjercicioSeleccion)
+                    .map(e -> ((GestorEjercicios.adaptadores.AdaptadorEjercicioSeleccion) e).obtenerEjercicioOriginal())
+                    .collect(Collectors.toList());
+            controller.setEjercicios(ejerciciosSeleccion);
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Ejercicios Selección Múltiple");
