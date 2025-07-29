@@ -226,7 +226,7 @@ public class CrudController {
                 return new UsuarioComunidad(username, password, nombre, email, username, nivelJava, reputacion);
 
             case "Usuario Administrador":
-                Roles rol = rolAdminCombo != null ? rolAdminCombo.getValue() : Roles.ADMIN_USUARIO;
+                Roles rol = rolAdminCombo != null ? rolAdminCombo.getValue() : Roles.ADMINISTRADOR;
                 Boolean esSuperAdmin = esSuperAdminCheck.isSelected();
                 return new UsuarioAdministrador(username, password, nombre, email, username, rol, esSuperAdmin);
 

@@ -4,6 +4,7 @@ package Modulo_Usuario.Clases;
 public class UsuarioAdministrador extends Usuario {
     private String idAdmin;
     private Boolean esSuperAdmin;
+    private static String passwordCreacion =  "12345";
 
     // Constructor por defecto
     public UsuarioAdministrador() {
@@ -26,6 +27,10 @@ public class UsuarioAdministrador extends Usuario {
         this.idAdmin = idAdmin;
         this.setRol(rol);
         this.esSuperAdmin = esSuperAdmin;
+    }
+
+    public static String getPasswordCreacion() {
+        return passwordCreacion;
     }
 
     // Getters y Setters

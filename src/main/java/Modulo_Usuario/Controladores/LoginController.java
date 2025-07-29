@@ -57,6 +57,7 @@ public class LoginController {
             }
 
             System.out.println("Usuarios cargados: " + usuarios.size());
+            SesionManager.getInstancia().guardarUsuarios(usuarios);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,6 +1,7 @@
 package Modulo_Usuario.Controladores;
 
 import Gamificacion_Modulo.clases.Main;
+import MetodosGlobales.MetodosFrecuentes;
 import Modulo_Usuario.Clases.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,7 +53,8 @@ public class HomeUsuarioController {
 
     @FXML
     private void irAComunidad(ActionEvent event) {
-        mostrarMensaje("Comunidad", "Funcionalidad de comunidad próximamente");
+        MetodosFrecuentes.cambiarVentana((Stage) btnComunidad.getScene().getWindow(), "/Modulo_Comunidad/Views/Comunidad.fxml", "Comunidad");
+        //mostrarMensaje("Comunidad", "Funcionalidad de comunidad próximamente");
     }
 
     @FXML

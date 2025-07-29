@@ -11,14 +11,14 @@ public class Usuario extends UsuarioBase {
     public Usuario() {
         super();
         this.xp = 0;
-        this.rol = Roles.ADMIN_USUARIO;
+        this.rol = Roles.USUARIO;
     }
 
     // Constructor con parámetros
     public Usuario(String username, String password) {
         super(username, password);
         this.xp = 0;
-        this.rol = Roles.ADMIN_USUARIO;
+        this.rol = Roles.USUARIO;
     }
 
     // Constructor completo
@@ -27,7 +27,7 @@ public class Usuario extends UsuarioBase {
         this.nombre = nombre;
         this.email = email;
         this.xp = 0;
-        this.rol = Roles.ADMIN_USUARIO;
+        this.rol = Roles.USUARIO;
     }
 
     // Constructor con XP
@@ -36,7 +36,7 @@ public class Usuario extends UsuarioBase {
         this.nombre = nombre;
         this.email = email;
         this.xp = xp;
-        this.rol = Roles.ADMIN_USUARIO;
+        this.rol = Roles.USUARIO;
     }
 
     public Usuario(String username, String password, String nombre, String email, int xp, Roles rol) {
@@ -112,7 +112,7 @@ public class Usuario extends UsuarioBase {
                 try {
                     usuario.setRol(Roles.valueOf(datos[5]));
                 } catch (Exception e) {
-                    usuario.setRol(Roles.ADMIN_USUARIO);
+                    usuario.setRol(Roles.USUARIO);
                 }
             }
             return usuario;

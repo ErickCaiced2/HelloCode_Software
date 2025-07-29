@@ -71,7 +71,7 @@ public class EntradaComunidad_Controller {
     @FXML
     private void volverAHome(){
         MetodosFrecuentes.cambiarVentana((Stage) buttonVolver.getScene().getWindow(),
-                "/Modulo_Usuario/views/home.fxml", "Volver a Home - Modulos");
+                "/Modulo_Usuario/views/homeUsuario.fxml", "Volver a Home - Modulos");
     }
 
     @FXML

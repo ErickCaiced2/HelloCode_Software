@@ -1,7 +1,9 @@
-usuario1;pass1;Juan;juan@email.com;100;ADMIN_USUARIO
-comunidad1;pass2;Ana;ana@email.com;200;ADMIN_USUARIO
-admin1;adminpass;Carlos;carlos@email.com;300;ADMIN_GESTION_CONTENIDO
-Luis;123456;luis23;lagh@yahoo.com;0;ADMIN_USUARIO
-Prueba;123456;Prueba;prueba@prueba.com;0;ADMIN_USUARIO
-Pr;123;pr;pr@pr.com;0;ADMIN_USUARIO
+usuario1;pass1;Juan;juan@email.com;100;USUARIO
+comunidad1;pass2;Ana;ana@email.com;200;USUARIO
+admin1;adminpass;Carlos;carlos@email.com;300;USUARIO
+Luis;123456;luis23;lagh@yahoo.com;0;USUARIO
+Prueba;123456;Prueba;prueba@prueba.com;0;USUARIO
+Pr;123;pr;pr@pr.com;0;USUARIO
 prueba;123456;Prueba2;prueb2a@prueba.com;100;USUARIO
+hola;abcdefg;Hola;hola@epn.edu.ec;0;USUARIO
+JuanMateo;123456;Juan Mateo;juan.quisilema@epn.edu.ec;0;ADMINISTRADOR

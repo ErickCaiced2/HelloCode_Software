@@ -2,10 +2,12 @@ package Modulo_Usuario.Controladores;
 
 import Modulo_Usuario.Clases.Roles;
 import Modulo_Usuario.Clases.Usuario;
+import Modulo_Usuario.Clases.UsuarioAdministrador;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -24,13 +26,29 @@ public class RegisterController {
     @FXML private PasswordField contrasenaField;
     @FXML private PasswordField confirmarContrasenaField;
     @FXML private Label mensajeLabel;
+    @FXML private ComboBox<Roles> comboRol;
+    @FXML private PasswordField contraseniaAdmin;
+    @FXML private Label labelAdmin;
 
     private List<Usuario> usuarios = new ArrayList<>();
     private static final String USUARIOS_FILE = "src/main/java/Modulo_Usuario/Usuarios/usuarios.txt";
 
     @FXML
     public void initialize() {
+        contraseniaAdmin.setVisible(false);  // Oculta el campo si es INVITADO
+        labelAdmin.setVisible(false);
+
+        comboRol.getItems().addAll(Roles.values());
         cargarUsuarios();
+        comboRol.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal == Roles.USUARIO) {
+                contraseniaAdmin.setVisible(false);  // Oculta el campo si es INVITADO
+                labelAdmin.setVisible(false);
+            } else {
+                contraseniaAdmin.setVisible(true);   // Muestra el campo si es ADMIN o ESTUDIANTE
+                labelAdmin.setVisible(true);
+            }
+        });
     }
 
     private void cargarUsuarios() {
@@ -54,6 +72,7 @@ public class RegisterController {
             e.printStackTrace();
             mensajeLabel.setText("Error al cargar usuarios existentes: " + e.getMessage());
         }
+
     }
 
     @FXML
@@ -64,6 +83,7 @@ public class RegisterController {
         String username = usuarioField.getText().trim();
         String password = contrasenaField.getText();
         String confirmPassword = confirmarContrasenaField.getText();
+        String passwordAdmin = contraseniaAdmin.getText();
 
         // Validaciones
         if (nombre.isEmpty() || email.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
@@ -91,6 +111,20 @@ public class RegisterController {
             confirmarContrasenaField.clear();
             return;
         }
+        if(comboRol.getValue() == null){
+            mostrarMensaje("Por favor complete todos los campos", true);
+            return;
+        }
+        if(comboRol.getValue() == Roles.ADMINISTRADOR){
+            if(passwordAdmin.isEmpty()){
+                mostrarMensaje("Por favor complete todos los campos", true);
+                return;
+            }
+            if(!passwordAdmin.equals(UsuarioAdministrador.getPasswordCreacion())){
+                mostrarMensaje("Incorrecto password de creacion", true);
+                return;
+            }
+        }
 
         // Verificar si el usuario ya existe
         for (Usuario usuario : usuarios) {
@@ -100,15 +134,25 @@ public class RegisterController {
                 return;
             }
         }
+        Usuario nuevoUsuario;
+        if(comboRol.getValue() == Roles.ADMINISTRADOR){
+            // Crear nuevo usuario con rol USUARIO y xp inicial 0
+            nuevoUsuario = new Usuario(username, password, nombre, email,0,Roles.ADMINISTRADOR);
+            verificarGuardarUsuario(nuevoUsuario);
+        }
+        if(comboRol.getValue() == Roles.USUARIO){
+            nuevoUsuario = new Usuario(username, password, nombre, email, 0, Roles.USUARIO);
+            verificarGuardarUsuario(nuevoUsuario);
+        }
 
-        // Crear nuevo usuario con rol USUARIO y xp inicial 0
-        Usuario nuevoUsuario = new Usuario(username, password, nombre, email, 0, Roles.USUARIO);
-        
-        // Guardar usuario
+
+    }
+
+    private void verificarGuardarUsuario(Usuario nuevoUsuario) {
         if (guardarUsuario(nuevoUsuario)) {
             mostrarMensaje("Usuario registrado exitosamente", false);
             limpiarCampos();
-            
+
             // Esperar un momento y volver al login
             new Thread(() -> {
                 try {

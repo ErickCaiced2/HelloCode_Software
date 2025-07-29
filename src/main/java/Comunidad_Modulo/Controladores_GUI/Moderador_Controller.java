@@ -237,7 +237,7 @@ public class Moderador_Controller implements Initializable {
     private boolean esModeradorAutenticado() {
         MetodosGlobales.SesionManager sesion = MetodosGlobales.SesionManager.getInstancia();
         return sesion.hayUsuarioAutenticado() &&
-           sesion.getUsuarioComunidad().getRol() == Roles.ADMIN_COMUNIDAD;
+           sesion.getUsuarioComunidad().getRol() == Roles.ADMINISTRADOR;
     }
 
     private void actualizarInformacion() {

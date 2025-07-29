@@ -4,6 +4,8 @@ import Modulo_Usuario.Clases.Usuario;
 import Modulo_Usuario.Clases.UsuarioComunidad;
 import Modulo_Usuario.Clases.NivelJava;
 
+import java.util.List;
+
 /**
  * Gestor de sesión global para mantener el usuario autenticado
  * a través de todos los módulos del sistema.
@@ -12,6 +14,7 @@ public class SesionManager {
     private static SesionManager instancia;
     private Usuario usuarioAutenticado;
     private UsuarioComunidad usuarioComunidad;
+    private List<Usuario> usuarios;
     
     private SesionManager() {}
     
@@ -21,7 +24,11 @@ public class SesionManager {
         }
         return instancia;
     }
-    
+
+    public void guardarUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+
     /**
      * Inicia sesión con un usuario
      */
@@ -40,7 +47,7 @@ public class SesionManager {
         this.usuarioComunidad = null;
         System.out.println("Sesión cerrada");
     }
-    
+    public List<Usuario> getUsuarios() {return usuarios;}
     /**
      * Verifica si hay un usuario autenticado
      */

@@ -1,98 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Modulo_Usuario.Controladores.RegisterController"
-            prefWidth="360.0" prefHeight="640.0"
-            style="-fx-background-color: #424874;">
-    <VBox alignment="CENTER" spacing="24" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
+<AnchorPane prefHeight="640.0" prefWidth="360.0" style="-fx-background-color: #424874;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Modulo_Usuario.Controladores.RegisterController">
+    <VBox alignment="CENTER" spacing="24" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
         <padding>
-            <Insets top="24" right="18" bottom="18" left="18"/>
+            <Insets bottom="18" left="18" right="18" top="24" />
         </padding>
 
         <!-- Logo y título -->
         <VBox alignment="CENTER" spacing="12">
-            <StackPane style="-fx-background-color: #A6B1E1; -fx-background-radius: 40; -fx-effect: dropshadow(gaussian, #424874, 8, 0.3, 0, 0);" prefWidth="80" prefHeight="80">
-                <Label text="👤" style="-fx-font-size: 44px;"/>
+            <StackPane prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #A6B1E1; -fx-background-radius: 40; -fx-effect: dropshadow(gaussian, #424874, 8, 0.3, 0, 0);">
+                <Label style="-fx-font-size: 44px;" text="👤" />
             </StackPane>
-            <Label text="Hello Code Software" style="-fx-text-fill: #DCD6F7; -fx-font-size: 22px; -fx-font-weight: bold;"/>
-            <Label text="Registro de Usuario" style="-fx-text-fill: #A6B1E1; -fx-font-size: 15px;"/>
+            <Label style="-fx-text-fill: #DCD6F7; -fx-font-size: 22px; -fx-font-weight: bold;" text="Hello Code Software" />
+            <Label style="-fx-text-fill: #A6B1E1; -fx-font-size: 15px;" text="Registro de Usuario" />
         </VBox>
 
         <!-- Panel de registro -->
-        <ScrollPane fitToWidth="true" fitToHeight="true" style="-fx-background: transparent; -fx-background-color: transparent;">
-            <VBox alignment="CENTER" spacing="16"
-                  style="-fx-background-color: #DCD6F7; -fx-background-radius: 18; -fx-effect: dropshadow(gaussian, #424874, 8, 0.2, 0, 0);"
-                  maxWidth="320">
+        <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;">
+            <VBox alignment="CENTER" maxWidth="320" spacing="16" style="-fx-background-color: #DCD6F7; -fx-background-radius: 18; -fx-effect: dropshadow(gaussian, #424874, 8, 0.2, 0, 0);">
                 <padding>
-                    <Insets top="24" right="20" bottom="24" left="20"/>
+                    <Insets bottom="24" left="20" right="20" top="24" />
                 </padding>
-
-                <!-- Campo Nombre -->
+      
+                      <!-- Campo Nombre -->
                 <VBox spacing="6">
-                    <Label text="Nombre Completo" style="-fx-text-fill: #424874; -fx-font-weight: bold; -fx-font-size: 13px;"/>
-                    <TextField fx:id="nombreField" promptText="Ingrese su nombre completo"
-                               style="-fx-background-color: #CACFD6; -fx-background-radius: 8; -fx-border-radius: 8;"
-                               prefHeight="38" maxWidth="Infinity"/>
+                    <Label style="-fx-text-fill: #424874; -fx-font-weight: bold; -fx-font-size: 13px;" text="Nombre Completo" />
+                    <TextField fx:id="nombreField" maxWidth="Infinity" prefHeight="38" promptText="Ingrese su nombre completo" style="-fx-background-color: #CACFD6; -fx-background-radius: 8; -fx-border-radius: 8;" />
                 </VBox>
 
-                <!-- Campo Email -->
+                      <!-- Campo Email -->
                 <VBox spacing="6">
-                    <Label text="Email" style="-fx-text-fill: #424874; -fx-font-weight: bold; -fx-font-size: 13px;"/>
-                    <TextField fx:id="emailField" promptText="Ingrese su email"
-                               style="-fx-background-color: #CACFD6; -fx-background-radius: 8; -fx-border-radius: 8;"
-                               prefHeight="38" maxWidth="Infinity"/>
+                    <Label style="-fx-text-fill: #424874; -fx-font-weight: bold; -fx-font-size: 13px;" text="Email" />
+                    <TextField fx:id="emailField" maxWidth="Infinity" prefHeight="38" promptText="Ingrese su email" style="-fx-background-color: #CACFD6; -fx-background-radius: 8; -fx-border-radius: 8;" />
                 </VBox>
 
-                <!-- Campo Usuario -->
+                      <!-- Campo Usuario -->
                 <VBox spacing="6">
-                    <Label text="Usuario" style="-fx-text-fill: #424874; -fx-font-weight: bold; -fx-font-size: 13px;"/>
-                    <TextField fx:id="usuarioField" promptText="Ingrese su usuario"
-                               style="-fx-background-color: #CACFD6; -fx-background-radius: 8; -fx-border-radius: 8;"
-                               prefHeight="38" maxWidth="Infinity"/>
+                    <Label style="-fx-text-fill: #424874; -fx-font-weight: bold; -fx-font-size: 13px;" text="Usuario" />
+                    <TextField fx:id="usuarioField" maxWidth="Infinity" prefHeight="38" promptText="Ingrese su usuario" style="-fx-background-color: #CACFD6; -fx-background-radius: 8; -fx-border-radius: 8;" />
                 </VBox>
 
-                <!-- Campo Contraseña -->
+                      <!-- Campo Contraseña -->
                 <VBox spacing="6">
-                    <Label text="Contraseña" style="-fx-text-fill: #424874; -fx-font-weight: bold; -fx-font-size: 13px;"/>
-                    <PasswordField fx:id="contrasenaField" promptText="Ingrese su contraseña"
-                                   style="-fx-background-color: #CACFD6; -fx-background-radius: 8; -fx-border-radius: 8;"
-                                   prefHeight="38" maxWidth="Infinity"/>
+                    <Label style="-fx-text-fill: #424874; -fx-font-weight: bold; -fx-font-size: 13px;" text="Contraseña" />
+                    <PasswordField fx:id="contrasenaField" maxWidth="Infinity" prefHeight="38" promptText="Ingrese su contraseña" style="-fx-background-color: #CACFD6; -fx-background-radius: 8; -fx-border-radius: 8;" />
                 </VBox>
 
-                <!-- Campo Confirmar Contraseña -->
+                      <!-- Campo Confirmar Contraseña -->
                 <VBox spacing="6">
-                    <Label text="Confirmar Contraseña" style="-fx-text-fill: #424874; -fx-font-weight: bold; -fx-font-size: 13px;"/>
-                    <PasswordField fx:id="confirmarContrasenaField" promptText="Confirme su contraseña"
-                                   style="-fx-background-color: #CACFD6; -fx-background-radius: 8; -fx-border-radius: 8;"
-                                   prefHeight="38" maxWidth="Infinity"/>
+                    <Label style="-fx-text-fill: #424874; -fx-font-weight: bold; -fx-font-size: 13px;" text="Confirmar Contraseña" />
+                    <PasswordField fx:id="confirmarContrasenaField" maxWidth="Infinity" prefHeight="38" promptText="Confirme su contraseña" style="-fx-background-color: #CACFD6; -fx-background-radius: 8; -fx-border-radius: 8;" />
                 </VBox>
+            <ComboBox fx:id="comboRol" prefWidth="150.0" promptText="Rol" />
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label fx:id="labelAdmin" style="-fx-text-fill: #424874; -fx-font-weight: bold; -fx-font-size: 13px;" text="Contraseña Admin" />
+                  <PasswordField fx:id="contraseniaAdmin" maxWidth="Infinity" prefHeight="38" promptText="Contraseña" style="-fx-background-color: #CACFD6; -fx-background-radius: 8; -fx-border-radius: 8;" />
+               </children>
+            </VBox>
 
-                <!-- Botón de registro -->
-                <Button text="Registrarse"
-                        onAction="#handleRegister"
-                        style="-fx-background-color: #A6B1E1; -fx-text-fill: #424874; -fx-font-weight: bold; -fx-background-radius: 8;"
-                        prefWidth="220" prefHeight="40"/>
+                      <!-- Botón de registro -->
+                <Button onAction="#handleRegister" prefHeight="40" prefWidth="220" style="-fx-background-color: #A6B1E1; -fx-text-fill: #424874; -fx-font-weight: bold; -fx-background-radius: 8;" text="Registrarse" />
 
-                <!-- Botón para volver al login -->
-                <Button text="¿Ya tienes cuenta? Iniciar Sesión"
-                        onAction="#volverAlLogin"
-                        style="-fx-background-color: transparent; -fx-text-fill: #424874; -fx-font-weight: bold; -fx-border-color: #424874; -fx-border-radius: 8; -fx-border-width: 1;"
-                        prefWidth="220" prefHeight="36"/>
+                      <!-- Botón para volver al login -->
+                <Button onAction="#volverAlLogin" prefHeight="36" prefWidth="220" style="-fx-background-color: transparent; -fx-text-fill: #424874; -fx-font-weight: bold; -fx-border-color: #424874; -fx-border-radius: 8; -fx-border-width: 1;" text="¿Ya tienes cuenta? Iniciar Sesión" />
 
-                <!-- Mensaje de error/éxito -->
-                <Label fx:id="mensajeLabel" textFill="red" style="-fx-font-size: 12px;" alignment="CENTER"/>
+                      <!-- Mensaje de error/éxito -->
+                <Label fx:id="mensajeLabel" alignment="CENTER" style="-fx-font-size: 12px;" textFill="red" />
             </VBox>
         </ScrollPane>
 
         <!-- Footer -->
-        <Label text="© 2024 Hello Code Software - Todos los derechos reservados"
-               style="-fx-text-fill: #D6E5E3; -fx-font-size: 10px;"/>
+        <Label style="-fx-text-fill: #D6E5E3; -fx-font-size: 10px;" text="© 2024 Hello Code Software - Todos los derechos reservados" />
     </VBox>
 </AnchorPane>
