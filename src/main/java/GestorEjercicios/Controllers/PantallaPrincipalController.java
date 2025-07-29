@@ -67,7 +67,65 @@ public class PantallaPrincipalController {
         configurarBotones();
         actualizarEstadoBotones();
         
+        // 📋 NUEVO: Mostrar vista previa de lecciones disponibles
+        mostrarVistaPreviewLecciones();
+        
         System.out.println("🎮 PantallaPrincipal inicializada para usuario: " + usuarioActual);
+    }
+    
+    /**
+     * 👀 NUEVO: Muestra una vista previa de las lecciones disponibles al cargar la pantalla
+     */
+    private void mostrarVistaPreviewLecciones() {
+        System.out.println("\n👀 === VISTA PREVIA LECCIONES DISPONIBLES ===");
+        
+        // Mostrar estadísticas generales del sistema TXT
+        try {
+            java.util.Map<String, Integer> stats = GestorEjerciciosEntry.obtenerEstadisticasLeccionesTXT();
+            System.out.println("📊 Estadísticas del sistema:");
+            for (java.util.Map.Entry<String, Integer> entry : stats.entrySet()) {
+                System.out.println("   " + entry.getKey() + ": " + entry.getValue());
+            }
+        } catch (Exception e) {
+            System.out.println("⚠️ Error obteniendo estadísticas: " + e.getMessage());
+        }
+        
+        System.out.println("\n💡 === INSTRUCCIONES ===");
+        System.out.println("   🔘 Botón '1': Configurar lenguaje y nivel");
+        System.out.println("   🔘 Botones '2-5': Ejecutar lecciones según configuración");
+        System.out.println("   🔘 Botón 'FINAL': Ver lista completa de lecciones disponibles");
+        
+        if (lenguajeConfigurado != null && nivelConfigurado != null) {
+            System.out.println("\n✅ === CONFIGURACIÓN ACTUAL ===");
+            System.out.println("   🔧 Lenguaje: " + lenguajeConfigurado.name());
+            System.out.println("   📊 Nivel: " + nivelConfigurado.name());
+            System.out.println("   📚 Progreso: Lección " + leccionActual);
+            
+            // Mostrar cuántas lecciones están disponibles para esta configuración
+            try {
+                java.util.List<GestorLeccionesBasadoEnArchivos.LeccionDefinicion> leccionesDisponibles = 
+                    GestorEjerciciosEntry.obtenerLeccionesTXT(lenguajeConfigurado.name());
+                
+                long leccionesDelNivel = leccionesDisponibles.stream()
+                    .filter(l -> l.nivel.equalsIgnoreCase(nivelConfigurado.name()))
+                    .count();
+                
+                System.out.println("   🎮 Lecciones disponibles: " + leccionesDelNivel + " para tu nivel");
+                
+                if (leccionesDelNivel > 0) {
+                    System.out.println("\n🎯 Presiona botón 'FINAL' para ver la lista completa");
+                }
+                
+            } catch (Exception e) {
+                System.out.println("   ⚠️ Error verificando lecciones disponibles");
+            }
+        } else {
+            System.out.println("\n🔧 === CONFIGURACIÓN NECESARIA ===");
+            System.out.println("   ⚠️ Presiona botón '1' para configurar tu lenguaje y nivel");
+            System.out.println("   📚 Una vez configurado, podrás ver y ejecutar lecciones");
+        }
+        
+        System.out.println("👀 === FIN VISTA PREVIA ===\n");
     }
     
     /**
@@ -133,11 +191,99 @@ public class PantallaPrincipalController {
         // Botón "5" - Quinta lección
         btnEstadisticas.setOnAction(_ -> iniciarLeccion(5));
         
-        // Botón "FINAL" - Quinta lección (alternativo)
-        btnCrearLeccion.setOnAction(_ -> iniciarLeccion(5));
+        // Botón "FINAL" - Mostrar lista de lecciones disponibles
+        btnCrearLeccion.setOnAction(_ -> mostrarListaLecciones());
         
         // Botón real de salir en la barra inferior
         btnSalirReal.setOnAction(_ -> salirAplicacion());
+    }
+    
+    /**
+     * 📋 NUEVO: Muestra todas las lecciones disponibles en consola
+     * Este método permite ver qué lecciones están disponibles sin iniciar ninguna
+     */
+    private void mostrarListaLecciones() {
+        System.out.println("\n📋 === MOSTRAR LISTA COMPLETA DE LECCIONES ===");
+        
+        // Verificar si hay configuración
+        if (lenguajeConfigurado == null || nivelConfigurado == null) {
+            System.out.println("⚠️ Configuración no encontrada. Configurando primero...");
+            navegarACrearLeccion();
+            return;
+        }
+        
+        // Obtener estadísticas generales
+        java.util.Map<String, Integer> estadisticas = GestorEjerciciosEntry.obtenerEstadisticasLeccionesTXT();
+        System.out.println("📊 === ESTADÍSTICAS GENERALES ===");
+        for (java.util.Map.Entry<String, Integer> entry : estadisticas.entrySet()) {
+            System.out.println("   " + entry.getKey() + ": " + entry.getValue());
+        }
+        System.out.println();
+        
+        // Mostrar lecciones para el lenguaje configurado
+        System.out.println("🔧 === CONFIGURACIÓN ACTUAL ===");
+        System.out.println("   Lenguaje: " + lenguajeConfigurado.name());
+        System.out.println("   Nivel: " + nivelConfigurado.name());
+        System.out.println("   Lección actual: " + leccionActual);
+        System.out.println();
+        
+        // Obtener todas las lecciones del lenguaje
+        java.util.List<GestorLeccionesBasadoEnArchivos.LeccionDefinicion> todasLecciones = 
+            GestorLeccionesBasadoEnArchivos.obtenerLecciones(lenguajeConfigurado.name());
+        
+        if (!todasLecciones.isEmpty()) {
+            System.out.println("📚 === TODAS LAS LECCIONES DE " + lenguajeConfigurado.name() + " ===");
+            
+            // Agrupar por nivel
+            java.util.Map<String, java.util.List<GestorLeccionesBasadoEnArchivos.LeccionDefinicion>> leccionesPorNivel = 
+                todasLecciones.stream()
+                    .collect(java.util.stream.Collectors.groupingBy(l -> l.nivel));
+            
+            for (java.util.Map.Entry<String, java.util.List<GestorLeccionesBasadoEnArchivos.LeccionDefinicion>> entry : leccionesPorNivel.entrySet()) {
+                String nivel = entry.getKey();
+                java.util.List<GestorLeccionesBasadoEnArchivos.LeccionDefinicion> lecciones = entry.getValue();
+                
+                System.out.println("📊 === NIVEL " + nivel + " (" + lecciones.size() + " lecciones) ===");
+                for (int i = 0; i < lecciones.size(); i++) {
+                    GestorLeccionesBasadoEnArchivos.LeccionDefinicion leccion = lecciones.get(i);
+                    String marcador = nivel.equalsIgnoreCase(nivelConfigurado.name()) ? "👉" : "  ";
+                    System.out.println(String.format("%s [%d] 📖 %s", 
+                        marcador, i + 1, leccion.titulo));
+                    System.out.println(String.format("      📝 %s", leccion.descripcion));
+                    System.out.println(String.format("      ⏱️ %d min | 🎮 %d ejercicios", 
+                        leccion.duracionMinutos, leccion.cantidadEjercicios));
+                    if (nivel.equalsIgnoreCase(nivelConfigurado.name())) {
+                        System.out.println("      ✅ Disponible para tu nivel actual");
+                    }
+                    System.out.println();
+                }
+            }
+            
+            // Probar el sistema TXT
+            System.out.println("🧪 === PRUEBA DEL SISTEMA TXT ===");
+            GestorEjerciciosEntry.probarSistemaTXT();
+            
+            // Mostrar lección que se ejecutaría si presionas los botones
+            java.util.List<GestorLeccionesBasadoEnArchivos.LeccionDefinicion> leccionesNivelActual = 
+                leccionesPorNivel.getOrDefault(nivelConfigurado.name(), new java.util.ArrayList<>());
+            
+            if (!leccionesNivelActual.isEmpty()) {
+                int indiceLeccion = Math.min(leccionActual - 1, leccionesNivelActual.size() - 1);
+                indiceLeccion = Math.max(0, indiceLeccion);
+                
+                GestorLeccionesBasadoEnArchivos.LeccionDefinicion proximaLeccion = leccionesNivelActual.get(indiceLeccion);
+                System.out.println("🎯 === PRÓXIMA LECCIÓN ===");
+                System.out.println("   Al presionar botones 2-5 ejecutarás:");
+                System.out.println("   📖 " + proximaLeccion.titulo);
+                System.out.println("   📝 " + proximaLeccion.descripcion);
+                System.out.println("   🎮 " + proximaLeccion.cantidadEjercicios + " ejercicios");
+            }
+            
+        } else {
+            System.out.println("❌ No hay lecciones disponibles para " + lenguajeConfigurado.name());
+        }
+        
+        System.out.println("📋 === FIN LISTA DE LECCIONES ===\n");
     }
     
     /**
@@ -168,50 +314,91 @@ public class PantallaPrincipalController {
     
     /**
      * Crea y muestra una lección con la configuración actual
-     * 🎲 NUEVO: Usa lecciones basadas en archivos TXT con ejercicios reales
+     * 📋 NUEVO: Muestra lista de lecciones disponibles para que el usuario seleccione
      */
     private void crearYMostrarLeccion() {
         try {
-            // 🎯 Obtener lección predefinida aleatoria
-            GestorLeccionesBasadoEnArchivos.LeccionCompleta leccionCompleta = 
-                GestorLeccionesBasadoEnArchivos.obtenerLeccionAleatoria(
-                    lenguajeConfigurado.name(), 
-                    nivelConfigurado.name()
-                );
+            // 📋 Obtener todas las lecciones disponibles para mostrar al usuario
+            java.util.List<GestorLeccionesBasadoEnArchivos.LeccionDefinicion> leccionesDisponibles = 
+                GestorLeccionesBasadoEnArchivos.obtenerLecciones(lenguajeConfigurado.name());
             
-            if (leccionCompleta != null) {
-                System.out.println("🎲 Lección aleatoria seleccionada: " + leccionCompleta.titulo);
+            // Filtrar por nivel si es necesario
+            java.util.List<GestorLeccionesBasadoEnArchivos.LeccionDefinicion> leccionesFiltradas = 
+                leccionesDisponibles.stream()
+                    .filter(l -> l.nivel.equalsIgnoreCase(nivelConfigurado.name()))
+                    .collect(java.util.stream.Collectors.toList());
+            
+            if (!leccionesFiltradas.isEmpty()) {
+                System.out.println("📋 === LECCIONES DISPONIBLES ===");
+                System.out.println("🔧 Lenguaje: " + lenguajeConfigurado.name());
+                System.out.println("📊 Nivel: " + nivelConfigurado.name());
+                System.out.println("📚 Total disponibles: " + leccionesFiltradas.size());
+                System.out.println();
                 
-                // Crear lección usando el controlador de lección existente con plantilla
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Modulo_GestorEjercicios/Views/CrearLeccion.fxml"));
-                Parent root = loader.load();
+                // Mostrar lista de lecciones disponibles
+                for (int i = 0; i < leccionesFiltradas.size(); i++) {
+                    GestorLeccionesBasadoEnArchivos.LeccionDefinicion leccion = leccionesFiltradas.get(i);
+                    System.out.println(String.format("  [%d] 📖 %s", 
+                        i + 1, leccion.titulo));
+                    System.out.println(String.format("      📝 %s", leccion.descripcion));
+                    System.out.println(String.format("      ⏱️ %d min | 🎮 %d ejercicios", 
+                        leccion.duracionMinutos, leccion.cantidadEjercicios));
+                    System.out.println();
+                }
                 
-                LeccionController controller = loader.getController();
+                // Por ahora, usar la lección que corresponde al número actual de lección
+                // En el futuro se puede implementar una selección por GUI
+                int indiceLeccion = Math.min(leccionActual - 1, leccionesFiltradas.size() - 1);
+                indiceLeccion = Math.max(0, indiceLeccion); // Asegurar que no sea negativo
                 
-                // 🎯 NUEVO: Configurar con lección basada en archivos  
-                controller.configurarLeccionConEjercicios(
-                    leccionCompleta.ejercicios,
-                    mapearLenguaje(lenguajeConfigurado),
-                    mapearNivel(nivelConfigurado),
-                    leccionCompleta.titulo,
-                    leccionCompleta.descripcion
-                );
+                System.out.println("🎯 Seleccionando lección " + (indiceLeccion + 1) + " de " + leccionesFiltradas.size());
                 
-                Stage stage = new Stage();
-                stage.setTitle("Lección " + leccionActual + " - " + leccionCompleta.titulo);
-                stage.setScene(new Scene(root));
-                stage.setResizable(false);
-                centrarVentana(stage);
-                stage.show();
+                // Obtener la lección específica
+                GestorLeccionesBasadoEnArchivos.LeccionCompleta leccionCompleta = 
+                    GestorLeccionesBasadoEnArchivos.obtenerLeccionPorIndice(
+                        lenguajeConfigurado.name(), 
+                        nivelConfigurado.name(),
+                        indiceLeccion
+                    );
                 
-                cerrarVentanaActual();
-                
-                System.out.println("🚀 Lección iniciada: " + leccionCompleta.titulo + 
-                                 " (" + leccionCompleta.ejercicios.size() + " ejercicios)");
+                if (leccionCompleta != null) {
+                    System.out.println("✅ Lección seleccionada: " + leccionCompleta.titulo);
+                    
+                    // Crear lección usando el controlador de lección existente
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Modulo_GestorEjercicios/Views/CrearLeccion.fxml"));
+                    Parent root = loader.load();
+                    
+                    LeccionController controller = loader.getController();
+                    
+                    // 🎯 NUEVO: Configurar con lección específica seleccionada
+                    controller.configurarLeccionConEjercicios(
+                        leccionCompleta.ejercicios,
+                        mapearLenguaje(lenguajeConfigurado),
+                        mapearNivel(nivelConfigurado),
+                        leccionCompleta.titulo,
+                        leccionCompleta.descripcion
+                    );
+                    
+                    Stage stage = new Stage();
+                    stage.setTitle("Lección " + leccionActual + " - " + leccionCompleta.titulo);
+                    stage.setScene(new Scene(root));
+                    stage.setResizable(false);
+                    centrarVentana(stage);
+                    stage.show();
+                    
+                    cerrarVentanaActual();
+                    
+                    System.out.println("🚀 Lección iniciada: " + leccionCompleta.titulo + 
+                                     " (" + leccionCompleta.ejercicios.size() + " ejercicios)");
+                    
+                } else {
+                    System.out.println("❌ Error al cargar lección específica");
+                    crearLeccionOriginal();
+                }
                 
             } else {
+                System.out.println("⚠️ No hay lecciones disponibles para " + lenguajeConfigurado + " - " + nivelConfigurado);
                 // Fallback: usar el método original
-                System.out.println("⚠️ No hay lecciones predefinidas, usando método original");
                 crearLeccionOriginal();
             }
             
