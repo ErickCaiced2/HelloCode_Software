@@ -1,0 +1,4 @@
+# Archivo de respuestas a hilos
+# Formato: nombreComunidad;tituloGrupo;idHilo;idRespuesta;contenido;autor;fechaCreacion
+Java Principiantes;PRUEBA2;e8c0dd31-08ef-43b2-a378-0188c99b1976;RESP_1753639425148_550;RESP;erick;2025-07-27 13:03:45;false;
+Java Principiantes;PRUEBA2;e8c0dd31-08ef-43b2-a378-0188c99b1976;fb876587-84a5-4390-82ca-a6ba34cdc7fa;RESP;erick;2025-07-27 13:03:45;false;erick:1

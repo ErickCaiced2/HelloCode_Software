@@ -1,0 +1,10 @@
+# Archivo de grupos de foro
+# Formato: nombreComunidad;tipoGrupo;titulo;nivelJava;tipoTema;creador
+Java Principiantes;DISCUSION;Prueba1;Intermedio;Estructuras de Datos;Sistema
+Java Principiantes;DISCUSION;PRUEBA2;Principiante;Sintaxis;Sistema
+Java Principiantes;DISCUSION;Prueba_3;Principiante;Manejo de Excepciones;churito
+Java Principiantes;COMPARTIR;Prueba4;Principiante;Frameworks;churito
+Java Principiantes;COMPARTIR;prueba6;Principiante;Sintaxis;churito
+Java Principiantes;DISCUSION;Hola;Principiante;Algoritmos;Sistema
+JAVA LEARN;DISCUSION;otraprueba;Principiante;Estructuras de Datos;Sistema
+Java prueba 2;DISCUSION;esta es una prueba;Principiante;Estructuras de Datos;medardito

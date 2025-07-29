@@ -1,0 +1,4 @@
+# Formato: nombreComunidad;usernameUsuario;nombreUsuario;nivelJava;reputacion
+Programadores Avanzados;medardito;medardo;Principiante;0
+Programadores Avanzados;churito;churo;Principiante;0
+sefefsefs;Luis;luis23;Principiante;0

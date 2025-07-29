@@ -1,0 +1,227 @@
+@startuml DiagramaSecuenciaGestorEjercicios
+
+!define RECTANGLE participant
+
+' Estilos
+skinparam sequence {
+    ArrowColor DarkBlue
+    ActorBorderColor DarkBlue
+    LifeLineBorderColor DarkBlue
+    LifeLineBackgroundColor LightBlue
+    ParticipantBorderColor DarkBlue
+    ParticipantBackgroundColor LightBlue
+    ParticipantFontColor Black
+}
+
+' Actores y participantes
+actor "Módulo Externo" as ModuloExterno
+participant "GestorEjerciciosEntry" as Entry
+participant "GestorEjerciciosPrincipal" as Principal
+participant "GestorLecciones" as GestorLecciones
+participant "Leccion" as Leccion
+participant "FabricaAdaptadores" as FabricaAdaptadores
+participant "AdaptadorEjercicioSeleccion" as AdaptadorSeleccion
+participant "AdaptadorEjercicioCompletarCodigo" as AdaptadorCompletar
+participant "FabricaEstrategiasLeccion" as FabricaEstrategias
+participant "EstrategiaLeccionNormal" as EstrategiaNormal
+participant "EstrategiaLeccionPrueba" as EstrategiaPrueba
+participant "GestorProgresoUsuario" as GestorProgreso
+participant "ProgresoUsuario" as ProgresoUsuario
+participant "Usuario" as Usuario
+
+' ===== SECUENCIA 1: INICIALIZACIÓN DEL MÓDULO =====
+group "Inicialización del Módulo"
+    ModuloExterno -> Entry: inicializar()
+    Entry -> Entry: System.out.println("Módulo inicializado")
+    Entry -> ModuloExterno: Módulo listo
+end
+
+' ===== SECUENCIA 2: CREACIÓN DE LECCIÓN NORMAL =====
+group "Creación de Lección Normal"
+    ModuloExterno -> Entry: crearLeccionNormal("Fundamentos", ejercicios)
+    Entry -> Principal: crearLeccion("Fundamentos", ejercicios, NORMAL, 15, 5)
+    
+    Principal -> Principal: generarIdUnico()
+    Principal -> FabricaAdaptadores: crearAdaptador(ejercicio)
+    
+    alt Ejercicio de Selección
+        FabricaAdaptadores -> AdaptadorSeleccion: new AdaptadorEjercicioSeleccion(ejercicio)
+    else Ejercicio de Completar Código
+        FabricaAdaptadores -> AdaptadorCompletar: new AdaptadorEjercicioCompletarCodigo(ejercicio)
+    end
+    
+    FabricaAdaptadores -> Principal: adaptador
+    
+    Principal -> FabricaEstrategias: crearEstrategia(NORMAL)
+    FabricaEstrategias -> EstrategiaNormal: new EstrategiaLeccionNormal()
+    FabricaEstrategias -> Principal: estrategia
+    
+    Principal -> Leccion: new Leccion(id, nombre, ejercicios, NORMAL, 15, 5)
+    Leccion -> Leccion: convertirEjercicios(ejercicios)
+    Leccion -> Leccion: calcularExperienciaPorDefecto()
+    Leccion -> Leccion: calcularConocimientoPorDefecto()
+    
+    Principal -> GestorLecciones: agregarLeccion(leccion)
+    GestorLecciones -> GestorLecciones: lecciones.add(leccion)
+    
+    Principal -> Entry: leccion
+    Entry -> ModuloExterno: Lección creada
+end
+
+' ===== SECUENCIA 3: CREACIÓN DE LECCIÓN DE PRUEBA =====
+group "Creación de Lección de Prueba"
+    ModuloExterno -> Entry: crearLeccionPrueba("Evaluación", ejercicios)
+    Entry -> Principal: crearLeccion("Evaluación", ejercicios, PRUEBA, 30, 0)
+    
+    Principal -> FabricaEstrategias: crearEstrategia(PRUEBA)
+    FabricaEstrategias -> EstrategiaPrueba: new EstrategiaLeccionPrueba()
+    FabricaEstrategias -> Principal: estrategia
+    
+    Principal -> Leccion: new Leccion(id, nombre, ejercicios, PRUEBA, 30, 0)
+    Principal -> GestorLecciones: agregarLeccion(leccion)
+    
+    Principal -> Entry: leccion
+    Entry -> ModuloExterno: Lección de prueba creada
+end
+
+' ===== SECUENCIA 4: EJECUCIÓN DE LECCIÓN =====
+group "Ejecución de Lección"
+    ModuloExterno -> Entry: ejecutarLeccion(leccion, usuario)
+    Entry -> Principal: ejecutarLeccion(leccion, usuario)
+    
+    Principal -> Leccion: getEjercicios()
+    Leccion -> Principal: lista de ejercicios
+    
+    loop Para cada ejercicio
+        Principal -> AdaptadorSeleccion: obtenerInstruccion()
+        AdaptadorSeleccion -> Principal: instrucción
+        
+        ModuloExterno -> AdaptadorSeleccion: evaluarRespuestas(respuestas)
+        AdaptadorSeleccion -> AdaptadorSeleccion: ejercicio.evaluarRespuestas(respuestas)
+        AdaptadorSeleccion -> ModuloExterno: ResultadoEvaluacion
+    end
+    
+    Principal -> Entry: resultado
+    Entry -> ModuloExterno: Resultado de evaluación
+end
+
+' ===== SECUENCIA 5: COMPLETAR LECCIÓN =====
+group "Completar Lección"
+    ModuloExterno -> Entry: marcarLeccionCompletada(leccion, usuario, aciertos)
+    Entry -> Principal: marcarLeccionCompletada(leccion, usuario, aciertos)
+    
+    Principal -> GestorProgreso: marcarLeccionCompletada(usuario, leccion, aciertos)
+    
+    GestorProgreso -> GestorProgreso: obtenerProgresoUsuario(usuario)
+    GestorProgreso -> ProgresoUsuario: obtenerProgresoUsuario(username)
+    
+    alt Usuario no existe
+        GestorProgreso -> ProgresoUsuario: new ProgresoUsuario(username)
+    end
+    
+    GestorProgreso -> GestorProgreso: calcularExperienciaGanada(leccion, aciertos)
+    GestorProgreso -> GestorProgreso: calcularConocimientoGanado(leccion, aciertos)
+    
+    GestorProgreso -> ProgresoUsuario: marcarLeccionCompletada(leccionId, leccionCompletada)
+    ProgresoUsuario -> ProgresoUsuario: leccionesCompletadas.put(leccionId, leccionCompletada)
+    ProgresoUsuario -> ProgresoUsuario: progresoLecciones.put(leccionId, 1.0)
+    
+    GestorProgreso -> ProgresoUsuario: agregarExperiencia(experienciaGanada)
+    ProgresoUsuario -> ProgresoUsuario: experienciaTotal += experienciaGanada
+    
+    GestorProgreso -> ProgresoUsuario: agregarConocimiento(conocimientoGanado)
+    ProgresoUsuario -> ProgresoUsuario: conocimientoTotal += conocimientoGanado
+    
+    alt Usuario es UsuarioComunidad
+        GestorProgreso -> Usuario: incrementarReputacion(experienciaGanada / 10)
+        Usuario -> Usuario: reputacion += puntos
+    end
+    
+    GestorProgreso -> Principal: lección completada
+    Principal -> Leccion: setCompletada(true)
+    
+    Principal -> Entry: lección marcada como completada
+    Entry -> ModuloExterno: Progreso actualizado
+end
+
+' ===== SECUENCIA 6: CONSULTA DE ESTADÍSTICAS =====
+group "Consulta de Estadísticas"
+    ModuloExterno -> Entry: obtenerEstadisticasUsuario(usuario)
+    Entry -> Principal: obtenerEstadisticasUsuario(usuario)
+    Principal -> GestorProgreso: obtenerEstadisticasUsuario(usuario)
+    
+    GestorProgreso -> ProgresoUsuario: obtenerProgresoUsuario(username)
+    ProgresoUsuario -> GestorProgreso: progresoUsuario
+    
+    GestorProgreso -> ProgresoUsuario: getLeccionesCompletadas()
+    ProgresoUsuario -> GestorProgreso: leccionesCompletadas
+    
+    GestorProgreso -> GestorProgreso: calcular estadísticas
+    GestorProgreso -> GestorProgreso: new EstadisticasUsuario(...)
+    
+    GestorProgreso -> Principal: estadisticas
+    Principal -> Entry: estadisticas
+    Entry -> ModuloExterno: Estadísticas del usuario
+end
+
+' ===== SECUENCIA 7: CONSULTA DE PROGRESO =====
+group "Consulta de Progreso"
+    ModuloExterno -> Entry: obtenerProgresoUsuario(leccion, usuario)
+    Entry -> Principal: obtenerProgresoUsuario(leccion, usuario)
+    Principal -> GestorProgreso: obtenerProgresoLeccion(usuario, leccion)
+    
+    GestorProgreso -> ProgresoUsuario: obtenerProgresoUsuario(username)
+    ProgresoUsuario -> GestorProgreso: progresoUsuario
+    
+    GestorProgreso -> ProgresoUsuario: getProgresoLecciones()
+    ProgresoUsuario -> GestorProgreso: progresoLecciones
+    
+    GestorProgreso -> GestorProgreso: getOrDefault(leccionId, 0.0)
+    GestorProgreso -> Principal: progreso
+    Principal -> Entry: progreso
+    Entry -> ModuloExterno: Progreso en la lección
+end
+
+' ===== SECUENCIA 8: OBTENER LECCIONES =====
+group "Obtener Lecciones"
+    ModuloExterno -> Entry: obtenerTodasLasLecciones()
+    Entry -> Principal: obtenerTodasLasLecciones()
+    Principal -> GestorLecciones: obtenerLecciones()
+    GestorLecciones -> Principal: lista de lecciones
+    Principal -> Entry: lecciones
+    Entry -> ModuloExterno: Lista de lecciones
+end
+
+' ===== SECUENCIA 9: OBTENER LECCIÓN POR ID =====
+group "Obtener Lección por ID"
+    ModuloExterno -> Entry: obtenerLeccion(id)
+    Entry -> Principal: obtenerLeccion(id)
+    Principal -> GestorLecciones: obtenerLeccionPorId(id)
+    GestorLecciones -> GestorLecciones: stream().filter().findFirst()
+    GestorLecciones -> Principal: Optional<Leccion>
+    Principal -> Entry: leccion o null
+    Entry -> ModuloExterno: Lección encontrada
+end
+
+' ===== SECUENCIA 10: EVALUACIÓN DE EJERCICIO =====
+group "Evaluación de Ejercicio"
+    ModuloExterno -> AdaptadorSeleccion: evaluarRespuestas(respuestasUsuario)
+    
+    AdaptadorSeleccion -> AdaptadorSeleccion: convertir respuestas
+    AdaptadorSeleccion -> AdaptadorSeleccion: ejercicio.evaluarRespuestas(respuestas)
+    AdaptadorSeleccion -> AdaptadorSeleccion: crear ResultadoEvaluacion
+    
+    alt Respuesta correcta
+        AdaptadorSeleccion -> AdaptadorSeleccion: porcentajeAcierto = 100
+        AdaptadorSeleccion -> AdaptadorSeleccion: esCorrecto = true
+        AdaptadorSeleccion -> AdaptadorSeleccion: mensaje = "¡Correcto!"
+    else Respuesta incorrecta
+        AdaptadorSeleccion -> AdaptadorSeleccion: porcentajeAcierto < 100
+        AdaptadorSeleccion -> AdaptadorSeleccion: esCorrecto = false
+        AdaptadorSeleccion -> AdaptadorSeleccion: mensaje = "Incorrecto"
+    end
+    
+    AdaptadorSeleccion -> ModuloExterno: ResultadoEvaluacion
+end
+
+@enduml 

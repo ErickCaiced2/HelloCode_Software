@@ -1,0 +1,203 @@
+@startuml DiagramaModuloGestorEjercicios
+
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+title Diagrama de Clases - Módulo GestorEjercicios (Esencial)
+
+' ===== ESTILOS =====
+skinparam class {
+    BackgroundColor LightBlue
+    BorderColor DarkBlue
+    FontSize 10
+}
+
+skinparam interface {
+    BackgroundColor LightGreen
+    BorderColor DarkGreen
+    FontSize 10
+}
+
+skinparam enum {
+    BackgroundColor LightYellow
+    BorderColor Orange
+    FontSize 10
+}
+
+' ===== CLASES PRINCIPALES =====
+
+' === ENTRADA DEL MÓDULO ===
+class GestorEjerciciosEntry {
+    + {static} getInstance(): IGestorEjercicios
+    + {static} inicializar(): void
+}
+
+' === GESTOR PRINCIPAL ===
+class GestorEjerciciosPrincipal {
+    - {static} instance: GestorEjerciciosPrincipal
+    - gestorLecciones: GestorLecciones
+    - gestorProgreso: GestorProgreso
+    
+    + {static} getInstance(): GestorEjerciciosPrincipal
+    + crearLeccion(nombre: String, ejercicios: List<?>): Leccion
+    + obtenerLeccion(id: int): Leccion
+    + obtenerTodasLasLecciones(): List<Leccion>
+    + ejecutarLeccion(leccion: Leccion, usuario: Usuario): ResultadoEvaluacion
+}
+
+' === GESTORES ESPECÍFICOS ===
+class GestorLecciones {
+    - lecciones: Map<Integer, Leccion>
+    - contadorId: int
+    
+    + crearLeccion(nombre: String, ejercicios: List<?>): Leccion
+    + obtenerLeccion(id: int): Leccion
+    + obtenerTodasLasLecciones(): List<Leccion>
+    + eliminarLeccion(id: int): boolean
+}
+
+class GestorProgreso {
+    - progresosUsuario: Map<String, GestorProgresoUsuario>
+    
+    + obtenerProgresoUsuario(usuario: Usuario): GestorProgresoUsuario
+    + marcarLeccionCompletada(leccion: Leccion, usuario: Usuario): void
+    + calcularProgreso(leccion: Leccion, usuario: Usuario): double
+}
+
+class GestorProgresoUsuario {
+    - usuarioId: String
+    - leccionesCompletadas: Set<Integer>
+    - experienciaTotal: int
+    - conocimientoTotal: int
+    
+    + marcarLeccionCompletada(leccionId: int): void
+    + isLeccionCompletada(leccionId: int): boolean
+    + getExperienciaTotal(): int
+    + getConocimientoTotal(): int
+}
+
+' === MODELO PRINCIPAL ===
+class Leccion {
+    - id: int
+    - nombre: String
+    - tipo: TipoLeccion
+    - ejercicios: List<AdaptadorEjercicios>
+    - experiencia: int
+    - conocimiento: int
+    - dificultad: NivelDificultad
+    - lenguaje: LenguajeProgramacion
+    
+    + Leccion(nombre: String, ejercicios: List<?>)
+    + getId(): int
+    + getNombre(): String
+    + getEjercicios(): List<AdaptadorEjercicios>
+    + evaluarLeccion(): ResultadoEvaluacion
+}
+
+class ResultadoEvaluacion {
+    - esCorrecto: boolean
+    - puntuacionObtenida: int
+    - tiempoEmpleado: int
+    - obtenerMensaje: String
+    
+    + ResultadoEvaluacion(esCorrecto: boolean, puntuacion: int)
+    + isCorrecto(): boolean
+    + getPuntuacionObtenida(): int
+}
+
+' === INTERFAZ DE INTEGRACIÓN ===
+interface IGestorEjercicios {
+    + crearLeccion(nombre: String, ejercicios: List<?>): Leccion
+    + obtenerLeccion(id: int): Leccion
+    + obtenerTodasLasLecciones(): List<Leccion>
+    + ejecutarLeccion(leccion: Leccion, usuario: Usuario): ResultadoEvaluacion
+    + obtenerProgresoUsuario(leccion: Leccion, usuario: Usuario): double
+}
+
+' === ADAPTADORES ===
+interface AdaptadorEjercicios {
+    + obtenerId(): String
+    + obtenerInstruccion(): String
+    + obtenerNivelDificultad(): String
+    + evaluarRespuestas(respuestas: List<String>): ResultadoEvaluacion
+}
+
+class FabricaAdaptadores {
+    + {static} crearAdaptador(ejercicio: Object): AdaptadorEjercicios
+}
+
+' === ESTRATEGIAS ===
+interface EstrategiaLeccion {
+    + procesar(leccion: Leccion): void
+    + calcularPuntuacion(aciertos: int, total: int): int
+}
+
+class EstrategiaLeccionNormal {
+    + procesar(leccion: Leccion): void
+    + calcularPuntuacion(aciertos: int, total: int): int
+}
+
+class EstrategiaLeccionPrueba {
+    + procesar(leccion: Leccion): void
+    + calcularPuntuacion(aciertos: int, total: int): int
+}
+
+class FabricaEstrategiasLeccion {
+    + {static} obtenerEstrategia(tipo: TipoLeccion): EstrategiaLeccion
+}
+
+' === ENUMS ===
+enum TipoLeccion {
+    NORMAL
+    PRUEBA
+    DIAGNOSTICO
+}
+
+enum NivelDificultad {
+    FACIL
+    MEDIO
+    DIFICIL
+}
+
+enum LenguajeProgramacion {
+    JAVA
+    PYTHON
+    JAVASCRIPT
+    CPP
+}
+
+' ===== RELACIONES PRINCIPALES =====
+
+' Punto de entrada
+GestorEjerciciosEntry ..> IGestorEjercicios : "provides"
+GestorEjerciciosEntry ..> GestorEjerciciosPrincipal : "creates"
+
+' Implementación de interfaz
+GestorEjerciciosPrincipal ..|> IGestorEjercicios : "implements"
+
+' Composición principal
+GestorEjerciciosPrincipal *-- GestorLecciones
+GestorEjerciciosPrincipal *-- GestorProgreso
+
+' Gestión de lecciones
+GestorLecciones o-- Leccion : "manages"
+GestorProgreso o-- GestorProgresoUsuario : "manages"
+
+' Modelo de lección
+Leccion --> TipoLeccion
+Leccion --> NivelDificultad
+Leccion --> LenguajeProgramacion
+Leccion --> AdaptadorEjercicios : "uses"
+Leccion ..> ResultadoEvaluacion : "creates"
+
+' Adaptadores
+FabricaAdaptadores ..> AdaptadorEjercicios : "creates"
+
+' Estrategias
+Leccion --> EstrategiaLeccion : "uses"
+FabricaEstrategiasLeccion ..> EstrategiaLeccion : "creates"
+EstrategiaLeccionNormal ..|> EstrategiaLeccion
+EstrategiaLeccionPrueba ..|> EstrategiaLeccion
+
+@enduml

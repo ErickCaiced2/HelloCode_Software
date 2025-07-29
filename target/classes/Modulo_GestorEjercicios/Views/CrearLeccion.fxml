@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<AnchorPane prefHeight="640" prefWidth="360" style="-fx-background-color: linear-gradient(to bottom, #0b0c3c, #16a1d6);" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestorEjercicios.Controllers.LeccionController">
+
+    <!-- Título principal -->
+    <Label alignment="CENTER" layoutX="20.0" layoutY="30.0" prefWidth="320.0" style="-fx-text-fill: white; -fx-font-weight: bold;" text="¡Configura tu lección!" textAlignment="CENTER">
+        <font>
+            <Font name="Inter Semi Bold" size="29.0" />
+        </font>
+    </Label>
+
+    <VBox layoutX="20.0" layoutY="90.0" prefWidth="320.0" prefHeight="530.0" spacing="15">
+
+        <!-- Subtítulo Lenguaje -->
+        <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="22.0" prefHeight="41.0" prefWidth="322.0" style="-fx-background-color: #d3dbe3; -fx-padding: 10px; fx-background-radius: 5px; -fx-font-size: 15px; -fx-font-weight: bold;" text="LENGUAJE DE PROGRAMACIÓN" textAlignment="CENTER">
+            <font>
+                <Font name="Inter Bold" size="12.0" />
+            </font>
+        </Label>
+
+        <!-- Botones de Lenguaje -->
+        <VBox spacing="10">
+            <HBox spacing="10">
+                <Button fx:id="btnPython" prefHeight="45.0" prefWidth="140" style="-fx-background-color: white; -fx-text-fill: #1a237e; -fx-font-weight: bold; -fx-background-radius: 10;" text="PYTHON">
+                    <font>
+                        <Font name="Inter Bold" size="15.0" />
+                    </font>
+                </Button>
+                <Button fx:id="btnJava" prefHeight="45.0" prefWidth="140" style="-fx-background-color: white; -fx-text-fill: #1a237e; -fx-font-weight: bold; -fx-background-radius: 10;" text="JAVA">
+                    <font>
+                        <Font name="Inter Bold" size="15.0" />
+                    </font>
+                </Button>
+            </HBox>
+            <HBox spacing="10">
+                <Button fx:id="btnJavaScript" prefHeight="45.0" prefWidth="140" style="-fx-background-color: white; -fx-text-fill: #1a237e; -fx-font-weight: bold; -fx-background-radius: 10;" text="JAVASCRIPT">
+                    <font>
+                        <Font name="Inter Bold" size="15.0" />
+                    </font>
+                </Button>
+                <Button fx:id="btnCpp" prefHeight="45.0" prefWidth="140" style="-fx-background-color: white; -fx-text-fill: #1a237e; -fx-font-weight: bold; -fx-background-radius: 10;" text="CPP">
+                    <font>
+                        <Font name="Inter Bold" size="15.0" />
+                    </font>
+                </Button>
+            </HBox>
+        </VBox>
+
+        <!-- Espacio -->
+        <Region prefHeight="10" />
+
+        <!-- Badge gris claro -->
+        <Label alignment="CENTER" lineSpacing="22.0" prefWidth="320" style="-fx-background-color: #d3dbe3; -fx-padding: 10px; -fx-background-radius: 5px;" text="NIVEL DE DIFICULTAD" textAlignment="CENTER">
+            <font>
+                <Font name="Inter Semi Bold" size="16.0" />
+            </font>
+        </Label>
+
+        <!-- Botones de Dificultad -->
+        <VBox spacing="10">
+            <HBox spacing="10">
+                <Button fx:id="btnBasico" prefHeight="45.0" prefWidth="143.0" style="-fx-background-color: white; -fx-text-fill: #1a237e; -fx-font-weight: bold; -fx-background-radius: 10;" text="BASICO">
+                    <font>
+                        <Font name="Inter Bold" size="15.0" />
+                    </font>
+                </Button>
+                <Button fx:id="btnIntermedio" prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: white; -fx-text-fill: #1a237e; -fx-font-weight: bold; -fx-background-radius: 10;" text="INTERMEDIO">
+                    <font>
+                        <Font name="Inter Bold" size="15.0" />
+                    </font>
+                </Button>
+            </HBox>
+            <HBox spacing="10">
+                <Button fx:id="btnAvanzado" prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: white; -fx-text-fill: #1a237e; -fx-font-weight: bold; -fx-background-radius: 10;" text="AVANZADO">
+                    <font>
+                        <Font name="Inter Bold" size="15.0" />
+                    </font>
+                </Button>
+                <Region HBox.hgrow="ALWAYS" />
+            </HBox>
+        </VBox>
+
+        <!-- Espacio -->
+        <Region prefHeight="20" />
+
+        <!-- Subtítulo Lenguaje -->
+        <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="22.0" prefHeight="41.0" prefWidth="322.0" style="-fx-background-color: #d3dbe3; -fx-padding: 10px; fx-background-radius: 5px; -fx-font-size: 15px; -fx-font-weight: bold;" text="TIPO DE LECCIÓN" textAlignment="CENTER">
+            <font>
+                <Font name="Inter Bold" size="12.0" />
+            </font>
+        </Label>
+        <ComboBox fx:id="comboTipoLeccion" layoutX="50" layoutY="100">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Normal"/>
+                    <String fx:value="Diagnóstico"/>
+                    <String fx:value="Prueba"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <!-- Espacio -->
+        <Region prefHeight="20" />
+
+        <!-- Botón Continuar -->
+       <Button fx:id="btnContinuar" alignment="CENTER" contentDisplay="CENTER" prefHeight="48.0" prefWidth="214.0" style="-fx-background-color: #001f3f; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" text="Continuar">
+           <font>
+               <Font name="Inter Regular" size="22.0" />
+           </font>
+       </Button>
+    </VBox>
+
+</AnchorPane>

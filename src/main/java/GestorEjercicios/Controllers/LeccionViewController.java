@@ -5,7 +5,10 @@ import GestorEjercicios.enums.NivelDificultad;
 import GestorEjercicios.enums.TipoEjercicio;
 import GestorEjercicios.model.Leccion;
 import GestorEjercicios.model.ResultadoEvaluacion;
+import GestorEjercicios.GestorEjerciciosEntry;
+import GestorEjercicios.integracion.IGestorEjercicios;
 import Modulo_Ejercicios.exercises.EjercicioSeleccion;
+import Modulo_Usuario.Clases.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -53,6 +56,7 @@ public class LeccionViewController {
     
     // Variables de estado
     private Leccion leccion;
+    private Usuario usuarioActual; // Usuario que está tomando la lección
     private List<EjercicioSeleccion> ejercicios;
     private int ejercicioActual = 0;
     private List<ResultadoEvaluacion> resultados = new ArrayList<>();
@@ -67,6 +71,49 @@ public class LeccionViewController {
     public void initialize() {
         configurarBotones();
         configurarToggleGroup();
+    }
+    
+    /**
+     * Configura la lección y el usuario para el controlador
+     * MÉTODO PRINCIPAL DE INTEGRACIÓN CON EL SISTEMA 🎯
+     */
+    public void configurarLeccion(Leccion leccion, Usuario usuario, List<EjercicioSeleccion> ejercicios) {
+        // 🚨 EJECUTAR DIAGNÓSTICO ANTES DE EMPEZAR
+        System.out.println("\n🔍 ANTES DE EMPEZAR LA LECCIÓN - Ejecutando diagnóstico...");
+        GestorEjerciciosEntry.diagnosticoRapido();
+        
+        this.leccion = leccion;
+        
+        // 🔄 NUEVO: Obtener usuario actual desde el sistema en lugar de usar el parámetro
+        Usuario usuarioSistema = GestorEjerciciosEntry.obtenerUsuarioActual();
+        if (usuarioSistema != null) {
+            this.usuarioActual = usuarioSistema;
+            System.out.println("✅ Usuario obtenido desde sistema: " + usuarioSistema.getUsername());
+        } else {
+            // Fallback: usar el usuario pasado como parámetro
+            this.usuarioActual = usuario;
+            System.out.println("⚠️ Usando usuario del parámetro: " + (usuario != null ? usuario.getUsername() : "null"));
+        }
+        
+        this.ejercicios = ejercicios;
+        
+        // Configurar información de la lección
+        if (lblLenguaje != null) {
+            lblLenguaje.setText("Lenguaje: " + leccion.getLenguaje());
+        }
+        if (lblDificultad != null) {
+            lblDificultad.setText("Dificultad: " + leccion.getDificultad());
+        }
+        
+        // Mostrar primer ejercicio
+        if (!ejercicios.isEmpty()) {
+            mostrarEjercicio(0);
+        }
+        
+        System.out.println("🎮 LECCIÓN CONFIGURADA:");
+        System.out.println("   📚 " + leccion.getNombre());
+        System.out.println("   👤 Usuario activo: " + (this.usuarioActual != null ? this.usuarioActual.getUsername() : "Sin usuario"));
+        System.out.println("   🔢 Ejercicios: " + ejercicios.size());
     }
     
     /**
@@ -231,6 +278,40 @@ public class LeccionViewController {
         int correctos = (int) resultados.stream().filter(ResultadoEvaluacion::isCorrecto).count();
         double puntuacion = (double) correctos / ejercicios.size() * 100.0;
         
+        // 🔄 NUEVO: Asegurar que tenemos el usuario actual del sistema
+        if (this.usuarioActual == null) {
+            this.usuarioActual = GestorEjerciciosEntry.obtenerUsuarioActual();
+            System.out.println("🔄 Usuario obtenido en completarLeccion: " + 
+                (this.usuarioActual != null ? this.usuarioActual.getUsername() : "null"));
+        }
+        
+        // **INTEGRACIÓN CON SISTEMA DE PROGRESO** 🎯
+        if (leccion != null && usuarioActual != null) {
+            // Marcar lección como completada en el sistema
+            GestorEjerciciosEntry.marcarLeccionCompletada(leccion, usuarioActual, correctos);
+            
+            // Obtener estadísticas actualizadas del usuario
+            IGestorEjercicios.EstadisticasUsuario estadisticas = 
+                GestorEjerciciosEntry.obtenerEstadisticasUsuario(usuarioActual);
+            
+            System.out.println("🎉 LECCIÓN COMPLETADA:");
+            System.out.println("   👤 Usuario: " + usuarioActual.getUsername());
+            System.out.println("   📚 Lección: " + leccion.getNombre());
+            System.out.println("   ✅ Aciertos: " + correctos + "/" + ejercicios.size());
+            System.out.println("   🌟 Experiencia total: " + estadisticas.getExperienciaTotal());
+            System.out.println("   🧠 Conocimiento total: " + estadisticas.getConocimientoTotal());
+            System.out.println("   📈 Lecciones completadas: " + estadisticas.getLeccionesCompletadas());
+            
+            // 🔍 VERIFICAR QUE SE GUARDÓ CON EL USUARIO CORRECTO
+            System.out.println("🔍 VERIFICACIÓN DE GUARDADO:");
+            System.out.println("   🆔 Username del usuario: " + usuarioActual.getUsername());
+            System.out.println("   📊 Datos guardados para: " + usuarioActual.getUsername());
+        } else {
+            System.err.println("❌ Error: No se pudo completar la lección");
+            System.err.println("   📚 Lección: " + (leccion != null ? leccion.getNombre() : "null"));
+            System.err.println("   👤 Usuario: " + (usuarioActual != null ? usuarioActual.getUsername() : "null"));
+        }
+        
         // Mostrar pantalla de lección completada
         mostrarLeccionCompletada(puntuacion);
     }
@@ -305,5 +386,91 @@ public class LeccionViewController {
     private void cerrarVentanaActual() {
         Stage currentStage = (Stage) btnEnviar.getScene().getWindow();
         currentStage.close();
+    }
+    
+    // ============================================
+    // 🎯 MÉTODOS ESTÁTICOS PARA OTROS MÓDULOS
+    // ============================================
+    
+    /**
+     * Método estático para que otros módulos obtengan estadísticas de usuario
+     * PUNTO DE INTEGRACIÓN PRINCIPAL 🔗
+     */
+    public static IGestorEjercicios.EstadisticasUsuario obtenerEstadisticasUsuario(Usuario usuario) {
+        return GestorEjerciciosEntry.obtenerEstadisticasUsuario(usuario);
+    }
+    
+    /**
+     * 🎮 MÉTODO ESPECÍFICO PARA GAMIFICACIÓN: Obtener número de lecciones completadas
+     * Integración directa con DesafioSemanal y DesafioMensual
+     */
+    public static int obtenerNumeroLeccionesCompletadas(Usuario usuario) {
+        IGestorEjercicios.EstadisticasUsuario estadisticas = obtenerEstadisticasUsuario(usuario);
+        return estadisticas.getLeccionesCompletadas();
+    }
+    
+    /**
+     * 🎮 MÉTODO PARA GAMIFICACIÓN: Verificar si el usuario ha completado al menos N lecciones
+     * Útil para desbloquear logros basados en cantidad de lecciones
+     */
+    public static boolean haCompletadoMinLecciones(Usuario usuario, int numeroMinimo) {
+        return obtenerNumeroLeccionesCompletadas(usuario) >= numeroMinimo;
+    }
+    
+    /**
+     * 🎮 MÉTODO PARA GAMIFICACIÓN: Obtener lista detallada de lecciones completadas
+     * Información completa para análisis y estadísticas avanzadas
+     */
+    public static java.util.Collection<String> obtenerNombresLeccionesCompletadas(Usuario usuario) {
+        try {
+            // Acceder al progreso del usuario
+            var progreso = GestorEjercicios.model.GestorProgresoUsuario.obtenerProgresoUsuario(usuario);
+            return progreso.getLeccionesCompletadas().values().stream()
+                .map(leccion -> leccion.getNombreLeccion())
+                .collect(java.util.stream.Collectors.toList());
+        } catch (Exception e) {
+            System.err.println("Error al obtener nombres de lecciones completadas: " + e.getMessage());
+            return new java.util.ArrayList<>();
+        }
+    }
+    
+    /**
+     * 🎮 MÉTODO PARA GAMIFICACIÓN: Obtener progreso de lecciones como porcentaje
+     * Retorna el porcentaje de lecciones completadas respecto al total disponible
+     */
+    public static double obtenerPorcentajeLeccionesCompletadas(Usuario usuario) {
+        try {
+            int completadas = obtenerNumeroLeccionesCompletadas(usuario);
+            int totalDisponibles = GestorEjerciciosEntry.obtenerTodasLasLecciones().size();
+            
+            if (totalDisponibles == 0) return 0.0;
+            return (double) completadas / totalDisponibles * 100.0;
+        } catch (Exception e) {
+            System.err.println("Error al calcular porcentaje de lecciones: " + e.getMessage());
+            return 0.0;
+        }
+    }
+    
+    /**
+     * 🔧 MÉTODO AUXILIAR: Obtener usuario actual del sistema
+     * Wrapper para acceder fácilmente al usuario actual desde cualquier parte del controlador
+     */
+    public static Usuario obtenerUsuarioActualDelSistema() {
+        return GestorEjerciciosEntry.obtenerUsuarioActual();
+    }
+    
+    /**
+     * Método estático para que otros módulos marquen lecciones completadas
+     * PUNTO DE INTEGRACIÓN PARA GAMIFICACIÓN 🎮
+     */
+    public static void registrarLeccionCompletada(Leccion leccion, Usuario usuario, int aciertos) {
+        GestorEjerciciosEntry.marcarLeccionCompletada(leccion, usuario, aciertos);
+    }
+    
+    /**
+     * Método estático para obtener progreso del usuario en una lección específica
+     */
+    public static double obtenerProgresoLeccion(Leccion leccion, Usuario usuario) {
+        return GestorEjerciciosEntry.obtenerProgresoUsuario(leccion, usuario);
     }
 } 

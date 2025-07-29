@@ -1,0 +1,181 @@
+@startuml DiagramaIntegracionGestorEjercicios
+
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+title Diagrama de Clases - Integración GestorEjercicios
+
+' ===== COLORES Y ESTILOS =====
+skinparam class {
+    BackgroundColor LightBlue
+    BorderColor DarkBlue
+    FontSize 10
+}
+
+skinparam interface {
+    BackgroundColor LightGreen
+    BorderColor DarkGreen
+    FontSize 10
+}
+
+skinparam enum {
+    BackgroundColor LightYellow
+    BorderColor Orange
+    FontSize 10
+}
+
+' ===== INTERFAZ PRINCIPAL =====
+interface IGestorEjercicios {
+    ' === MÉTODOS DE CREACIÓN ===
+    + crearLeccion(nombre: String, ejercicios: List<?>, tipo: TipoLeccion, experiencia: int, conocimiento: int): Leccion
+    + crearLeccion(nombre: String, ejercicios: List<?>, tipo: TipoLeccion, experiencia: int, conocimiento: int, dificultad: NivelDificultad, lenguaje: LenguajeProgramacion): Leccion
+    
+    ' === MÉTODOS DE CONSULTA ===
+    + obtenerLeccion(id: int): Leccion
+    + obtenerTodasLasLecciones(): List<Leccion>
+    
+    ' === MÉTODOS DE EJECUCIÓN ===
+    + ejecutarLeccion(leccion: Leccion, usuario: Usuario): ResultadoEvaluacion
+    + marcarLeccionCompletada(leccion: Leccion, usuario: Usuario, aciertos: int): void
+    
+    ' === MÉTODOS DE ESTADÍSTICAS ===
+    + obtenerProgresoUsuario(leccion: Leccion, usuario: Usuario): double
+    + obtenerEstadisticasUsuario(usuario: Usuario): EstadisticasUsuario
+}
+
+' ===== CLASE INTERNA ESTADÍSTICAS =====
+class "IGestorEjercicios.EstadisticasUsuario" as EstadisticasUsuario {
+    - experienciaTotal: int
+    - conocimientoTotal: int
+    - leccionesCompletadas: int
+    - ejerciciosCorrectos: int
+    - ejerciciosTotales: int
+    
+    + EstadisticasUsuario(experienciaTotal: int, conocimientoTotal: int, leccionesCompletadas: int, ejerciciosCorrectos: int, ejerciciosTotales: int)
+    + getExperienciaTotal(): int
+    + getConocimientoTotal(): int
+    + getLeccionesCompletadas(): int
+    + getEjerciciosCorrectos(): int
+    + getEjerciciosTotales(): int
+    + getPorcentajeAcierto(): double
+}
+
+' ===== CLASES DEL MODELO =====
+class Leccion {
+    - id: int
+    - nombre: String
+    - tipo: TipoLeccion
+    - ejercicios: List<AdaptadorEjercicios>
+    - experiencia: int
+    - conocimiento: int
+    - dificultad: NivelDificultad
+    - lenguaje: LenguajeProgramacion
+    - desbloqueada: boolean
+    
+    + Leccion(nombre: String, ejercicios: List<?>, tipo: TipoLeccion, experiencia: int, conocimiento: int)
+    + Leccion(nombre: String, ejercicios: List<?>, tipo: TipoLeccion, experiencia: int, conocimiento: int, dificultad: NivelDificultad, lenguaje: LenguajeProgramacion)
+    + getId(): int
+    + getNombre(): String
+    + getTipo(): TipoLeccion
+    + getEjercicios(): List<AdaptadorEjercicios>
+    + getExperiencia(): int
+    + getConocimiento(): int
+    + getDificultad(): NivelDificultad
+    + getLenguaje(): LenguajeProgramacion
+    + isDesbloqueada(): boolean
+    + setDesbloqueada(desbloqueada: boolean): void
+    + getEjercicio(indice: int): AdaptadorEjercicios
+    + evaluarLeccion(): ResultadoEvaluacion
+    + calcularProgreso(): double
+}
+
+class ResultadoEvaluacion {
+    - esCorrecto: boolean
+    - puntuacionObtenida: int
+    - tiempoEmpleado: int
+    - obtenerMensaje: String
+    - hayEjercicioSiguiente: boolean
+    
+    + ResultadoEvaluacion(esCorrecto: boolean, puntuacionObtenida: int, tiempoEmpleado: int, obtenerMensaje: String, hayEjercicioSiguiente: boolean)
+    + isCorrecto(): boolean
+    + getPuntuacionObtenida(): int
+    + getTiempoEmpleado(): int
+    + getObtenerMensaje(): String
+    + isHayEjercicioSiguiente(): boolean
+    + {static} evaluarLeccion(totalEjercicios: int, ejerciciosCorrectos: int): boolean
+}
+
+' ===== ENUMS =====
+enum TipoLeccion {
+    NORMAL
+    PRUEBA
+    DIAGNOSTICO
+}
+
+enum NivelDificultad {
+    FACIL
+    MEDIO
+    DIFICIL
+}
+
+enum LenguajeProgramacion {
+    JAVA
+    PYTHON
+    JAVASCRIPT
+    CPP
+}
+
+' ===== CLASES EXTERNAS =====
+class "Modulo_Usuario.Clases.Usuario" as Usuario {
+    - id: int
+    - nombre: String
+    - email: String
+    + getId(): int
+    + getNombre(): String
+    + getEmail(): String
+}
+
+interface AdaptadorEjercicios {
+    + obtenerId(): String
+    + obtenerInstruccion(): String
+    + obtenerNivelDificultad(): String
+    + obtenerLenguaje(): String
+    + evaluarRespuestas(respuestasUsuario: List<String>): ResultadoEvaluacion
+    + obtenerRespuestasCorrectas(): List<String>
+    + obtenerTipo(): String
+}
+
+' ===== RELACIONES =====
+
+' IGestorEjercicios contiene EstadisticasUsuario
+IGestorEjercicios +-- EstadisticasUsuario : "inner class"
+
+' IGestorEjercicios usa las clases del modelo
+IGestorEjercicios ..> Leccion : "creates/uses"
+IGestorEjercicios ..> ResultadoEvaluacion : "returns"
+IGestorEjercicios ..> Usuario : "parameter"
+IGestorEjercicios ..> TipoLeccion : "parameter"
+IGestorEjercicios ..> NivelDificultad : "parameter"
+IGestorEjercicios ..> LenguajeProgramacion : "parameter"
+
+' Leccion usa enums y otras clases
+Leccion --> TipoLeccion : "tipo"
+Leccion --> NivelDificultad : "dificultad"
+Leccion --> LenguajeProgramacion : "lenguaje"
+Leccion --> AdaptadorEjercicios : "ejercicios *"
+Leccion ..> ResultadoEvaluacion : "creates"
+
+' ResultadoEvaluacion es usado por varios métodos
+EstadisticasUsuario ..> Usuario : "associated with"
+
+' ===== NOTAS Y DOCUMENTACIÓN =====
+note top of IGestorEjercicios : **Interfaz de Integración**\nPermite a otros módulos usar el\nGestorEjercicios de manera independiente
+
+note right of EstadisticasUsuario : **Clase Interna**\nEncapsula estadísticas\nde usuario del módulo
+
+note bottom of Leccion : **Modelo Principal**\nUsa adaptadores para manejar\ndiferentes tipos de ejercicios
+
+note left of AdaptadorEjercicios : **Patrón Adaptador**\nInterfaz unificada para\ndiferentes tipos de ejercicios
+
+@enduml

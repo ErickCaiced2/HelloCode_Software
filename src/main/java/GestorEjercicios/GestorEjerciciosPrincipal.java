@@ -8,6 +8,7 @@ import GestorEjercicios.model.ResultadoEvaluacion;
 import GestorEjercicios.enums.TipoLeccion;
 import GestorEjercicios.enums.NivelDificultad;
 import GestorEjercicios.enums.LenguajeProgramacion;
+import GestorEjercicios.ConfiguracionGestorEjercicios;
 import Modulo_Usuario.Clases.Usuario;
 
 import java.util.List;
@@ -38,12 +39,20 @@ public class GestorEjerciciosPrincipal implements IGestorEjercicios {
     
     @Override
     public Leccion crearLeccion(String nombre, List<?> ejercicios, TipoLeccion tipo, int experiencia, int conocimiento) {
+        // Validaciones usando configuración
         if (nombre == null || nombre.trim().isEmpty()) {
-            throw new IllegalArgumentException("El nombre de la lección no puede estar vacío");
+            throw new IllegalArgumentException(ConfiguracionGestorEjercicios.ERROR_NOMBRE_VACIO);
         }
         
         if (ejercicios == null || ejercicios.isEmpty()) {
-            throw new IllegalArgumentException("La lección debe contener al menos un ejercicio");
+            throw new IllegalArgumentException(ConfiguracionGestorEjercicios.ERROR_EJERCICIOS_VACIOS);
+        }
+        
+        // Validar número de ejercicios
+        if (!ConfiguracionGestorEjercicios.validarNumeroEjercicios(ejercicios.size(), tipo)) {
+            int maximo = ConfiguracionGestorEjercicios.obtenerMaximoEjercicios(tipo);
+            throw new IllegalArgumentException(
+                String.format("Número de ejercicios inválido. Máximo para %s: %d", tipo, maximo));
         }
         
         // Generar ID único para la lección
@@ -55,23 +64,36 @@ public class GestorEjerciciosPrincipal implements IGestorEjercicios {
         // Agregar la lección al gestor
         gestorLecciones.agregarLeccion(leccion);
         
-        System.out.println("Lección creada: " + leccion.obtenerResumen());
+        // Mensaje usando configuración
+        System.out.println(String.format(ConfiguracionGestorEjercicios.MENSAJE_LECCION_CREADA, nombre));
         return leccion;
     }
 
     @Override
     public Leccion crearLeccion(String nombre, List<?> ejercicios, TipoLeccion tipo, int experiencia, int conocimiento, 
                                NivelDificultad dificultad, LenguajeProgramacion lenguaje) {
+        // Validaciones usando configuración
         if (nombre == null || nombre.trim().isEmpty()) {
-            throw new IllegalArgumentException("El nombre de la lección no puede estar vacío");
+            throw new IllegalArgumentException(ConfiguracionGestorEjercicios.ERROR_NOMBRE_VACIO);
         }
         
         if (ejercicios == null || ejercicios.isEmpty()) {
-            throw new IllegalArgumentException("La lección debe contener al menos un ejercicio");
+            throw new IllegalArgumentException(ConfiguracionGestorEjercicios.ERROR_EJERCICIOS_VACIOS);
         }
         
         if (dificultad == null) {
             throw new IllegalArgumentException("El nivel de dificultad no puede ser nulo");
+        }
+        
+        if (lenguaje == null) {
+            throw new IllegalArgumentException("El lenguaje de programación no puede ser nulo");
+        }
+        
+        // Validar número de ejercicios
+        if (!ConfiguracionGestorEjercicios.validarNumeroEjercicios(ejercicios.size(), tipo)) {
+            int maximo = ConfiguracionGestorEjercicios.obtenerMaximoEjercicios(tipo);
+            throw new IllegalArgumentException(
+                String.format("Número de ejercicios inválido. Máximo para %s: %d", tipo, maximo));
         }
         
         if (lenguaje == null) {
@@ -117,12 +139,18 @@ public class GestorEjerciciosPrincipal implements IGestorEjercicios {
     
     @Override
     public void marcarLeccionCompletada(Leccion leccion, Usuario usuario, int aciertos) {
-        if (leccion == null || usuario == null) {
-            throw new IllegalArgumentException("La lección y el usuario no pueden ser nulos");
+        if (leccion == null) {
+            throw new IllegalArgumentException(ConfiguracionGestorEjercicios.ERROR_LECCION_NULA);
+        }
+        
+        if (usuario == null) {
+            throw new IllegalArgumentException(ConfiguracionGestorEjercicios.ERROR_USUARIO_NULO);
         }
         
         if (aciertos < 0 || aciertos > leccion.getNumeroEjercicios()) {
-            throw new IllegalArgumentException("El número de aciertos debe estar entre 0 y " + leccion.getNumeroEjercicios());
+            throw new IllegalArgumentException(
+                String.format(ConfiguracionGestorEjercicios.ERROR_ACIERTOS_INVALIDOS, 
+                leccion.getNumeroEjercicios()));
         }
         
         // Marcar la lección como completada usando el gestor de progreso
@@ -131,7 +159,9 @@ public class GestorEjerciciosPrincipal implements IGestorEjercicios {
         // Marcar la lección como completada internamente
         leccion.setCompletada(true);
         
-        System.out.println("Lección '" + leccion.obtenerResumen() + "' marcada como completada para " + usuario.getUsername());
+        // Mensaje usando configuración
+        System.out.println(String.format(ConfiguracionGestorEjercicios.MENSAJE_LECCION_COMPLETADA,
+            leccion.getNombre(), usuario.getUsername(), aciertos, leccion.getNumeroEjercicios()));
     }
     
     @Override
@@ -177,14 +207,18 @@ public class GestorEjerciciosPrincipal implements IGestorEjercicios {
      * Crea una lección de prueba con ejercicios específicos
      */
     public Leccion crearLeccionPrueba(String nombre, List<?> ejercicios) {
-        return crearLeccion(nombre, ejercicios, TipoLeccion.PRUEBA, 30, 0);
+        int experiencia = ConfiguracionGestorEjercicios.obtenerExperienciaPorDefecto(TipoLeccion.PRUEBA);
+        int conocimiento = ConfiguracionGestorEjercicios.obtenerConocimientoPorDefecto(TipoLeccion.PRUEBA);
+        return crearLeccion(nombre, ejercicios, TipoLeccion.PRUEBA, experiencia, conocimiento);
     }
     
     /**
      * Crea una lección normal con ejercicios específicos
      */
     public Leccion crearLeccionNormal(String nombre, List<?> ejercicios) {
-        return crearLeccion(nombre, ejercicios, TipoLeccion.NORMAL, 15, 5);
+        int experiencia = ConfiguracionGestorEjercicios.obtenerExperienciaPorDefecto(TipoLeccion.NORMAL);
+        int conocimiento = ConfiguracionGestorEjercicios.obtenerConocimientoPorDefecto(TipoLeccion.NORMAL);
+        return crearLeccion(nombre, ejercicios, TipoLeccion.NORMAL, experiencia, conocimiento);
     }
     
     /**

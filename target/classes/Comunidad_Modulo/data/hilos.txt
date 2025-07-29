@@ -1,0 +1,6 @@
+Java Principiantes;PRUEBA2;HILO_1753637421891_66;HILITOS;VS;erick;2025-07-27 12:30:21;ACTIVO
+Java Principiantes;PRUEBA2;HILO_1753638454395_423;HIJUC;asc;erick;2025-07-27 12:47:34;Abierto;
+Java Principiantes;PRUEBA2;e8c0dd31-08ef-43b2-a378-0188c99b1976;HIJUC;asc;erick;2025-07-27 12:47:34;Resuelto;erick:1
+Java Principiantes;PRUEBA2;HILO_1753645699348_497;HILOS;SD;erick;2025-07-27 14:48:19;Abierto;
+Java Principiantes;PRUEBA2;cf1151f2-25f0-43f0-81ee-8cb4affe690c;HILOS;SD;erick;2025-07-27 14:48:19;Abierto;erick:-1
+Java prueba 2;esta es una prueba;HILO_1753647087562_149;su perra madre llamen a dios;nada que hacer;medardito;2025-07-27 15:11:27;Abierto;

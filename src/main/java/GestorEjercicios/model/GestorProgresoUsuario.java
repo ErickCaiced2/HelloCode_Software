@@ -1,5 +1,6 @@
 package GestorEjercicios.model;
 
+import GestorEjercicios.ConfiguracionGestorEjercicios;
 import Modulo_Usuario.Clases.Usuario;
 import Modulo_Usuario.Clases.UsuarioComunidad;
 
@@ -119,6 +120,12 @@ public class GestorProgresoUsuario {
     public static void marcarLeccionCompletada(Usuario usuario, Leccion leccion, int aciertos) {
         ProgresoUsuario progreso = obtenerProgresoUsuario(usuario);
         
+        // 🔍 DEBUG: Verificar que se esté guardando con el usuario correcto
+        System.out.println("🔍 === GUARDANDO PROGRESO DE LECCIÓN ===");
+        System.out.println("   👤 Usuario: " + usuario.getUsername());
+        System.out.println("   📚 Lección: " + leccion.obtenerResumen());
+        System.out.println("   ✅ Aciertos: " + aciertos + "/" + leccion.getNumeroEjercicios());
+        
         // Calcular experiencia y conocimiento ganados
         int experienciaGanada = calcularExperienciaGanada(leccion, aciertos);
         int conocimientoGanado = calcularConocimientoGanado(leccion, aciertos);
@@ -138,16 +145,24 @@ public class GestorProgresoUsuario {
         progreso.agregarExperiencia(experienciaGanada);
         progreso.agregarConocimiento(conocimientoGanado);
         
+        // 🔍 DEBUG: Verificar estado después del guardado
+        System.out.println("   🌟 Experiencia ganada: " + experienciaGanada);
+        System.out.println("   🧠 Conocimiento ganado: " + conocimientoGanado);
+        System.out.println("   📊 Experiencia total: " + progreso.getExperienciaTotal());
+        System.out.println("   📚 Lecciones completadas: " + progreso.getLeccionesCompletadas().size());
+        System.out.println("   🗝️ Clave en mapa: " + usuario.getUsername());
+        System.out.println("🔍 === FIN GUARDADO ===");
+        
         // Actualizar usuario si es UsuarioComunidad
         if (usuario instanceof UsuarioComunidad) {
             UsuarioComunidad usuarioComunidad = (UsuarioComunidad) usuario;
-            usuarioComunidad.incrementarReputacion(experienciaGanada / 10); // Convertir XP a reputación
+            int reputacionGanada = ConfiguracionGestorEjercicios.calcularReputacionGanada(experienciaGanada);
+            usuarioComunidad.incrementarReputacion(reputacionGanada);
         }
         
-        System.out.println("Lección completada por " + usuario.getUsername() + 
-                          ": " + aciertos + "/" + leccion.getNumeroEjercicios() + 
-                          " ejercicios correctos. XP: +" + experienciaGanada + 
-                          ", Conocimiento: +" + conocimientoGanado);
+        // Mensaje usando configuración
+        System.out.println(String.format(ConfiguracionGestorEjercicios.MENSAJE_EXPERIENCIA_GANADA,
+                          experienciaGanada, conocimientoGanado));
     }
     
     /**
@@ -190,31 +205,25 @@ public class GestorProgresoUsuario {
     }
     
     /**
-     * Calcula la experiencia ganada basada en el rendimiento
+     * Calcula la experiencia ganada basada en el rendimiento usando configuración
      */
     private static int calcularExperienciaGanada(Leccion leccion, int aciertos) {
         double porcentajeAcierto = (double) aciertos / leccion.getNumeroEjercicios();
         int experienciaBase = leccion.getExperiencia();
         
-        // Bonus por buen rendimiento
-        if (porcentajeAcierto >= 0.8) {
-            return (int) (experienciaBase * 1.2); // 20% bonus
-        } else if (porcentajeAcierto >= 0.6) {
-            return experienciaBase; // Experiencia normal
-        } else {
-            return (int) (experienciaBase * 0.5); // 50% de la experiencia
-        }
+        // Usar configuración para calcular experiencia
+        return ConfiguracionGestorEjercicios.calcularExperienciaGanada(experienciaBase, porcentajeAcierto);
     }
     
     /**
-     * Calcula el conocimiento ganado basado en el rendimiento
+     * Calcula el conocimiento ganado basado en el rendimiento usando configuración
      */
     private static int calcularConocimientoGanado(Leccion leccion, int aciertos) {
         double porcentajeAcierto = (double) aciertos / leccion.getNumeroEjercicios();
         int conocimientoBase = leccion.getConocimiento();
         
-        // El conocimiento se otorga proporcionalmente al rendimiento
-        return (int) (conocimientoBase * porcentajeAcierto);
+        // Usar configuración para calcular conocimiento
+        return ConfiguracionGestorEjercicios.calcularConocimientoGanado(conocimientoBase, porcentajeAcierto);
     }
     
     /**
@@ -246,5 +255,34 @@ public class GestorProgresoUsuario {
         public double getPorcentajeAcierto() {
             return ejerciciosTotales > 0 ? (double) ejerciciosCorrectos / ejerciciosTotales : 0.0;
         }
+    }
+    
+    /**
+     * 🔍 MÉTODO DE DEPURACIÓN: Mostrar todos los usuarios con progreso guardado
+     * Útil para verificar que los datos se están guardando correctamente
+     */
+    public static void mostrarTodosLosProgresos() {
+        System.out.println("\n🔍 === USUARIOS CON PROGRESO GUARDADO ===");
+        if (progresoUsuarios.isEmpty()) {
+            System.out.println("   ❌ No hay usuarios con progreso guardado");
+        } else {
+            System.out.println("   📊 Total de usuarios: " + progresoUsuarios.size());
+            for (Map.Entry<String, ProgresoUsuario> entry : progresoUsuarios.entrySet()) {
+                String username = entry.getKey();
+                ProgresoUsuario progreso = entry.getValue();
+                System.out.println("   👤 " + username + ":");
+                System.out.println("      🌟 Experiencia: " + progreso.getExperienciaTotal());
+                System.out.println("      🧠 Conocimiento: " + progreso.getConocimientoTotal());
+                System.out.println("      📚 Lecciones: " + progreso.getLeccionesCompletadas().size());
+            }
+        }
+        System.out.println("🔍 === FIN DE USUARIOS ===\n");
+    }
+    
+    /**
+     * 🔍 MÉTODO DE DEPURACIÓN: Verificar si existe progreso para un usuario específico
+     */
+    public static boolean tieneProgreso(String username) {
+        return progresoUsuarios.containsKey(username);
     }
 } 

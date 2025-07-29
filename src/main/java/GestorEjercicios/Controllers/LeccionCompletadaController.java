@@ -40,6 +40,21 @@ public class LeccionCompletadaController {
         } else {
             lblAciertos.setStyle("-fx-text-fill: #F44336; -fx-font-size: 20px; -fx-font-weight: bold;");
         }
+        
+        // 🔍 VERIFICACIÓN DE PROGRESO GUARDADO
+        System.out.println("\n🎉 === LECCIÓN COMPLETADA - VERIFICANDO DATOS ===");
+        try {
+            // Mostrar todos los usuarios con progreso guardado
+            GestorEjercicios.GestorEjerciciosEntry.mostrarTodosLosUsuariosConProgreso();
+            
+            // Verificar usuario actual específicamente
+            GestorEjercicios.GestorEjerciciosEntry.probarSistemaUsuarios();
+            
+        } catch (Exception e) {
+            System.err.println("❌ Error al verificar progreso: " + e.getMessage());
+            e.printStackTrace();
+        }
+        System.out.println("🎉 === FIN VERIFICACIÓN ===\n");
     }
     
     private void continuarSiguienteLeccion() {

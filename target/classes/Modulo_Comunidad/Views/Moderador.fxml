@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<AnchorPane prefHeight="640.0" prefWidth="360.0"
+            style="-fx-background-color: radial-gradient(center 50% 50%, radius 80%, #d5a8ff 0%, #a372ff 50%, #7f5bbd 100%);
+                   -fx-font-family: 'Arial';"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Comunidad_Modulo.Controladores_GUI.Moderador_Controller">
+
+    <!-- Título con Imagen -->
+    <HBox alignment="CENTER" layoutX="15" layoutY="10" spacing="10">
+        <ImageView fitHeight="40" fitWidth="40" preserveRatio="true">
+            <Image url="@images/modicon.png"/>
+        </ImageView>
+        <Text text="Centro de Moderación"
+              style="-fx-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+    </HBox>
+
+
+    <!-- Panel Izquierdo - Información y Expulsión -->
+    <VBox layoutX="35" layoutY="60" spacing="10" prefWidth="280">
+        <!-- Área de Información -->
+        <TextArea fx:id="txtAreaInformacion"
+                  prefHeight="140" prefWidth="300"
+                  wrapText="true"
+                  style="-fx-background-color: #f3e5f5; -fx-text-fill: #4a0072;
+                         -fx-background-radius: 10; -fx-border-radius: 10;
+                         -fx-border-color: #ce93d8;"/>
+
+        <!-- Controles de Expulsión -->
+        <HBox spacing="10">
+            <TextField fx:id="txtNombreUsuarioEliminar"
+                       promptText="Username"
+                       prefWidth="140"
+                       style="-fx-background-color: #f3e5f5;"/>
+            <TextField fx:id="txtNombreComunidad"
+                       promptText="Comunidad"
+                       prefWidth="140"
+                       style="-fx-background-color: #f3e5f5;"/>
+        </HBox>
+
+        <!-- Botones de Acción -->
+        <HBox spacing="10">
+            <Button fx:id="btnListarUsuarios"
+                    text="Info"
+                    onAction="#listarUsuarios"
+                    prefHeight="35.0"
+                    prefWidth="90.0"
+                    style="-fx-background-color: linear-gradient(to bottom, #9575cd, #7e57c2);
+                   -fx-text-fill: white;
+                   -fx-font-size: 14px;
+                   -fx-font-weight: bold;
+                   -fx-background-radius: 20;
+                   -fx-border-radius: 20;
+                   -fx-border-color: #b39ddb;
+                   -fx-border-width: 1.5;
+                   -fx-cursor: hand;
+                   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 2);">
+            </Button>
+            <Button fx:id="btnEliminarUsuario"
+                    text="Expulsar"
+                    onAction="#eliminarUsuario"
+                    prefHeight="35.0"
+                    prefWidth="90.0"
+                    style="-fx-background-color: linear-gradient(to bottom, #e57373, #ef5350);
+                   -fx-text-fill: white;
+                   -fx-font-size: 14px;
+                   -fx-font-weight: bold;
+                   -fx-background-radius: 20;
+                   -fx-border-radius: 20;
+                   -fx-border-color: #ffcdd2;
+                   -fx-border-width: 1.5;
+                   -fx-cursor: hand;
+                   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 2);">
+            </Button>
+        </HBox>
+
+        <!-- Botón de Acción Eliminar Comunidad -->
+        <!-- Botones de Acción -->
+        <HBox spacing="10">
+            <Button fx:id="btnEliminarComunidad"
+                    text="Eliminar Comunidad"
+                    onAction="#eliminarComunidad"
+                    prefHeight="35.0"
+                    prefWidth="90.0"
+                    style="-fx-background-color: linear-gradient(to bottom, #9575cd, #7e57c2);
+                   -fx-text-fill: white;
+                   -fx-font-size: 14px;
+                   -fx-font-weight: bold;
+                   -fx-background-radius: 20;
+                   -fx-border-radius: 20;
+                   -fx-border-color: #b39ddb;
+                   -fx-border-width: 1.5;
+                   -fx-cursor: hand;
+                   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 2);">
+            </Button>
+            <TextField fx:id="txtComunidadEliminar"
+                       promptText="Nombre de la Comunidad"
+                       prefWidth="140"
+                       style="-fx-background-color: #f3e5f5;"/>
+        </HBox>
+    </VBox>
+
+    <!-- Panel Derecho - Historial -->
+    <VBox layoutX="35" layoutY="340" spacing="10" prefWidth="280">
+        <Label text="Historial de la Comunidad"
+               style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+        <!-- Selectores -->
+        <ComboBox fx:id="comboComunidades" promptText="Seleccionar Comunidad"
+                  prefWidth="280"/>
+        <ComboBox fx:id="comboTipoGrupo" promptText="Tipo de Grupo"
+                  prefWidth="280"/>
+        <ComboBox fx:id="comboGrupos" promptText="Seleccionar Grupo"
+                  prefWidth="280"/>
+
+        <!-- Área de Historial -->
+        <TextArea fx:id="txtAreaHistorial"
+                  prefHeight="140" prefWidth="280"
+                  wrapText="true"
+                  style="-fx-background-color: #f3e5f5; -fx-text-fill: #4a0072;
+                         -fx-background-radius: 10; -fx-border-radius: 10;
+                         -fx-border-color: #ce93d8;"/>
+
+        <!-- Botones de Acción -->
+        <HBox spacing="10">
+            <Button fx:id="btnVerHistorial"
+                    text="Ver Historial"
+                    onAction="#verHistorial"
+                    prefHeight="35.0"
+                    prefWidth="120.0"
+                    style="-fx-background-color: linear-gradient(to bottom, #7e57c2, #673ab7);
+                   -fx-text-fill: white;
+                   -fx-font-size: 14px;
+                   -fx-font-weight: bold;
+                   -fx-background-radius: 20;
+                   -fx-border-radius: 20;
+                   -fx-border-color: #b39ddb;
+                   -fx-border-width: 1.5;
+                   -fx-cursor: hand;
+                   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 2);">
+            </Button>
+            <Button fx:id="btnVolver"
+                    text="Volver"
+                    onAction="#volver"
+                    prefHeight="35.0"
+                    prefWidth="100.0"
+                    style="-fx-background-color: linear-gradient(to bottom, #5c6bc0, #3f51b5);
+                   -fx-text-fill: white;
+                   -fx-font-size: 14px;
+                   -fx-font-weight: bold;
+                   -fx-background-radius: 20;
+                   -fx-border-radius: 20;
+                   -fx-border-color: #9fa8da;
+                   -fx-border-width: 1.5;
+                   -fx-cursor: hand;
+                   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 2);">
+            </Button>
+        </HBox>
+    </VBox>
+
+</AnchorPane>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="720.0" prefWidth="360.0" style="-fx-background-color: #DCD6F7;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Comunidad_Modulo.Controladores_GUI.GestionForo_Controller">
+   <children>
+      <StackPane prefHeight="720.0" prefWidth="360.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+         <!-- Capa 1: Contenido principal -->
+         <VBox fx:id="vboxPrincipal" alignment="TOP_CENTER" spacing="10.0">
+            <!-- Encabezado -->
+            <HBox alignment="CENTER" prefHeight="80.0" prefWidth="360.0" style="-fx-background-color: #424874; -fx-background-radius: 0 0 15 15;">
+               <Label style="-fx-text-fill: white; -fx-font-weight: bold;" text="🗨 Foro de Comunidad">
+                  <font>
+                     <Font size="20.0" />
+                  </font>
+                  <HBox.margin>
+                     <Insets bottom="10.0" top="10.0" />
+                  </HBox.margin>
+               </Label>
+            </HBox>
+
+            <!-- Estado del sistema -->
+            <Label fx:id="lblEstadoSistema" alignment="CENTER" prefHeight="30.0" prefWidth="340.0" style="-fx-background-color: #D6E5E3; -fx-background-radius: 10;" text="🔄 Estado del Sistema: Cargando..." textFill="#424874">
+               <font>
+                  <Font size="11.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </padding>
+            </Label>
+
+            <!-- Pestañas de navegación -->
+            <TabPane fx:id="tabPane" prefWidth="340.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+               <tabs>
+                  <Tab style="-fx-font-weight: bold;" text="💬 Discusión">
+                     <content>
+                        <VBox spacing="10.0" style="-fx-background-color: transparent;">
+                           <!-- Unirse a Grupo -->
+                           <Label style="-fx-font-weight: bold; -fx-text-fill: #424874;" text="👥 Unirse a Grupo de Discusión">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Label>
+                           <Button fx:id="btnUnirseGrupoDiscusion" mnemonicParsing="false" onAction="#unirseAGrupoDiscusion" prefHeight="40.0" prefWidth="340.0" style="-fx-background-color: #424874; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" text="Unirse a Grupo" />
+
+                           <Separator prefWidth="340.0" />
+
+                           <!-- Contenido de Grupos de Discusión -->
+                           <Label style="-fx-font-weight: bold; -fx-text-fill: #424874;" text="📋 Grupos de Discusión">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Label>
+                           <HBox alignment="CENTER" spacing="10.0">
+                              <Button fx:id="btnCrearGrupoDiscusion" mnemonicParsing="false" onAction="#mostrarFormularioDiscusion" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #424874; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" text="➕ Crear Grupo" />
+                              <Button fx:id="btnListarGruposDiscusion" mnemonicParsing="false" onAction="#listarGruposDiscusion" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #6B7A99; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" text="📋 Ver Grupos" />
+                           </HBox>
+
+                           <Separator prefWidth="340.0" />
+
+                           <!-- Gestión de Hilos -->
+                           <Label style="-fx-font-weight: bold; -fx-text-fill: #424874;" text="📌 Gestión de Hilos">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Label>
+                           <HBox alignment="CENTER_LEFT" spacing="10.0">
+                              <ComboBox fx:id="comboAccionHilo" prefWidth="220.0" promptText="Seleccione acción" style="-fx-background-radius: 10;" />
+                              <Button fx:id="btnGestionarHilos" mnemonicParsing="false" onAction="#gestionarHilos" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #424874; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" text="➡ Ir" />
+                           </HBox>
+
+                           <Separator prefWidth="340.0" />
+
+                           <!-- Gestión de Respuestas -->
+                           <Label style="-fx-font-weight: bold; -fx-text-fill: #424874;" text="💬 Gestión de Respuestas">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Label>
+                           <HBox alignment="CENTER_LEFT" spacing="10.0">
+                              <ComboBox fx:id="comboAccionRespuesta" prefWidth="220.0" promptText="Seleccione acción" style="-fx-background-radius: 10;" />
+                              <Button fx:id="btnGestionarRespuestas" mnemonicParsing="false" onAction="#gestionarRespuestas" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #424874; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" text="➡ Ir" />
+                           </HBox>
+
+                           <!-- Área de información -->
+                           <TextArea fx:id="txtInformacionDiscusion" editable="false" prefHeight="400.0" prefWidth="340.0" promptText="ℹ️ Información de grupos de discusión..." style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #A6B1E1;" wrapText="true" VBox.vgrow="ALWAYS">
+                              <font>
+                                 <Font size="12.0" />
+                              </font>
+                              <padding>
+                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                              </padding>
+                           </TextArea>
+                        </VBox>
+                     </content>
+                  </Tab>
+
+                  <Tab style="-fx-font-weight: bold;" text="🔄 Compartir">
+                     <content>
+                        <VBox spacing="10.0" style="-fx-background-color: transparent;">
+                           <Label style="-fx-font-weight: bold; -fx-text-fill: #424874;" text="👥 Unirse a Grupo de Compartir">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Label>
+                           <Button fx:id="btnUnirseGrupoCompartir" mnemonicParsing="false" onAction="#unirseAGrupoCompartir" prefHeight="40.0" prefWidth="340.0" style="-fx-background-color: #424874; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" text="Unirse a Grupo" />
+
+                           <Separator prefWidth="340.0" />
+
+                           <Label style="-fx-font-weight: bold; -fx-text-fill: #424874;" text="🔄 Grupos de Compartir">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Label>
+                           <HBox alignment="CENTER" spacing="10.0">
+                              <Button fx:id="btnCrearGrupoCompartir" mnemonicParsing="false" onAction="#mostrarFormularioCompartir" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #424874; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" text="➕ Crear Grupo" />
+                              <Button fx:id="btnListarGruposCompartir" mnemonicParsing="false" onAction="#listarGruposCompartir" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #6B7A99; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" text="📋 Ver Grupos" />
+                           </HBox>
+
+                           <Separator prefWidth="340.0" />
+
+                           <Label style="-fx-font-weight: bold; -fx-text-fill: #424874;" text="💡 Gestión de Soluciones">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Label>
+                           <HBox alignment="CENTER_LEFT" spacing="10.0">
+                              <ComboBox fx:id="comboAccionSolucion" prefWidth="220.0" promptText="Seleccione acción" style="-fx-background-radius: 10;" />
+                              <Button fx:id="btnGestionarSoluciones" mnemonicParsing="false" onAction="#gestionarSoluciones" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #424874; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" text="➡ Ir" />
+                           </HBox>
+
+                           <Separator prefWidth="340.0" />
+
+                           <Label style="-fx-font-weight: bold; -fx-text-fill: #424874;" text="💭 Gestión de Comentarios">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Label>
+                           <HBox alignment="CENTER_LEFT" spacing="10.0">
+                              <ComboBox fx:id="comboAccionComentario" prefWidth="220.0" promptText="Seleccione acción" style="-fx-background-radius: 10;" />
+                              <Button fx:id="btnGestionarComentarios" mnemonicParsing="false" onAction="#gestionarComentarios" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #424874; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" text="➡ Ir" />
+                           </HBox>
+
+                           <TextArea fx:id="txtInformacionCompartir" editable="false" prefHeight="400.0" prefWidth="340.0" promptText="ℹ️ Información de grupos de compartir..." style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #A6B1E1;" wrapText="true" VBox.vgrow="ALWAYS">
+                              <font>
+                                 <Font size="12.0" />
+                              </font>
+                              <padding>
+                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                              </padding>
+                           </TextArea>
+                        </VBox>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+
+            <!-- Botón Volver -->
+            <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#volver" prefHeight="40.0" prefWidth="340.0" style="-fx-background-color: #6B7A99; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" text="⬅ Volver" />
+         </VBox>
+
+         <!-- Capa 2: Formulario superpuesto -->
+         <VBox fx:id="formCrearGrupo" alignment="CENTER" style="-fx-background-color: rgba(214,229,227,0.9); -fx-background-radius: 15; -fx-padding: 20;" visible="false">
+            <Label fx:id="lblTituloFormulario" style="-fx-font-weight: bold; -fx-text-fill: #424874;" text="📝 Crear Nuevo Grupo">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" top="5.0" />
+               </padding>
+            </Label>
+
+            <TextField fx:id="txtTituloGrupo" prefHeight="35.0" prefWidth="320.0" promptText="Título del grupo" style="-fx-background-radius: 10;" />
+
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <Label style="-fx-font-weight: bold; -fx-text-fill: #424874;" text="☕ Nivel Java:" />
+               <ComboBox fx:id="comboNivelJava" prefWidth="120.0" promptText="Seleccione" style="-fx-background-radius: 10;" />
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <Label style="-fx-font-weight: bold; -fx-text-fill: #424874;" text="📚 Tema:" />
+               <ComboBox fx:id="comboTema" prefWidth="120.0" promptText="Seleccione" style="-fx-background-radius: 10;" />
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="20.0" style="-fx-padding: 10 0 0 0;">
+               <Button fx:id="btnConfirmarCrearGrupo" mnemonicParsing="false" onAction="#confirmarCrearGrupo" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #424874; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" text="✅ Confirmar" />
+               <Button fx:id="btnCancelarCrearGrupo" mnemonicParsing="false" onAction="#ocultarFormulario" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #6B7A99; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" text="❌ Cancelar" />
+            </HBox>
+         </VBox>
+
+      </StackPane>
+   </children>
+</AnchorPane>

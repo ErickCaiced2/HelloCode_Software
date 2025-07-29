@@ -8,8 +8,7 @@ import GestorEjercicios.strategy.EstrategiaLeccionPrueba;
 import GestorEjercicios.strategy.FabricaEstrategiasLeccion;
 import GestorEjercicios.adaptadores.AdaptadorEjercicios;
 import GestorEjercicios.adaptadores.FabricaAdaptadores;
-import Modulo_Ejercicios.exercises.EjercicioSeleccion;
-import Modulo_Ejercicios.exercises.EjercicioCompletarCodigo;
+import GestorEjercicios.ConfiguracionGestorEjercicios;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -25,6 +24,7 @@ public class Leccion {
     private boolean completada = false; // Estado de la lección
     private NivelDificultad dificultad; // Nivel de dificultad de la lección
     private LenguajeProgramacion lenguaje; // Lenguaje de programación de la lección
+    private boolean desbloqueada = true; // Estado de desbloqueo de la lección
 
     /**
      * Constructor para lecciones con experiencia y conocimiento explícitos
@@ -43,6 +43,10 @@ public class Leccion {
 
     public int getId() {
         return id;
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 
     /**
@@ -92,14 +96,14 @@ public class Leccion {
      * Calcula la experiencia por defecto basada en el número de ejercicios
      */
     private int calcularExperienciaPorDefecto() {
-        return ejercicios.size() * 10; // 10 XP por ejercicio
+        return ejercicios.size() * ConfiguracionGestorEjercicios.EXPERIENCIA_POR_EJERCICIO;
     }
 
     /**
      * Calcula el conocimiento por defecto basado en el número de ejercicios
      */
     private int calcularConocimientoPorDefecto() {
-        return ejercicios.size() * 5; // 5 puntos de conocimiento por ejercicio
+        return ejercicios.size() * ConfiguracionGestorEjercicios.CONOCIMIENTO_POR_EJERCICIO;
     }
 
     /**
@@ -256,6 +260,22 @@ public class Leccion {
      */
     public void setLenguaje(LenguajeProgramacion lenguaje) {
         this.lenguaje = lenguaje;
+    }
+
+    /**
+     * Verifica si la lección está desbloqueada
+     * @return true si está desbloqueada, false en caso contrario
+     */
+    public boolean isDesbloqueada() {
+        return desbloqueada;
+    }
+
+    /**
+     * Establece el estado de desbloqueo de la lección
+     * @param desbloqueada Estado de desbloqueo
+     */
+    public void setDesbloqueada(boolean desbloqueada) {
+        this.desbloqueada = desbloqueada;
     }
 
     /**

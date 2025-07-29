@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Comunidad_Modulo.Controladores_GUI.GestionComunidad_Controller"
+            prefWidth="360.0" prefHeight="720.0"
+            style="-fx-background-color: #424874;">
+
+   <VBox alignment="TOP_CENTER" spacing="24"
+         AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+         AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+
+      <padding>
+         <Insets top="36" bottom="18" left="18" right="18"/>
+      </padding>
+
+      <!-- Título -->
+      <VBox alignment="CENTER" spacing="8">
+         <Label text="🛠️ Gestión de Comunidad"
+                style="-fx-text-fill: #DCD6F7; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+      </VBox>
+
+      <!-- Panel: Crear Comunidad -->
+      <VBox spacing="12" alignment="CENTER"
+            style="-fx-background-color: #DCD6F7; -fx-background-radius: 18;
+                     -fx-effect: dropshadow(gaussian, #424874, 8, 0.2, 0, 0);"
+            maxWidth="300">
+         <padding><Insets top="24" right="20" bottom="24" left="20"/></padding>
+
+         <Label text="Crear Nueva Comunidad"
+                style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #424874;"
+                alignment="CENTER"/>
+
+         <!-- Nombre -->
+         <VBox spacing="4" alignment="TOP_LEFT" prefWidth="100">
+            <Label text="Nombre:" style="-fx-text-fill: #424874;"/>
+            <TextField fx:id="txtNombreComunidad"
+                       promptText="Nombre de la comunidad"
+                       prefWidth="240"/>
+         </VBox>
+
+         <!-- Descripción -->
+         <VBox spacing="4" alignment="TOP_LEFT" prefWidth="100">
+            <Label text="Descripción:" style="-fx-text-fill: #424874;"/>
+            <TextArea fx:id="txtDescripcionComunidad"
+                      promptText="Describe la comunidad"
+                      prefWidth="240" prefHeight="60"/>
+         </VBox>
+
+         <Button fx:id="btnCrearComunidad"
+                 text="Crear Comunidad"
+                 onAction="#crearComunidad"
+                 styleClass="button button-principal"
+                 prefWidth="200" prefHeight="36"/>
+      </VBox>
+
+      <!-- Botón: Cambiar Comunidad Activa -->
+      <Button fx:id="buttonCambioComunidadActiva"
+              text="Cambiar Comunidad Activa"
+              onAction="#cambiarComunidadActiva"
+              styleClass="button button-secundario"
+              prefWidth="240" prefHeight="36"/>
+
+      <!-- Panel: Información de la Comunidad -->
+      <VBox spacing="10" alignment="CENTER"
+            style="-fx-background-color: #DCD6F7; -fx-background-radius: 18;
+                     -fx-effect: dropshadow(gaussian, #424874, 8, 0.2, 0, 0);"
+            maxWidth="300">
+         <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+         <Label text="Información de la Comunidad"
+                style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #424874;"/>
+
+         <Button fx:id="btnVerInformacion"
+                 text="Ver Información"
+                 onAction="#verInformacionComunidad"
+                 styleClass="button button-secundario"
+                 prefWidth="200" prefHeight="32"/>
+
+         <TextArea fx:id="txtInformacion"
+                   editable="false"
+                   wrapText="true"
+                   prefHeight="140" prefWidth="240"
+                   style="-fx-control-inner-background: #f4f4f4; -fx-text-fill: black;"/>
+      </VBox>
+
+      <!-- Botón volver -->
+      <Button fx:id="btnVolver"
+              text="Volver"
+              onAction="#volver"
+              styleClass="button button-secundario"
+              prefWidth="120" prefHeight="36"/>
+   </VBox>
+</AnchorPane>

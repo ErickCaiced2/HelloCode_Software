@@ -1,0 +1,46 @@
+# Lecciones de Java para GestorEjercicios
+# Formato simplificado: TITULO|NIVEL|DESCRIPCION|DURACION|CANTIDAD_EJERCICIOS|FILTRO_NIVEL|FILTRO_LENGUAJE
+
+Fundamentos de Java - Variables y Tipos|BASICO|Aprende los conceptos básicos de variables, tipos de datos primitivos y declaración en Java|15|5|BASICO|JAVA
+Estructuras de Control en Java|BASICO|Domina las estructuras de control condicionales y bucles en Java|20|4|BASICO|JAVA  
+Bucles y Repeticiones|INTERMEDIO|Aprende a usar bucles para repetir código de manera eficiente|25|6|BASICO|JAVA
+Arrays y Colecciones|INTERMEDIO|Manejo de arrays y colecciones básicas en Java|30|5|INTERMEDIO|JAVA
+Programación Orientada a Objetos|AVANZADO|Fundamentos de POO: clases, objetos, métodos y atributos|35|7|INTERMEDIO|JAVA
+
+LECCION_START
+Estructuras de Control - if, else, switch|BASICO|Domina las estructuras de control condicionales en Java|20|4
+SELECCION_MULTIPLE|¿Cuál es la sintaxis correcta para una estructura if en Java?|if (condicion) { }|if condicion:;if (condicion) { };if condicion then;IF (condicion)|La estructura if en Java requiere paréntesis para la condición y llaves para el bloque.
+COMPLETAR_CODIGO|Completa el código para verificar si un número es mayor que 10:|if (numero > 10)|______ (numero > 10) {\n    System.out.println("Mayor que 10");\n}|if es la palabra clave para crear una condición en Java.
+VERDADERO_FALSO|En Java, el else es obligatorio después de cada if|false||El else es opcional en Java, solo se usa cuando necesitas una alternativa.
+SELECCION_MULTIPLE|¿Cuál estructura usarías para múltiples condiciones sobre la misma variable?|switch|if;for;switch;while|switch es ideal para múltiples condiciones sobre una misma variable.
+LECCION_END
+
+LECCION_START
+Bucles - for, while, do-while|INTERMEDIO|Aprende a usar bucles para repetir código de manera eficiente|25|5
+SELECCION_MULTIPLE|¿Cuál bucle se ejecuta al menos una vez?|do-while|for;while;do-while;foreach|do-while evalúa la condición después de ejecutar el bloque, garantizando al menos una ejecución.
+COMPLETAR_CODIGO|Completa el bucle for para imprimir números del 1 al 5:|for (int i = 1; i <= 5; i++)|______ (int i = 1; i <= 5; i++) {\n    System.out.println(i);\n}|for es la estructura de bucle más común para iteraciones con contador.
+VERDADERO_FALSO|Un bucle while puede no ejecutarse nunca si la condición inicial es falsa|true||Correcto, while evalúa la condición antes de ejecutar el bloque.
+SELECCION_MULTIPLE|¿Qué palabra clave se usa para salir de un bucle?|break|continue;break;return;exit|break termina inmediatamente la ejecución del bucle actual.
+COMPLETAR_CODIGO|Crea un bucle while que se ejecute mientras x sea menor que 10:|while (x < 10)|______ (x < 10) {\n    x++;\n}|while repite el bloque mientras la condición sea verdadera.
+LECCION_END
+
+LECCION_START
+Arrays y Colecciones|INTERMEDIO|Manejo de arrays y colecciones en Java|30|6
+SELECCION_MULTIPLE|¿Cómo se declara un array de enteros en Java?|int[] numeros|int numeros[];int[] numeros;Array<int> numeros;List<int> numeros|int[] es la sintaxis recomendada para declarar arrays en Java.
+COMPLETAR_CODIGO|Declara y crea un array de 5 enteros:|int[] numeros = new int[5];|int[] numeros = ______[5];|new int[5] crea un array de 5 elementos inicializados en 0.
+VERDADERO_FALSO|Los arrays en Java tienen tamaño fijo una vez creados|true||Correcto, el tamaño de un array no puede cambiar después de su creación.
+SELECCION_MULTIPLE|¿Qué propiedad nos da la longitud de un array?|length|size;length;count;lenght|length es la propiedad que devuelve el número de elementos de un array.
+COMPLETAR_CODIGO|Accede al primer elemento de un array llamado 'datos':|datos[0]|datos[____]|Los índices de arrays empiezan en 0, por lo que el primer elemento está en la posición 0.
+SELECCION_MULTIPLE|¿Cuál es la diferencia principal entre Array y ArrayList?|ArrayList puede cambiar de tamaño|Array es más rápido;ArrayList puede cambiar de tamaño;Array permite duplicados;No hay diferencia|ArrayList es dinámico, puede crecer o reducirse según necesidad.
+LECCION_END
+
+LECCION_START
+Programación Orientada a Objetos - Clases y Objetos|AVANZADO|Fundamentos de POO: clases, objetos, métodos y atributos|35|7
+SELECCION_MULTIPLE|¿Qué palabra clave se usa para crear una clase en Java?|class|Class;class;object;new|class es la palabra clave para definir una nueva clase en Java.
+COMPLETAR_CODIGO|Define una clase llamada 'Persona':|class Persona|______ Persona {\n\n}|class seguido del nombre define una nueva clase.
+VERDADERO_FALSO|En Java, una clase puede tener múltiples constructores|true||Correcto, Java permite sobrecarga de constructores con diferentes parámetros.
+SELECCION_MULTIPLE|¿Cómo se crea un objeto de la clase 'Coche'?|new Coche()|Coche();new Coche();create Coche();Coche.new()|new es el operador para crear instancias de objetos.
+COMPLETAR_CODIGO|Declara un método público que devuelve un String llamado 'getNombre':|public String getNombre()|______ String getNombre() {\n    return nombre;\n}|public define la visibilidad del método, String es el tipo de retorno.
+SELECCION_MULTIPLE|¿Qué modificador hace que una variable sea accesible solo dentro de la clase?|private|public;private;protected;static|private restringe el acceso solo a la misma clase.
+VERDADERO_FALSO|El método main debe ser static en Java|true||Correcto, main debe ser static para que la JVM pueda llamarlo sin crear una instancia.
+LECCION_END

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Modulo_Usuario.Controladores.HomeUsuarioController"
+            prefWidth="360.0" prefHeight="720.0"
+            style="-fx-background-color: #424874;">
+
+    <!-- Top Bar Simple y elegante -->
+    <HBox style="-fx-background-color: linear-gradient(to right, #DCD6F7, #A6B1E1); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 6, 0.3, 0, 3);" 
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" prefHeight="65" alignment="CENTER">
+        <padding>
+            <Insets top="12" right="25" bottom="12" left="25"/>
+        </padding>
+        
+        <!-- Logo/Icono izquierda -->
+        <Label text="💻" style="-fx-font-size: 26px;" HBox.hgrow="NEVER"/>
+        
+        <!-- Espacio flexible -->
+        <Region HBox.hgrow="ALWAYS"/>
+        
+        <!-- Título centrado -->
+        <Label text="Hello Code" style="-fx-text-fill: #424874; -fx-font-size: 22px; -fx-font-weight: bold; -fx-font-family: 'Segoe UI', Arial, sans-serif;"/>
+        
+        <!-- Espacio flexible -->
+        <Region HBox.hgrow="ALWAYS"/>
+        
+        <!-- Botón salir derecha -->
+        <Button fx:id="btnSalir" text="🚪" onAction="#cerrarSesion"
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold; -fx-background-radius: 22; -fx-border-radius: 22; -fx-padding: 10 12 10 12; -fx-effect: dropshadow(gaussian, rgba(231,76,60,0.4), 5, 0.3, 0, 3); -fx-cursor: hand;"
+                onMouseEntered="#onMouseEnteredSalir" onMouseExited="#onMouseExitedSalir" 
+                prefWidth="44" prefHeight="44" HBox.hgrow="NEVER"/>
+    </HBox>
+
+    <!-- Contenido principal -->
+    <ScrollPane AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="75" AnchorPane.bottomAnchor="80"
+                fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;">
+        <VBox fx:id="contentContainer" spacing="25" alignment="TOP_CENTER" style="-fx-padding: 25;">
+            
+            <!-- Bienvenida moderna -->
+            <VBox alignment="CENTER" spacing="12" style="-fx-background-color: linear-gradient(to bottom right, #DCD6F7, #CACFD6); -fx-background-radius: 20; -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 8, 0.4, 0, 3);" maxWidth="330">
+                <Label text="¡Bienvenido de vuelta!" style="-fx-text-fill: #424874; -fx-font-size: 24px; -fx-font-weight: bold; -fx-font-family: 'Segoe UI', sans-serif;"/>
+                <Label text="Continúa tu aprendizaje de Java" style="-fx-text-fill: #6B7A99; -fx-font-size: 14px; -fx-font-family: 'Segoe UI', sans-serif;" wrapText="true" textAlignment="CENTER"/>
+                <HBox alignment="CENTER" spacing="8" style="-fx-padding: 8 0 0 0;">
+                    <Label text="🔥" style="-fx-font-size: 18px;"/>
+                    <Label fx:id="xpLabel" text="100 XP" style="-fx-text-fill: #424874; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+                </HBox>
+            </VBox>
+
+            <!-- Progreso diario elegante -->
+            <VBox spacing="15" style="-fx-background-color: linear-gradient(to bottom right, #A6B1E1, #DCD6F7); -fx-background-radius: 20; -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 8, 0.4, 0, 3);" maxWidth="330">
+                <HBox alignment="CENTER_LEFT" spacing="8">
+                    <Label text="🎯" style="-fx-font-size: 20px;"/>
+                    <Label text="Progreso de hoy" style="-fx-text-fill: #424874; -fx-font-size: 18px; -fx-font-weight: bold; -fx-font-family: 'Segoe UI', sans-serif;"/>
+                </HBox>
+                <VBox spacing="8">
+                    <ProgressBar progress="0.7" prefWidth="280" prefHeight="10" style="-fx-accent: #424874; -fx-background-radius: 5; -fx-background-color: rgba(255,255,255,0.3);"/>
+                    <Label text="7 de 10 ejercicios completados" style="-fx-text-fill: #424874; -fx-font-size: 13px; -fx-font-weight: normal;"/>
+                </VBox>
+            </VBox>
+
+            <!-- Accesos rápidos -->
+            <VBox spacing="12" alignment="CENTER" maxWidth="320">
+                <Label text="Accesos rápidos" style="-fx-text-fill: #DCD6F7; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+                
+                <HBox spacing="15" alignment="CENTER">
+                    <VBox alignment="CENTER" spacing="8" style="-fx-background-color: #50C878; -fx-background-radius: 12; -fx-padding: 15; -fx-effect: dropshadow(gaussian, #424874, 4, 0.2, 0, 2);" prefWidth="90">
+                        <Label text="📚" style="-fx-font-size: 24px; -fx-text-fill: white;"/>
+                        <Label text="Lecciones" style="-fx-text-fill: white; -fx-font-size: 10px; -fx-font-weight: bold;" textAlignment="CENTER"/>
+                    </VBox>
+                    
+                    <VBox alignment="CENTER" spacing="8" style="-fx-background-color: #3498DB; -fx-background-radius: 12; -fx-padding: 15; -fx-effect: dropshadow(gaussian, #424874, 4, 0.2, 0, 2);" prefWidth="90">
+                        <Label text="💻" style="-fx-font-size: 24px; -fx-text-fill: white;"/>
+                        <Label text="Ejercicios" style="-fx-text-fill: white; -fx-font-size: 10px; -fx-font-weight: bold;" textAlignment="CENTER"/>
+                    </VBox>
+                    
+                    <VBox alignment="CENTER" spacing="8" style="-fx-background-color: #F1C40F; -fx-background-radius: 12; -fx-padding: 15; -fx-effect: dropshadow(gaussian, #424874, 4, 0.2, 0, 2);" prefWidth="90">
+                        <Label text="📊" style="-fx-font-size: 24px; -fx-text-fill: white;"/>
+                        <Label text="Progreso" style="-fx-text-fill: white; -fx-font-size: 10px; -fx-font-weight: bold;" textAlignment="CENTER"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <!-- Racha -->
+            <HBox spacing="15" alignment="CENTER" style="-fx-background-color: #DCD6F7; -fx-background-radius: 16; -fx-padding: 20; -fx-effect: dropshadow(gaussian, #424874, 6, 0.2, 0, 2);" maxWidth="320">
+                <VBox alignment="CENTER" spacing="4">
+                    <Label text="🔥" style="-fx-font-size: 32px;"/>
+                    <Label text="Racha" style="-fx-text-fill: #424874; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+                </VBox>
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="5 días consecutivos" style="-fx-text-fill: #424874; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+                    <Label text="¡Sigue así para mantener tu racha!" style="-fx-text-fill: #6B7A99; -fx-font-size: 12px;" wrapText="true"/>
+                </VBox>
+            </HBox>
+
+            <!-- Botón continuar -->
+            <Button text="Continuar aprendiendo" onAction="#irALecciones"
+                    style="-fx-background-color: #A6B1E1; -fx-text-fill: #424874; -fx-font-weight: bold; -fx-background-radius: 25; -fx-font-size: 16px; -fx-effect: dropshadow(gaussian, #424874, 6, 0.2, 0, 2);"
+                    prefWidth="250" prefHeight="50"/>
+
+        </VBox>
+    </ScrollPane>
+
+    <!-- Bottom Navigation Bar con 4 módulos -->
+    <HBox style="-fx-background-color: #A6B1E1; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0.3, 0, -2);" 
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0" prefHeight="80" alignment="CENTER" spacing="15">
+        <padding>
+            <Insets top="12" right="15" bottom="12" left="15"/>
+        </padding>
+        
+        <Button fx:id="btnHome" text="🏠&#10;Inicio" onAction="#irAHome" 
+                style="-fx-background-color: white; -fx-text-fill: #50C878; -fx-font-size: 12px; -fx-font-weight: bold; -fx-background-radius: 18; -fx-border-radius: 18; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 5, 0.3, 0, 2); -fx-cursor: hand; -fx-padding: 8;" 
+                prefWidth="70" prefHeight="55" HBox.hgrow="ALWAYS"/>
+                
+        <Button fx:id="btnPerfil2" text="👤&#10;Perfil" onAction="#irAPerfil" 
+                style="-fx-background-color: white; -fx-text-fill: #3498DB; -fx-font-size: 12px; -fx-font-weight: bold; -fx-background-radius: 18; -fx-border-radius: 18; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 5, 0.3, 0, 2); -fx-cursor: hand; -fx-padding: 8;" 
+                prefWidth="70" prefHeight="55" HBox.hgrow="ALWAYS"/>
+                
+        <Button fx:id="btnRanking" text="🏆&#10;Ranking" onAction="#irARanking" 
+                style="-fx-background-color: white; -fx-text-fill: #F1C40F; -fx-font-size: 12px; -fx-font-weight: bold; -fx-background-radius: 18; -fx-border-radius: 18; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 5, 0.3, 0, 2); -fx-cursor: hand; -fx-padding: 8;" 
+                prefWidth="70" prefHeight="55" HBox.hgrow="ALWAYS"/>
+                
+        <Button fx:id="btnComunidad" text="👥&#10;Comunidad" onAction="#irAComunidad" 
+                style="-fx-background-color: white; -fx-text-fill: #9B59B6; -fx-font-size: 12px; -fx-font-weight: bold; -fx-background-radius: 18; -fx-border-radius: 18; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 5, 0.3, 0, 2); -fx-cursor: hand; -fx-padding: 8;" 
+                prefWidth="70" prefHeight="55" HBox.hgrow="ALWAYS"/>
+    </HBox>
+    
+    <!-- Botón cerrar sesión (oculto, accesible desde perfil) -->
+    <Button text="Cerrar Sesión" onAction="#cerrarSesion" visible="false"/>
+
+</AnchorPane>

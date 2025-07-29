@@ -1,0 +1,47 @@
+/* Estilos generales */
+.root {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-background-color: #424874;
+}
+
+/* Botones */
+.button {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 10 16;
+    -fx-font-size: 13px;
+}
+
+.button:hover {
+    -fx-opacity: 0.8;
+}
+
+/* Botones principales */
+.button-principal {
+    -fx-background-color: #A6B1E1;
+    -fx-text-fill: #424874;
+}
+
+/* Botones secundarios */
+.button-secundario {
+    -fx-background-color: transparent;
+    -fx-text-fill: #DCD6F7;
+    -fx-border-color: #DCD6F7;
+    -fx-border-width: 1;
+}
+
+/* Título */
+.title-text {
+    -fx-fill: #DCD6F7;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+/* Fondo panel */
+.panel {
+    -fx-background-color: #DCD6F7;
+    -fx-background-radius: 18;
+    -fx-effect: dropshadow(gaussian, #424874, 8, 0.2, 0, 0);
+}

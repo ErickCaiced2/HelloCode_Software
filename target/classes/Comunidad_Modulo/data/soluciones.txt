@@ -1,0 +1,2 @@
+# Archivo de soluciones compartidas
+# Formato: nombreComunidad;tituloGrupo;idSolucion;titulo;contenido;autor;fechaCreacion;tipoSolucion

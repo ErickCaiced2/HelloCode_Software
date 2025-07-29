@@ -1,0 +1,8 @@
+# Lecciones de C++ para GestorEjercicios
+# Formato simplificado: TITULO|NIVEL|DESCRIPCION|DURACION|CANTIDAD_EJERCICIOS|FILTRO_NIVEL|FILTRO_LENGUAJE
+
+Fundamentos de C++ - Variables y Tipos|BASICO|Aprende los conceptos básicos de variables y tipos de datos en C++|15|4|BASICO|C
+Estructuras de Control en C++|BASICO|Condicionales y bucles básicos en C++|20|5|BASICO|C
+Funciones y Parámetros|INTERMEDIO|Definición y uso de funciones en C++|25|6|INTERMEDIO|C
+Punteros y Referencias|INTERMEDIO|Manejo de punteros y referencias en C++|30|5|INTERMEDIO|C
+POO en C++|AVANZADO|Clases, objetos y herencia en C++|35|7|AVANZADO|C

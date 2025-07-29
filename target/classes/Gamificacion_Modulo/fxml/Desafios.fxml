@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+
+<AnchorPane fx:id="mainPane" prefHeight="720.0" prefWidth="360.0" minHeight="720.0" minWidth="360.0" maxHeight="720.0" maxWidth="360.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gamificacion_Modulo.controllers.DesafiosController">
+   <stylesheets>
+      <URL value="@../styles/styles.css"/>
+   </stylesheets>
+   <children>
+      <!-- Header Section -->
+      <VBox layoutX="0.0" layoutY="0.0" prefHeight="180.0" prefWidth="360.0" style="-fx-background-color: #424874;" alignment="CENTER">
+         <children>
+            <Label fx:id="lblTitulo" text="El verano de desafíos" style="-fx-font-family: 'Inter Bold'; -fx-font-size: 22px; -fx-text-fill: #d6e5e3; -fx-alignment: center; -fx-font-weight: bold;" prefWidth="280.0" />
+            <ImageView fx:id="imgEllipse" fitHeight="130.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Ellipse 4.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+
+
+      <!-- Weekly Challenges Section -->
+      <VBox layoutX="20.0" layoutY="190.0" prefHeight="200.0" prefWidth="320.0" spacing="8.0" alignment="CENTER">
+         <children>
+            <Label text="Desafíos de la semana" style="-fx-font-family: 'Inter Bold'; -fx-font-size: 18px; -fx-text-fill: #000000; -fx-font-weight: bold;" prefWidth="250.0" alignment="CENTER"/>
+
+            <Pane prefHeight="170.0" prefWidth="310.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 1px; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 2, 0, 0, 0);">
+               <children>
+                  <!-- Challenge 1 -->
+                  <Label fx:id="lblSemanal1" text="Completa 1 actividad" style="-fx-font-family: 'Inter Bold'; -fx-font-size: 13px; -fx-text-fill: #000000; -fx-font-weight: bold;" layoutX="10.0" layoutY="8.0"/>
+                  <Pane layoutX="20.0" layoutY="30.0" prefHeight="20.0" prefWidth="220.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 1px; -fx-border-radius: 10px; -fx-background-radius: 10px;"/>
+                  <Label fx:id="lblProgresoSemanal1" text="0/1" style="-fx-font-family: 'Inter Light'; -fx-font-size: 16px; -fx-text-fill: #000000; -fx-opacity: 0.5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 4, 0, 0, 4);" layoutX="120.0" layoutY="30.0"/>
+
+                  <!-- Challenge 2 -->
+                  <Label fx:id="lblSemanal2" text="Completa 2 actividades" style="-fx-font-family: 'Inter Bold'; -fx-font-size: 13px; -fx-text-fill: #000000; -fx-font-weight: bold;" layoutX="10.0" layoutY="58.0"/>
+                  <Pane layoutX="20.0" layoutY="80.0" prefHeight="20.0" prefWidth="220.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 1px; -fx-border-radius: 10px; -fx-background-radius: 10px;"/>
+                  <Label fx:id="lblProgresoSemanal2" text="1/2" style="-fx-font-family: 'Inter Light'; -fx-font-size: 16px; -fx-text-fill: #000000; -fx-opacity: 0.5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 4, 0, 0, 4);" layoutX="120.0" layoutY="80.0"/>
+
+                  <!-- Challenge 3 -->
+                  <Label fx:id="lblSemanal3" text="Completa 3 actividades" style="-fx-font-family: 'Inter Bold'; -fx-font-size: 13px; -fx-text-fill: #000000; -fx-font-weight: bold;" layoutX="10.0" layoutY="108.0"/>
+                  <Pane layoutX="20.0" layoutY="130.0" prefHeight="20.0" prefWidth="220.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 1px; -fx-border-radius: 10px; -fx-background-radius: 10px;"/>
+                  <Label fx:id="lblProgresoSemanal3" text="0/3" style="-fx-font-family: 'Inter Light'; -fx-font-size: 16px; -fx-text-fill: #000000; -fx-opacity: 0.5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 4, 0, 0, 4);" layoutX="120.0" layoutY="130.0"/>
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+
+
+      <!-- Monthly Challenges Section -->
+      <VBox layoutX="20.0" layoutY="400.0" prefHeight="200.0" prefWidth="320.0" spacing="8.0" alignment="CENTER">
+         <children>
+            <Label text="Desafíos del mes" style="-fx-font-family: 'Inter Bold'; -fx-font-size: 18px; -fx-text-fill: #000000; -fx-alignment: center; -fx-font-weight: bold;" prefWidth="200.0" />
+
+            <Pane prefHeight="170.0" prefWidth="310.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 1px; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 2, 0, 0, 0);">
+               <children>
+                  <!-- Challenge 1 -->
+                  <Label fx:id="lblMensual1" text="Completa 1 actividad" style="-fx-font-family: 'Inter Bold'; -fx-font-size: 13px; -fx-text-fill: #000000; -fx-font-weight: bold;" layoutX="10.0" layoutY="8.0"/>
+                  <Pane layoutX="10.0" layoutY="30.0" prefHeight="20.0" prefWidth="220.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 1px; -fx-border-radius: 10px; -fx-background-radius: 10px;"/>
+                  <Label fx:id="lblProgresoMensual1" text="1/2" style="-fx-font-family: 'Inter Light'; -fx-font-size: 16px; -fx-text-fill: #000000; -fx-opacity: 0.5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 4, 0, 0, 4);" layoutX="115.0" layoutY="30.0"/>
+
+                  <!-- Challenge 2 -->
+                  <Label fx:id="lblMensual2" text="Completa 2 actividades" style="-fx-font-family: 'Inter Bold'; -fx-font-size: 13px; -fx-text-fill: #000000; -fx-font-weight: bold;" layoutX="10.0" layoutY="58.0"/>
+                  <Pane layoutX="10.0" layoutY="80.0" prefHeight="20.0" prefWidth="220.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 1px; -fx-border-radius: 10px; -fx-background-radius: 10px;"/>
+                  <Label fx:id="lblProgresoMensual2" text="1/2" style="-fx-font-family: 'Inter Light'; -fx-font-size: 16px; -fx-text-fill: #000000; -fx-opacity: 0.5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 4, 0, 0, 4);" layoutX="115.0" layoutY="80.0"/>
+
+                  <!-- Challenge 3 -->
+                  <Label fx:id="lblMensual3" text="Completa 3 actividades" style="-fx-font-family: 'Inter Bold'; -fx-font-size: 13px; -fx-text-fill: #000000; -fx-font-weight: bold;" layoutX="10.0" layoutY="108.0"/>
+                  <Pane layoutX="10.0" layoutY="130.0" prefHeight="20.0" prefWidth="220.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 1px; -fx-border-radius: 10px; -fx-background-radius: 10px;"/>
+                  <Label fx:id="lblProgresoMensual3" text="3/3" style="-fx-font-family: 'Inter Light'; -fx-font-size: 16px; -fx-text-fill: #000000; -fx-opacity: 0.5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 4, 0, 0, 4);" layoutX="115.0" layoutY="130.0"/>
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+
+
+      <!-- Navigation Bar -->
+      <HBox fx:id="navigationBar" alignment="CENTER" layoutX="0.0" layoutY="610.0" prefHeight="110.0" prefWidth="360.0" spacing="25.0"
+            style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 0 0 0;">
+         <children>
+            <!-- Button 1 - Desafios (Current) -->
+            <Button fx:id="navButton1" onAction="#navButton1" prefHeight="50.0" prefWidth="55.0"
+                    style="-fx-background-color: #9fa8da; -fx-background-radius: 5; -fx-border-radius: 5;">
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Rectangle 44.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+
+            <!-- Button 2 - Perfil -->
+            <Button fx:id="navButton2" onAction="#navButton2" prefHeight="50.0" prefWidth="55.0"
+                    style="-fx-background-color: #a6b1e1; -fx-background-radius: 5; -fx-border-radius: 5;">
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Rectangle 45.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+
+            <!-- Button 3 - Ranking -->
+            <Button fx:id="navButton3" onAction="#navButton3" prefHeight="50.0" prefWidth="55.0"
+                    style="-fx-background-color: #a6b1e1; -fx-background-radius: 5; -fx-border-radius: 5;">
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/image 13.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
