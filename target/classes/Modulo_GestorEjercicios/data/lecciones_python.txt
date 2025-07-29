@@ -1,8 +1,0 @@
-# Lecciones de Python para GestorEjercicios  
-# Formato simplificado: TITULO|NIVEL|DESCRIPCION|DURACION|CANTIDAD_EJERCICIOS|FILTRO_NIVEL|FILTRO_LENGUAJE
-
-Fundamentos de Python - Variables y Sintaxis|BASICO|Aprende variables, tipos básicos y sintaxis de Python|15|4|BASICO|PYTHON
-Estructuras de Control en Python|BASICO|Condicionales y bucles básicos en Python|20|5|BASICO|PYTHON
-Listas y Diccionarios|INTERMEDIO|Estructuras de datos fundamentales en Python|25|6|INTERMEDIO|PYTHON
-Funciones en Python|INTERMEDIO|Definición y uso de funciones|30|5|INTERMEDIO|PYTHON
-POO en Python|AVANZADO|Clases, objetos y métodos en Python|35|7|AVANZADO|PYTHON

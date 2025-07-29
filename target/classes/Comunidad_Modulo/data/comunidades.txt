@@ -1,8 +1,0 @@
-# Archivo de comunidades persistidas
-# Formato: nombre;descripcion;fechaCreacion;moderador
-Java Principiantes;Comunidad para aprender Java desde cero;2025-01-25 10:00:00;ModeradorBot_Java Principiantes
-Programadores Avanzados;Espacio para discutir temas avanzados de programación;2025-01-25 11:30:00;ModeradorBot_Programadores Avanzados
-JAVA LEARN;datos prueba;2025-07-25 03:29:37;ModeradorBot_JAVA LEARN
-Java prueba 2;consistencia;2025-07-25 03:47:03;ModeradorBot_Java prueba 2
-XDdesdse;XDawdawda;2025-07-28 23:03:05;ModeradorBot_XDdesdse
-sefefsefs;sefsefsef;2025-07-28 23:03:14;ModeradorBot_sefefsefs

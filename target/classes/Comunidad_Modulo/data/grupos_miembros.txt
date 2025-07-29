@@ -1,6 +1,0 @@
-# Archivo de membresías de usuarios en grupos de foro
-# Formato: nombreComunidad;tipoGrupo;tituloGrupo;usernameUsuario;fechaUnion
-Java Principiantes;DISCUSION;PRUEBA2;erick;2025-07-25 05:07:05
-Java Principiantes;COMPARTIR;Prueba4;erick;2025-07-25 05:08:34
-Java Principiantes;COMPARTIR;prueba6;churito;2025-07-25 05:27:39
-Java prueba 2;DISCUSION;esta es una prueba;medardito;2025-07-27 15:10:54
